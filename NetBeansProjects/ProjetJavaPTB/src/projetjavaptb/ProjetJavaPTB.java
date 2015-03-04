@@ -18,6 +18,7 @@ public class ProjetJavaPTB {
      * @param args the command line arguments
      */
     public int entierDePatrick = 0 ;
+    public int entierDeBenjamin = 0 ;
     
     
     public static void main(String[] args) {
