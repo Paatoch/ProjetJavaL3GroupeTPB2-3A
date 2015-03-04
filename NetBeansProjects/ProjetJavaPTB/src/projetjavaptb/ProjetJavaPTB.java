@@ -25,6 +25,7 @@ public class ProjetJavaPTB {
         System.out.println("TestDePatrick");
         System.out.println("Test");
         System.out.println("Test");
+        System.out.println("TestTeddy");
     }
     
 }
