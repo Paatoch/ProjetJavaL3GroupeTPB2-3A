@@ -18,12 +18,13 @@ public class ProjetJavaPTB {
      * @param args the command line arguments
      */
     public int entierDePatrick = 0 ;
-    
+    public int entierDePatrick = 1 ;
     
     public static void main(String[] args) {
         System.out.println("TestDePatrick");
         System.out.println("Test");
         System.out.println("Test");
+        
     }
     
 }
