@@ -7,9 +7,7 @@ package projetjavaptb;
 
 /**
  *
- * @author patrickcabral
- * @author teddyBlonbou
- * @author benjaminTabet
+ * @author Utilisateur
  */
 public class ProjetJavaPTB {
     public static void main(String[] args) {
