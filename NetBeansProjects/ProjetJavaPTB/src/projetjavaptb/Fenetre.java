@@ -3,15 +3,27 @@ package projetjavaptb;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Calendar;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -19,28 +31,40 @@ import javax.swing.JPanel;
  */
 public class Fenetre extends JFrame implements ActionListener {
 
+    public JComboBox lesAnnees = new JComboBox();
+    int monAnnee = 0;
+    int monMois = 0;
+    private JPanel pan = new JPanel(new BorderLayout());
+    private JPanel haut = new JPanel(new GridBagLayout());
+    private JPanel bas = new JPanel(new GridBagLayout());
+    private JPanel milieu = new JPanel(new GridBagLayout());
+    private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    private int hauteur = (int) tailleEcran.getHeight();
+    private int largeur = (int) tailleEcran.getWidth();
+    private JPanel contentPanel = new JPanel(new GridBagLayout());
+
     public Fenetre() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Mon Calendrier");
-        Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-int hauteur = (int)tailleEcran.getHeight();
-int largeur = (int)tailleEcran.getWidth();  
+
         this.setSize(largeur, hauteur);
         this.setLocationRelativeTo(null);
+        //GridBagLayout content = new GridBagLayout();
 
-        //Instanciation d'un objet JPanel
-        JPanel pan = new JPanel();
         //On prévient notre JFrame que notre JPanel sera son content pane
         this.setContentPane(pan);
         this.setVisible(true);
         //Définition de sa couleur de fond
         pan.setBackground(Color.GRAY);
+        haut.setBackground(Color.GRAY);
+
         JMenuBar mb = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         JMenuItem open = new JMenuItem("Ouvrir");
         JMenuItem save = new JMenuItem("Sauver");
         JMenuItem create = new JMenuItem("Créer");
         JMenuItem close = new JMenuItem("Quitter");
+
         // affecter le raccourci
         menu.setMnemonic(KeyEvent.VK_M);
         open.setMnemonic(KeyEvent.VK_O);
@@ -68,6 +92,8 @@ int largeur = (int)tailleEcran.getWidth();
         save.addActionListener(this);
         create.addActionListener(this);
         close.addActionListener(this);
+        lesAnnees.addItemListener(new ItemLesAnnees());
+        validate();
     }
 
     @Override
@@ -78,16 +104,65 @@ int largeur = (int)tailleEcran.getWidth();
                 System.exit(0);
             }
         }
-        
-        if ("Ouvrir".equals(e.getActionCommand())) {
-            int reponse = JOptionPane.showConfirmDialog(this, "Quitter sans enregistrer?", "Quitter", WIDTH, JOptionPane.ERROR_MESSAGE);
-            if (reponse == JOptionPane.YES_OPTION) {
-                System.exit(0);
+
+        if ("Créer".equals(e.getActionCommand())) {
+
+            for (int i = 0; i <= 2; i++) {
+                lesAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
+            lesAnnees.setSelectedItem(null);
+            pan.add(haut, BorderLayout.NORTH);
+            haut.add(lesAnnees);
+            validate();
         }
-        /* if(e.getSource() == close)
-         if(e.getSource() == close)
-         if(e.getSource() == close)*/
     }
 
-}
+    private class ItemLesAnnees implements ItemListener {
+
+        public void itemStateChanged(ItemEvent ie) {
+            if (ie.getStateChange() == ie.SELECTED) {
+                monAnnee = (int) ie.getItem();
+                if (monAnnee == Calendar.getInstance().get(Calendar.YEAR)) {
+                    monMois = Calendar.getInstance().get(Calendar.MONTH);
+                }
+                createCalendar(monAnnee, monMois);
+            }
+        }
+    }
+
+    private void createCalendar(int uneAnnee, int unMois) {
+        int nbSemaine = 0;
+        Calendar startDate = Calendar.getInstance();
+        //startDate.setFirstDayOfWeek(Calendar.MONDAY);
+        startDate.set(Calendar.MONTH, unMois);
+        startDate.set(Calendar.YEAR, uneAnnee);
+        startDate.setMinimalDaysInFirstWeek(1);
+        nbSemaine = startDate.getActualMaximum(Calendar.WEEK_OF_MONTH);
+        ArrayList<JPanel> content = new ArrayList<JPanel>();
+        
+        for (int i = 0; i < nbSemaine; i++) {
+            JTable contentTemp = new JTable(new ModeleTableCalendrierJour());
+            JTable leftContent = new JTable(new ModeleTableCalendrierPeriode());
+            JScrollPane Jpane = new JScrollPane(contentTemp);
+            JScrollPane JpaneLeft = new JScrollPane(leftContent);
+            JPanel temp = new JPanel(new BorderLayout());
+            temp.add(Jpane, BorderLayout.CENTER);
+            temp.add(JpaneLeft, BorderLayout.WEST);
+            content.add(temp);
+        }
+        
+        GridBagConstraints contraintes = new GridBagConstraints ();
+        contraintes.insets = new Insets (4,0,10,0);
+        contraintes.fill = GridBagConstraints.BOTH;
+        contraintes.weightx = 0.3;
+        contraintes.weighty = 1;
+        
+        for(int i = 0; i < content.size(); i++)
+        {   contraintes.gridy = i+1;
+            contentPanel.add(content.get(i),contraintes);
+        }
+        
+            pan.add(contentPanel, BorderLayout.CENTER);
+            validate();
+        }
+    }
