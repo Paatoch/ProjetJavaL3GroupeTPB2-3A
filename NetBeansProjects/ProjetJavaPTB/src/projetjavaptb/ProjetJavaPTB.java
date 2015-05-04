@@ -22,10 +22,7 @@ public class ProjetJavaPTB {
     
     
     public static void main(String[] args) {
-        System.out.println("TestDePatrick");
-        System.out.println("Test");
-        System.out.println("Test");
-        System.out.println("TestTeddy");
+        new
     }
     
 }
