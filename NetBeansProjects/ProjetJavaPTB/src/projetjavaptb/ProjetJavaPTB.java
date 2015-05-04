@@ -14,6 +14,5 @@ package projetjavaptb;
 public class ProjetJavaPTB {
     public static void main(String[] args) {
        Fenetre maFenetre = new Fenetre(); 
-    }
-    
+    }    
 }
