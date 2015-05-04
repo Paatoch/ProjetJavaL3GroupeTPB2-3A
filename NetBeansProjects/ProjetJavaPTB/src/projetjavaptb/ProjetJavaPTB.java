@@ -12,17 +12,8 @@ package projetjavaptb;
  * @author benjaminTabet
  */
 public class ProjetJavaPTB {
-
-    public int entierDeTeddy = 123;
-    /**
-     * @param args the command line arguments
-     */
-    public int entierDePatrick = 0 ;
-    public int entierDeBenjamin = 0 ;
-    
-    
     public static void main(String[] args) {
-        new
+       Fenetre maFenetre = new Fenetre(); 
     }
     
 }
