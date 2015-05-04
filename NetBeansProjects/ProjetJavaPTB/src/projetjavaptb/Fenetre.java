@@ -2,6 +2,7 @@ package projetjavaptb;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,7 +22,10 @@ public class Fenetre extends JFrame implements ActionListener {
     public Fenetre() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Mon Calendrier");
-        this.setSize(800, 400);
+        Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+int hauteur = (int)tailleEcran.getHeight();
+int largeur = (int)tailleEcran.getWidth();  
+        this.setSize(largeur, hauteur);
         this.setLocationRelativeTo(null);
 
         //Instanciation d'un objet JPanel
