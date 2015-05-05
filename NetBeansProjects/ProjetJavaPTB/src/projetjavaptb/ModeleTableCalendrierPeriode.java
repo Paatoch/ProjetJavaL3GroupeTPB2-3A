@@ -15,13 +15,19 @@ package projetjavaptb;
   import javax.swing.table.DefaultTableModel;
 
 public class ModeleTableCalendrierPeriode extends DefaultTableModel{
-    public ModeleTableCalendrierPeriode()
+    public ModeleTableCalendrierPeriode(int nbSemaine)
     {
         String title[] = {"Periode"};
         String data[] = {"Jour","Matin","Apres-midi"};
-        this.setRowCount(3);
+        this.setRowCount(3*nbSemaine);
         this.setColumnIdentifiers(title);
-        for (int i = 0; i<3;i++)this.setValueAt(data[i], i, 0);        
+        int j = 0;
+        for (int i = 0; i<this.getRowCount();i++)
+        {
+            if(j== 3)j=0;
+            this.setValueAt(data[j], i, 0);        
+            j++;
+        }
         this.setColumnCount(1);        
     }
 }

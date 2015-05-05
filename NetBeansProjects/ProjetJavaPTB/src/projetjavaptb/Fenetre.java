@@ -3,10 +3,8 @@ package projetjavaptb;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +13,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -27,7 +26,9 @@ import javax.swing.JTable;
 
 /**
  *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
 public class Fenetre extends JFrame implements ActionListener {
 
@@ -110,7 +111,6 @@ public class Fenetre extends JFrame implements ActionListener {
             for (int i = 0; i <= 2; i++) {
                 lesAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
-            lesAnnees.setSelectedItem(null);
             pan.add(haut, BorderLayout.NORTH);
             haut.add(lesAnnees);
             validate();
@@ -118,7 +118,6 @@ public class Fenetre extends JFrame implements ActionListener {
     }
 
     private class ItemLesAnnees implements ItemListener {
-
         public void itemStateChanged(ItemEvent ie) {
             if (ie.getStateChange() == ie.SELECTED) {
                 monAnnee = (int) ie.getItem();
@@ -131,25 +130,22 @@ public class Fenetre extends JFrame implements ActionListener {
     }
 
     private void createCalendar(int uneAnnee, int unMois) {
-        int nbSemaine = 0;
-        Calendar startDate = Calendar.getInstance();
-        //startDate.setFirstDayOfWeek(Calendar.MONDAY);
-        startDate.set(Calendar.MONTH, unMois);
-        startDate.set(Calendar.YEAR, uneAnnee);
+        contentPanel.removeAll();
+        GregorianCalendar startDate = new GregorianCalendar(uneAnnee, unMois, 1);
         startDate.setMinimalDaysInFirstWeek(1);
-        nbSemaine = startDate.getActualMaximum(Calendar.WEEK_OF_MONTH);
+        int nbSemaine = startDate.getActualMaximum(GregorianCalendar.WEEK_OF_MONTH);
+        int nbJour = startDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+        int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         ArrayList<JPanel> content = new ArrayList<JPanel>();
         
-        for (int i = 0; i < nbSemaine; i++) {
-            JTable contentTemp = new JTable(new ModeleTableCalendrierJour());
-            JTable leftContent = new JTable(new ModeleTableCalendrierPeriode());
-            JScrollPane Jpane = new JScrollPane(contentTemp);
-            JScrollPane JpaneLeft = new JScrollPane(leftContent);
-            JPanel temp = new JPanel(new BorderLayout());
-            temp.add(Jpane, BorderLayout.CENTER);
-            temp.add(JpaneLeft, BorderLayout.WEST);
-            content.add(temp);
-        }
+        JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour,nbJour,nbSemaine));
+        JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
+        JScrollPane Jpane = new JScrollPane(contentTemp);
+        JScrollPane JpaneLeft = new JScrollPane(leftContent);
+        JPanel temp = new JPanel(new BorderLayout());
+        temp.add(Jpane, BorderLayout.CENTER);
+        temp.add(JpaneLeft, BorderLayout.WEST);
+        content.add(temp);
         
         GridBagConstraints contraintes = new GridBagConstraints ();
         contraintes.insets = new Insets (4,0,10,0);
@@ -161,8 +157,11 @@ public class Fenetre extends JFrame implements ActionListener {
         {   contraintes.gridy = i+1;
             contentPanel.add(content.get(i),contraintes);
         }
-        
-            pan.add(contentPanel, BorderLayout.CENTER);
-            validate();
-        }
-        }
+        content.clear();
+        pan.add(contentPanel, BorderLayout.CENTER);
+        validate();
+        System.out.println("premier: "+premierJour);
+        System.out.println("jour: "+nbJour);
+        System.out.println("semain: "+nbSemaine);
+    }
+}
