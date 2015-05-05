@@ -11,18 +11,21 @@ package projetjavaptb;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
+import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ModeleTableCalendrierJour extends DefaultTableModel {
 
     int jourEnCours = 0;
-
+    Color c1 = new Color(0,0,0);
+    
     public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines) {
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
         for (int i = 0; i < 7; i++) {
+            //if(i>=5) this.getColumnClass(i).
             if (premierJour != 1) {
                 if (i >= premierJour - 2) {
                     jourEnCours++;
@@ -41,5 +44,17 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
             }
         }
         this.setColumnCount(7);
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        
+        //ici la cellule (1, 2) est non-editable
+        if (columnIndex >= 5){
+            return false;
+        }
+        
+        //le reste est editable
+        return true;
     }
 }
