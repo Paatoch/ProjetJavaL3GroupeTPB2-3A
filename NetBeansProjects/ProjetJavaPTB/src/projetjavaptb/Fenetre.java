@@ -54,7 +54,7 @@ public class Fenetre extends JFrame implements ActionListener {
         //On prévient notre JFrame que notre JPanel sera son content pane
         this.setContentPane(pan);
         this.setVisible(true);
-        //Définition de sa couleur de fond
+        //DÈfinition de sa couleur de fond
         pan.setBackground(Color.GRAY);
         haut.setBackground(Color.GRAY);
 
@@ -81,13 +81,13 @@ public class Fenetre extends JFrame implements ActionListener {
         menu.add(save);
         menu.add(close);
 
-        //On grise le save au début
+        //On grise le save au dÈbut
         save.setVisible(false);
 
         //ajout du menuBar au Jpannel        
         this.setJMenuBar(mb);
 
-        //ajout des écouteurs
+        //ajout des Ècouteurs
         open.addActionListener(this);
         save.addActionListener(this);
         create.addActionListener(this);
@@ -165,4 +165,4 @@ public class Fenetre extends JFrame implements ActionListener {
             pan.add(contentPanel, BorderLayout.CENTER);
             validate();
         }
-    }
+        }
