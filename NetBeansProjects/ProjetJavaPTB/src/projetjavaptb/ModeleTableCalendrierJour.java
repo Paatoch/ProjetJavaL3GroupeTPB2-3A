@@ -1,12 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package projetjavaptb;
+
+/**
+ *
+ * @author patrickcabral
+ * @author BLONBOUT
+ * @author BenjaminTabet
+ */
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author BLONBOUT
- */
+
 public class ModeleTableCalendrierJour extends DefaultTableModel {
     
     public ModeleTableCalendrierJour()
@@ -17,3 +26,5 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
         this.setColumnCount(7);        
     }
 }
+
+

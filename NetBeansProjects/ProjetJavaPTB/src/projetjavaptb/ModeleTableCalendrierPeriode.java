@@ -5,20 +5,24 @@
  */
 package projetjavaptb;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
+ 
+  import javax.swing.table.DefaultTableModel;
+
 public class ModeleTableCalendrierPeriode extends DefaultTableModel{
     public ModeleTableCalendrierPeriode()
     {
-        String title[] = {"Période"};
-        String data[] = {"Jour","Matin","Après-midi"};
+        String title[] = {"Periode"};
+        String data[] = {"Jour","Matin","Apres-midi"};
         this.setRowCount(3);
         this.setColumnIdentifiers(title);
         for (int i = 0; i<3;i++)this.setValueAt(data[i], i, 0);        
         this.setColumnCount(1);        
     }
 }
+
