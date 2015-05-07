@@ -6,7 +6,6 @@
 package projetjavaptb;
 
 /**
- *
  * @author patrickcabral
  * @author BLONBOUT
  * @author BenjaminTabet
@@ -15,13 +14,15 @@ import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class ModeleTableCalendrierJour extends DefaultTableModel {
 
     int jourEnCours = 0;
-    Color c1 = new Color(0,0,0);
+    Color c1 = new Color(0, 0, 0);
 
     public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines) {
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
@@ -35,7 +36,7 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     this.setValueAt(jourEnCours, 0, i);
                 }
             } else {
-                jourEnCours=1;
+                jourEnCours = 1;
                 this.setValueAt(1, 0, 6);
             }
         }
@@ -43,24 +44,24 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
         for (int j = 3; j < this.getRowCount(); j += 3) {
             for (int i = 0; i < 7; i++) {
                 jourEnCours++;
-                if(jourEnCours<=nbJourMois) this.setValueAt(jourEnCours, j, i);
+                if (jourEnCours <= nbJourMois) {
+                    this.setValueAt(jourEnCours, j, i);
                 }
             }
+        }
         this.setColumnCount(7);
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        
-        //ici la cellule (1, 2) est non-editable
-        if (columnIndex >= 5){
+        /* Aucune colonne n'est editable*/
+        if (columnIndex >= 0) {
             return false;
         }
 
         //le reste est editable
         return true;
     }
-
 
     public static class MonCellRenderer extends DefaultTableCellRenderer {
 
@@ -69,13 +70,17 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
             boolean isSelected, boolean hasFocus, int row, int column) {
             Component cell = super.getTableCellRendererComponent(table, value,
             isSelected, hasFocus, row, column);
-                cell.setForeground(Color.BLACK);
-		if (column >= 5){
+
+            this.setForeground(Color.BLACK);
+
+            if (column >= 5) {
                 cell.setBackground(Color.GRAY);
-                        cell.setEnabled(false);
             } 
-                else
+            else {
                 cell.setBackground(Color.WHITE);
+                this.setFont(new Font("Arial", Font.BOLD, 14));
+                this.setForeground(Color.BLACK);
+            }
             return cell;
         }
     }

@@ -6,6 +6,7 @@
 package projetjavaptb;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -120,6 +121,15 @@ public class PanelFormation extends JPanel implements ActionListener {
         lblValider.setIcon(iconValidate);
         lblValider.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+
             public void mouseClicked(MouseEvent me) {
                 String nomFormation = textFieldNomFormation.getText();
                 String nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
@@ -128,24 +138,23 @@ public class PanelFormation extends JPanel implements ActionListener {
                 String nomModule = null;
                 String nbHeureModules = null;
                 //System.out.println(nomFormation + " " + nbHeureType);
-                // ArrayList<Module> modules = new ArrayList<Module>();
+                ArrayList<String> ArrayString = new ArrayList<String>();
                 Formation formation = new Formation(nomFormation, nbHeureType);
                 
+                int i = 0;
                 for (JTextField text : textFieldModule) {
-                
-                for (JTextField text2 : textFieldNbHeureTypeModule)
-                {
-                    if( text.getText().isEmpty()){
+                    for (JTextField text2 : textFieldNbHeureTypeModule) {
+                        if (text.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
-                        }
-                        else {
+                        } else {
                             nomModule = text.getText();
+                            ArrayString.add(text2.getText());
                             nbHeureModules = text2.getText();
                             nbHeureModule = Float.parseFloat(nbHeureModules);
-                        
                         }
                 }
-                Module module = new Module(nomModule, nbHeureModule);
+                    Module module = new Module(nomModule, Float.parseFloat(ArrayString.get(i)));
+                    i++;
                 formation.addModule(module);  
                 }
                
@@ -162,7 +171,6 @@ public class PanelFormation extends JPanel implements ActionListener {
         setVisible(true);
         validate();
         repaint();
-        //this.setLocationRelativeTo(null);
 
     }
 
@@ -178,7 +186,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                 textFieldModule.add(field);
                 JTextField fieldHeure = new JTextField();
 
-                
                 textFieldNbHeureTypeModule.add(fieldHeure);
 
                 panelFormation.add(textFieldModule.get(textFieldModule.size() - 1));

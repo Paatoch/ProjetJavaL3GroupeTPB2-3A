@@ -259,9 +259,12 @@ public class Fenetre extends JFrame implements ActionListener {
             for (int i = 0; i <= 2; i++) {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
+            setContentPane(panelSource);
+            repaint();
+            
             panelSource.add(panelHaut, BorderLayout.NORTH);
             panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année et Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
-            //panelHaut.setBorder( new TitledBorder ("Choix Année et Mois"));
+            
             //Affichage des boutons ameliorer
             //La combobox des annees est placee en haut et les labels des mois et les boutons en bas
             GridBagConstraints contraintes = new GridBagConstraints();
@@ -323,9 +326,8 @@ public class Fenetre extends JFrame implements ActionListener {
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
-        
         ArrayList<JPanel> content = new ArrayList<>();
-        contentTemp.setDefaultRenderer(Object.class,new MonCellRenderer  ());
+        contentTemp.setDefaultRenderer(Object.class,new MonCellRenderer ());
 
         //JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
