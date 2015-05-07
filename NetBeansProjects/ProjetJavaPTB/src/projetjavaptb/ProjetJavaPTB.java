@@ -26,8 +26,6 @@ public class ProjetJavaPTB {
     // If Nimbus is not available, you can set the GUI to another look and feel.
 }
        Fenetre maFenetre = new Fenetre(); 
-       Module module1 = new Module ("Module 1",15);
-      
        }
     
 }
