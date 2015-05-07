@@ -5,6 +5,7 @@
  */
 package projetjavaptb;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -12,10 +13,12 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,12 +58,26 @@ public class PanelFormation extends JPanel implements ActionListener {
     private boolean bool_Reponse;
     int i = 1;
     JPanel panelFormation = new JPanel();
+    JPanel panelBoutons = new JPanel ();
+    JPanel panelNoms = new JPanel ();
 
+    
+    JLabel labelTeddy = new JLabel (" Teddy Blonbou  -   ");
+    JLabel labelPatrick = new JLabel ("Patrick Cabral  -   ");
+    JLabel labelBenjamin = new JLabel ("Benjamin Tabet    ");
+    
     public PanelFormation() {
-        //this.setLayout(new GridBagLayout ());
-
+        final File fichier = new File("sauvegarde/sauvegarde");
+        if (fichier.length() != 0) {
+            MethodesPourFichier.lecture(fichier);
+            System.out.println("lecture planning");
+        } else {
+            System.out.println("init planning");
+        }
+     
         // Ajout des elements au panel`
         //this.add(label, contraintes);
+        this.setLayout (new BorderLayout ());
         panelFormation.setBorder(new TitledBorder("Formation"));
         panelFormation.setBackground(Color.GRAY);
         //panelFormation.setPreferredSize(new Dimension(500, 400));
@@ -114,9 +131,10 @@ public class PanelFormation extends JPanel implements ActionListener {
         contraintes.gridx = 1;
         contraintes.gridy = 4;
 
+        panelBoutons.setLayout(new FlowLayout());
         boutonAjouter.addActionListener(this);
         //panelFormation.add(boutonAjouter, contraintes);
-        add(boutonAjouter);
+        panelBoutons.add(boutonAjouter);
 
         lblValider.setIcon(iconValidate);
         lblValider.addMouseListener(new MouseAdapter() {
@@ -157,17 +175,28 @@ public class PanelFormation extends JPanel implements ActionListener {
                     i++;
                     formation.addModule(module);
                 }
-
+                MethodesPourFichier.ecriture(formation, fichier);
                 System.out.println(formation);
             }
         });
 
-        add(lblValider);
+        panelBoutons.add(lblValider);
         //lblValider.setPreferredSize(new Dimension (20,50));
         contraintes.gridx = 1;
         contraintes.gridy = 5;
-
-        add(panelFormation);
+        //panelFormation.setPreferredSize(new Dimension (400,500));
+        
+        panelNoms.add(labelTeddy);
+        panelNoms.add(labelPatrick);
+        panelNoms.add(labelBenjamin);
+        
+        add(panelFormation, BorderLayout.NORTH);
+        add(panelBoutons, BorderLayout.CENTER);
+        add(panelNoms, BorderLayout.SOUTH);
+        
+        labelBenjamin.setFont(new Font("Arial",Font.BOLD,14));
+        labelTeddy.setFont(new Font("Arial",Font.BOLD,14));
+        labelPatrick.setFont(new Font("Arial",Font.BOLD,14));
         setVisible(true);
         validate();
         repaint();

@@ -5,13 +5,15 @@
  */
 package projetjavaptb;
 
+import java.io.Serializable;
+
 /**
  * @author patrickcabral
  * @author BLONBOUT
  * @author BenjaminTabet
  */
 
-public class Module {
+public class Module implements Serializable  {
     private String nomModule ;
     private float nbHeureModule ;
     

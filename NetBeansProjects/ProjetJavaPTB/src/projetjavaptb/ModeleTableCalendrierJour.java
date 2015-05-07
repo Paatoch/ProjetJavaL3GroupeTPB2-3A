@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -50,8 +51,12 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
             }
         }
         this.setColumnCount(7);
-    }
+    
+         
+        
 
+    }
+    
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         /* Aucune colonne n'est editable*/

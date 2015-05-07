@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -56,6 +57,7 @@ public class Fenetre extends JFrame implements ActionListener {
     int moisCourant = 0;
     private JPanel panelSource = new JPanel(new BorderLayout());
     private JPanel panelHaut = new JPanel(new GridBagLayout());
+    private JPanel panelBas = new JPanel ();
     private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     private int hauteur = (int) tailleEcran.getHeight();
     private int largeur = (int) tailleEcran.getWidth();
@@ -73,7 +75,13 @@ public class Fenetre extends JFrame implements ActionListener {
     public String sOpenFormation = "Consulter";
     // declaration JTABLE
     JTable contentTemp = new JTable();
-        
+
+
+    
+    JLabel labelTeddy = new JLabel (" Teddy Blonbou  -   ");
+    JLabel labelPatrick = new JLabel ("Patrick Cabral  -   ");
+    JLabel labelBenjamin = new JLabel ("Benjamin Tabet    ");
+    
 
     public Fenetre() {
         lblMois.setFont(new Font("Arial", Font.BOLD, 16));
@@ -141,6 +149,7 @@ public class Fenetre extends JFrame implements ActionListener {
         menu.add(create);
         menu.add(open);
         menu.add(save);
+        menu.addSeparator();
         menu.add(close);
 
         menuFormation.add(openFormation);
@@ -234,6 +243,10 @@ public class Fenetre extends JFrame implements ActionListener {
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
+        
+        panelBas.add(labelTeddy);
+        panelBas.add(labelPatrick);
+        panelBas.add(labelBenjamin);
         
     }
 
@@ -331,7 +344,23 @@ public class Fenetre extends JFrame implements ActionListener {
         
         ArrayList<JPanel> content = new ArrayList<>();
         contentTemp.setDefaultRenderer(Object.class,new MonCellRenderer ());
-
+        
+        contentTemp.addMouseListener(new MouseAdapter(){ 
+            
+            
+             @Override 
+            public void mouseClicked(MouseEvent e) { 
+        
+                Point p=e.getPoint(); //recup la position de la souris 
+                int row=contentTemp.rowAtPoint(p); //indice de la ligne a cette position
+                int col = contentTemp.columnAtPoint(p); //indice colonne 
+                
+                JOptionPane.showMessageDialog(contentPanel,contentTemp.getValueAt(row,col)); //element a ligne row et colonne col 
+                
+            } 
+            
+            
+        });   
         //JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
@@ -352,7 +381,13 @@ public class Fenetre extends JFrame implements ActionListener {
             contentPanel.add(content.get(i), contraintes);
         }
         content.clear();
+        contentPanel.getPreferredSize();
         panelSource.add(contentPanel, BorderLayout.CENTER);
+        panelSource.add(panelBas, BorderLayout.SOUTH);
+       
+        labelBenjamin.setFont(new Font("Arial",Font.BOLD,14));
+        labelTeddy.setFont(new Font("Arial",Font.BOLD,14));
+        labelPatrick.setFont(new Font("Arial",Font.BOLD,14));
         validate();
     }
 }
