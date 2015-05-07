@@ -14,6 +14,9 @@ package projetjavaptb;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Component;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ModeleTableCalendrierJour extends DefaultTableModel {
 
@@ -57,4 +60,23 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
         //le reste est editable
         return true;
     }
+    
+
+public static class MonCellRenderer extends DefaultTableCellRenderer {
+
+        @Override
+	public Component getTableCellRendererComponent(JTable table, Object value,
+			boolean isSelected, boolean hasFocus, int row, int column) {
+		Component cell = super.getTableCellRendererComponent(table, value,
+				isSelected, hasFocus, row, column);
+                cell.setForeground(Color.BLACK);
+		if (column >= 5){
+			cell.setBackground(Color.GRAY);
+                        cell.setEnabled(false);
+                }
+                else
+			cell.setBackground(Color.WHITE);
+		return cell;
+	}
+}
 }

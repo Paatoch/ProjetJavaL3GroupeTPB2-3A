@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,6 +31,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import projetjavaptb.ModeleTableCalendrierJour.MonCellRenderer;
 
 /**
  *
@@ -40,6 +46,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
     public JComboBox comboAnnees = new JComboBox();
     public JLabel lblMois = new JLabel();
+    
     ImageIcon iconPrev = new ImageIcon("Images/prev.png");
     ImageIcon iconNext = new ImageIcon("Images/next.png");
     public ArrayList<String> listeMois;
@@ -48,7 +55,7 @@ public class Fenetre extends JFrame implements ActionListener {
     int anneeCourante = 0;
     int moisCourant = 0;
     private JPanel panelSource = new JPanel(new BorderLayout());
-    private JPanel panelHaut = new JPanel(new FlowLayout());
+    private JPanel panelHaut = new JPanel(new GridBagLayout());
     private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     private int hauteur = (int) tailleEcran.getHeight();
     private int largeur = (int) tailleEcran.getWidth();
@@ -60,8 +67,16 @@ public class Fenetre extends JFrame implements ActionListener {
     public String sSave  = "Sauver";
     public String sCreate = "Créer";
     public String sClose = "Quitter";
+     
+    public String sMenuFormation = "Formation";
+    public String sCreateFormation = "Ajouter";
+    public String sOpenFormation = "Consulter";
+    // declaration JTABLE
+    JTable contentTemp = new JTable();
+        
 
     public Fenetre() {
+        lblMois.setFont(new Font("Arial", Font.BOLD, 16));
         /* récupération de l'année courante */
         anneeCourante = Calendar.getInstance().get(Calendar.YEAR);
         /* récupération du moins courant */
@@ -104,10 +119,11 @@ public class Fenetre extends JFrame implements ActionListener {
         JMenuItem save = new JMenuItem(sSave);
         JMenuItem create = new JMenuItem(sCreate);
         JMenuItem close = new JMenuItem(sClose);
+        JMenu menuFormation = new JMenu (sMenuFormation);
+        JMenuItem openFormation = new JMenuItem(sOpenFormation);
+        JMenuItem createFormation = new JMenuItem(sCreateFormation);
         
-   
-        
-        
+       // createFormation.addActionListener( new ListenerPanel1());
 
         /* Affectation de raccourcis aux composants de la fenêtre*/
         menu.setMnemonic(KeyEvent.VK_M);
@@ -116,26 +132,33 @@ public class Fenetre extends JFrame implements ActionListener {
         save.setMnemonic(KeyEvent.VK_S);
         create.setMnemonic(KeyEvent.VK_N);
 
+        menuFormation.setMnemonic(KeyEvent.VK_F);
+        
         /*Ajout du Menu dans la MenuBar*/
         mb.add(menu);
-
+        mb.add(menuFormation);
         /*Ajout des différents Item au Menu */
         menu.add(create);
         menu.add(open);
         menu.add(save);
         menu.add(close);
 
+        menuFormation.add(openFormation);
+        menuFormation.add(createFormation);
         /*Au démarrage la sauvegarde n'est pas visible*/
         save.setVisible(false);
 
         /*Ajout du menuBar au Jpannel */       
         this.setJMenuBar(mb);
-
+        
+       
         /*Ajout des Ècouteurs*/
         open.addActionListener(this);
         save.addActionListener(this);
         create.addActionListener(this);
         close.addActionListener(this);
+        openFormation.addActionListener(this);
+        createFormation.addActionListener(this);
         comboAnnees.addItemListener(new ItemLesAnnees());
         validate();
         
@@ -223,6 +246,13 @@ public class Fenetre extends JFrame implements ActionListener {
                 System.exit(0);
             }
         }
+        if (sCreateFormation.equals(e.getActionCommand())){
+            PanelFormation panel = new PanelFormation ();
+            contentPanel.removeAll();
+            setContentPane(panel);
+            revalidate();
+            repaint ();
+        }
 
         if (sCreate.equals(e.getActionCommand())) {
 
@@ -230,28 +260,48 @@ public class Fenetre extends JFrame implements ActionListener {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
             panelSource.add(panelHaut, BorderLayout.NORTH);
-            panelHaut.add(comboAnnees);
-            panelHaut.add(lblPrevMonth);
+            panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année et Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
+            //panelHaut.setBorder( new TitledBorder ("Choix Année et Mois"));
+            //Affichage des boutons ameliorer
+            //La combobox des annees est placee en haut et les labels des mois et les boutons en bas
+            GridBagConstraints contraintes = new GridBagConstraints();
+            contraintes.insets = new Insets(2, 0, 4, 0);
+            contraintes.fill = GridBagConstraints.LINE_START;
+            contraintes.gridx = 2;
+            contraintes.gridy = 0;
+            contraintes.weightx = 0.3;
+            contraintes.weighty = 1;
+            panelHaut.add(comboAnnees, contraintes);
+            contraintes.insets = new Insets(2, 0, 4, 0);
+            contraintes.gridx = 1;
+            contraintes.gridy = 1;
+            contraintes.weightx = 0.3;
+            contraintes.weighty = 1;
+            panelHaut.add(lblPrevMonth, contraintes);
             //lesMois.setPreferredSize(new Dimension(50,50));
             System.out.println(lblMois.toString());
-            panelHaut.add(lblMois);
-            panelHaut.add(lblNextMonth);
+            contraintes.insets = new Insets(2, 0, 4, 0);
+            contraintes.gridx = 2;
+            contraintes.gridy = 1;
+            contraintes.weightx = 0.3;
+            contraintes.weighty = 1;
+            panelHaut.add(lblMois, contraintes);
+            contraintes.insets = new Insets(2, 0, 4, 0);
+            contraintes.gridx = 3;
+            contraintes.gridy = 1;
+            contraintes.weightx = 0.3;
+            contraintes.weighty = 1;
+            panelHaut.add(lblNextMonth, contraintes);
             validate();
         }
     }
 
+  
     private class ItemLesAnnees implements ItemListener {
 
         public void itemStateChanged(ItemEvent ie) {
             if (ie.getStateChange() == ie.SELECTED) {
-                /*anneeCourante = (int) ie.getItem();
-                if (anneeCourante == Calendar.getInstance().get(Calendar.YEAR)) {
-                    moisCourant = Calendar.getInstance().get(Calendar.MONTH);
-                }
-                else
-                {
-                    moisCourant = 0;
-                }*/
+                anneeCourante = (int) ie.getItem();
                 createCalendar(anneeCourante, moisCourant);
             }
         }
@@ -261,6 +311,8 @@ public class Fenetre extends JFrame implements ActionListener {
     private void createCalendar(int uneAnnee, int unMois) {
         /*Suppression du contenu du panel*/
         contentPanel.removeAll();
+       
+        contentPanel.setBorder(BorderFactory.createTitledBorder(null, "Planning", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         /*Création du calendrier grégorien*/
         GregorianCalendar startDate = new GregorianCalendar(uneAnnee, unMois, 1);
         startDate.setMinimalDaysInFirstWeek(1);
@@ -272,9 +324,11 @@ public class Fenetre extends JFrame implements ActionListener {
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
         
-        ArrayList<JPanel> content = new ArrayList<JPanel>();
-        
-        JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
+        ArrayList<JPanel> content = new ArrayList<>();
+        contentTemp.setDefaultRenderer(Object.class,new MonCellRenderer  ());
+
+        //JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
+        contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
         JScrollPane Jpane = new JScrollPane(contentTemp);
         JScrollPane JpaneLeft = new JScrollPane(leftContent);
