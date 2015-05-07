@@ -255,12 +255,12 @@ public class Fenetre extends JFrame implements ActionListener {
         }
 
         if (sCreate.equals(e.getActionCommand())) {
-
+            comboAnnees.removeAllItems();
             for (int i = 0; i <= 2; i++) {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
             setContentPane(panelSource);
-            repaint();
+            
             
             panelSource.add(panelHaut, BorderLayout.NORTH);
             panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année et Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
@@ -295,7 +295,10 @@ public class Fenetre extends JFrame implements ActionListener {
             contraintes.weightx = 0.3;
             contraintes.weighty = 1;
             panelHaut.add(lblNextMonth, contraintes);
+            createCalendar(anneeCourante, moisCourant);
             validate();
+            repaint();
+            
         }
     }
 
