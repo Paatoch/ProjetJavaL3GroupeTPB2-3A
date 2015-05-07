@@ -128,25 +128,26 @@ public class PanelFormation extends JPanel implements ActionListener {
                 String nomModule = null;
                 String nbHeureModules = null;
                 //System.out.println(nomFormation + " " + nbHeureType);
-                // ArrayList<Module> modules = new ArrayList<Module>();
+                ArrayList<String> Teddy = new ArrayList<String>();
                 Formation formation = new Formation(nomFormation, nbHeureType);
                 
-                for (JTextField text : textFieldModule) {
-                
-                for (JTextField text2 : textFieldNbHeureTypeModule)
+                int i = 0;
+                for (JTextField text : textFieldModule) 
                 {
-                    if( text.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
+                    for (JTextField text2 : textFieldNbHeureTypeModule)
+                    {
+                        if( text.getText().isEmpty()) JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
+                        else 
+                        {
+                            nomModule = text.getText();
+                            Teddy.add(text2.getText());
+                            nbHeureModules = text2.getText();
+                            nbHeureModule = Float.parseFloat(nbHeureModules);
                         }
-                        else {
-                        nomModule = text.getText();
-                        nbHeureModules = text2.getText();
-                        nbHeureModule = Float.parseFloat(nbHeureModules);
-                        
-                      }
-            }
-                Module module = new Module(nomModule, nbHeureModule);
-                formation.addModule(module);  
+                    }
+                    Module module = new Module(nomModule, Float.parseFloat(Teddy.get(i)));
+                    i++;
+                    formation.addModule(module);  
                 }
                
                 System.out.println(formation);         
