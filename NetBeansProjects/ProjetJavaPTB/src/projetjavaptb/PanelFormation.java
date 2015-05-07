@@ -139,12 +139,12 @@ public class PanelFormation extends JPanel implements ActionListener {
                         JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
                         }
                         else {
-                        nomModule = text.getText();
-                        nbHeureModules = text2.getText();
-                        nbHeureModule = Float.parseFloat(nbHeureModules);
+                            nomModule = text.getText();
+                            nbHeureModules = text2.getText();
+                            nbHeureModule = Float.parseFloat(nbHeureModules);
                         
-                      }
-            }
+                        }
+                }
                 Module module = new Module(nomModule, nbHeureModule);
                 formation.addModule(module);  
                 }
