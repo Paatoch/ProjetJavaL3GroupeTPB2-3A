@@ -1,5 +1,6 @@
 package projetjavaptb;
 
+import Exception.Exception_Module;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -44,7 +45,7 @@ import projetjavaptb.ModeleTableCalendrierJour.MonCellRenderer;
 public class Fenetre extends JFrame implements ActionListener {
 
     int tempMouse = 0;
-    ArrayList<Cours_Reservation> lesCours = new ArrayList<Cours_Reservation>();
+    public final ArrayList<Cours_Reservation> lesCours = new ArrayList<Cours_Reservation>();
     public JComboBox comboAnnees = new JComboBox();
     public JLabel lblMois = new JLabel();
     public final Formation formation = new Formation();
@@ -355,6 +356,7 @@ public class Fenetre extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 
                 if (e.getClickCount() == 2) {
+                    System.out.println(e.getID());
                     if(tempMouse != e.getID())
                     {
                         Point p = e.getPoint(); //recup la position de la souris 
@@ -362,7 +364,19 @@ public class Fenetre extends JFrame implements ActionListener {
                         int col = contentTemp.columnAtPoint(p); //indice colonne 
                         //JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
                         tempMouse = e.getID();
-                        Formulaire_Cours formulaire =  new Formulaire_Cours ((int)contentTemp.getValueAt(row, col), anneeCourante,    listeMois.get(moisCourant),  formation);
+                        int maValeur;
+                        try{
+                            maValeur = (int)contentTemp.getValueAt(row-2, col);
+                            Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "midi");
+                        }
+                        catch(NullPointerException e1){
+                            try{
+                                maValeur = (int)contentTemp.getValueAt(row-1, col);
+                                Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "matin");
+                            }
+                            catch(NullPointerException e2){
+                            }
+                        }
                     }
                     else tempMouse = 0;
                 }
@@ -371,7 +385,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
         });
         
-        contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
+        contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, lesCours, listeMois.get(unMois), uneAnnee));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
         JScrollPane Jpane = new JScrollPane(contentTemp);
         JScrollPane JpaneLeft = new JScrollPane(leftContent);

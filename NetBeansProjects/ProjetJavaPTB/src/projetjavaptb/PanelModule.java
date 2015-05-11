@@ -63,7 +63,6 @@ public class PanelModule extends JPanel implements ActionListener {
                                     int dureeModule = formation.getModule().get(i).getNbSeances();
                                     Module leModule1 = new Module(search.getText(), dureeModule);
                                     formation.getModule().set(i, leModule1);
-                                    System.out.println(leModule1.getNbSeances());
                                 }
                             i++;
                         }

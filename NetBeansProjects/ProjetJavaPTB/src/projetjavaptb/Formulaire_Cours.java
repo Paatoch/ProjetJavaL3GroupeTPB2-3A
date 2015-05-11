@@ -5,12 +5,11 @@
  */
 package projetjavaptb;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -36,17 +35,43 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JCheckBox checkAprem = new JCheckBox("Après-Midi");
 
     private JButton boutonValiderCours = new JButton("Valider");
-
-    public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, final Formation formation) {
+    private Formation uneFormation = new Formation();
+    private ArrayList<Cours_Reservation> listeCours = new ArrayList<Cours_Reservation>();
+    
+    public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, final Formation formation, final ArrayList <Cours_Reservation> lesCours, String horaire) {
+        listeCours = lesCours;
+        uneFormation = formation;
         this.jour = jour_cours;
         this.annee = annee_cours;
         this.mois = mois_cours;
-
         labelDate.setText(jour + "  " + mois + "  " + "  " + annee);
-        labelFormation.setText(formation.nomFormation);
-
-        addItems(formation);
-
+        labelFormation.setText(formation.getNomFormation());
+        String selectComboBox = "nOn";
+        
+        for(Cours_Reservation ceCours : listeCours)
+        {
+            if(jour == ceCours.getJour() && mois == ceCours.getMois() && annee == ceCours.getAnnee())
+            {
+                if(horaire == "matin")
+                {
+                    if(ceCours.isMatin()) 
+                    {
+                        selectComboBox = ceCours.getModule();
+                        checkMatin.setSelected(true);
+                    }
+                }
+                else if(ceCours.isMidi()){
+                    selectComboBox = ceCours.getModule();
+                    checkAprem.setSelected(true);
+                }
+            }
+        }
+        
+        for (Module unModule : formation.getModule()) {
+            comboModules.addItem(unModule.getNomModule());
+        }
+        if(!selectComboBox.equals("nOn"))   comboModules.setSelectedItem(selectComboBox);
+        
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy= 0;
@@ -67,17 +92,21 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         c.gridx = 0;
         c.gridy= 3; c.fill = GridBagConstraints.HORIZONTAL;
         panelFormulaire.add(checkMatin, c);
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy= 3; 
         c.fill = GridBagConstraints.HORIZONTAL;
         panelFormulaire.add(checkAprem,c);
         c.gridx = 0;
         c.gridy= 4; 
         c.fill = GridBagConstraints.HORIZONTAL;
+        
+        if(horaire=="matin") checkAprem.setVisible(false);
+        else checkMatin.setVisible(false);
+        
         panelFormulaire.add(boutonValiderCours,c);
         boutonValiderCours.addActionListener(this);
         // Ajout informations fenetre
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("Formulaire ajout cours");
         this.setSize(400, 500);
         this.setLocationRelativeTo(null);
@@ -86,17 +115,13 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
 
     }
 
-    public void addItems(Formation formation) {
-
-        for (Module unModule : formation.getModule()) {
-            comboModules.addItem(unModule.getNomModule());
-        }
-
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, uneFormation.getNomFormation(), comboModules.getSelectedItem().toString(),checkMatin.isSelected(),checkAprem.isSelected());
+        listeCours.add(cours);
+        
+        dispose();
     }
 
 }

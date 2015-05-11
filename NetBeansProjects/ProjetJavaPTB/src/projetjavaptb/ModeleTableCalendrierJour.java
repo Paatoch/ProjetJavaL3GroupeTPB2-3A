@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -21,9 +22,10 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
 
     int jourEnCours = 0;
     Color c1 = new Color(0, 0, 0);
-
-    public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines) {
-       
+    public ArrayList<Cours_Reservation> nosCours = new ArrayList<Cours_Reservation>();
+    
+    public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines, final ArrayList<Cours_Reservation> lesCours, String leMois, int leAnnee) {
+        nosCours = lesCours;
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
@@ -33,6 +35,14 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 if (i >= premierJour - 2) {
                     jourEnCours++;
                     this.setValueAt(jourEnCours, 0, i);
+                    for(Cours_Reservation unCours : nosCours)
+                    {
+                        if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
+                        {
+                            if(unCours.isMatin())this.setValueAt(unCours.getModule(), 1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours.getModule(), 2, i);
+                        }
+                    }
                 }
             } else {
                 jourEnCours = 1;
@@ -45,16 +55,21 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 jourEnCours++;
                 if (jourEnCours <= nbJourMois) {
                     this.setValueAt(jourEnCours, j, i);
+                    for(Cours_Reservation unCours : nosCours)
+                    {
+                        if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
+                        {
+                            if(unCours.isMatin())this.setValueAt(unCours, j+1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours, j+2, i);
+                        }
+                    }
                 }
             }
         }
         this.setColumnCount(7);
-    
-         
-        
 
     }
-    
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         /* Aucune colonne n'est editable*/
@@ -70,16 +85,15 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
+                boolean isSelected, boolean hasFocus, int row, int column) {
             Component cell = super.getTableCellRendererComponent(table, value,
-            isSelected, hasFocus, row, column);
+                    isSelected, hasFocus, row, column);
 
             this.setForeground(Color.BLACK);
 
             if (column >= 5) {
                 cell.setBackground(Color.GRAY);
-            } 
-            else {
+            } else {
                 cell.setBackground(Color.WHITE);
                 this.setFont(new Font("Arial", Font.BOLD, 14));
                 this.setForeground(Color.BLACK);

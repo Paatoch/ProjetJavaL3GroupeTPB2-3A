@@ -33,7 +33,8 @@ public class Cours_Reservation implements Serializable {
 
     public Cours_Reservation() {
     }
-
+    
+    
     public Cours_Reservation(int un_jour, int une_annee, String un_mois, String une_formation, String un_module, boolean un_matin, boolean un_midi) {
         jour = un_jour;
         annee = une_annee;
@@ -43,6 +44,63 @@ public class Cours_Reservation implements Serializable {
         matin = un_matin;
         midi = un_midi;
     }
+
+    public int getJour() {
+        return jour;
+    }
+
+    public void setJour(int jour) {
+        this.jour = jour;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public String getMois() {
+        return mois;
+    }
+
+    public void setMois(String mois) {
+        this.mois = mois;
+    }
+
+    public String getFormation() {
+        return formation;
+    }
+
+    public void setFormation(String formation) {
+        this.formation = formation;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public boolean isMatin() {
+        return matin;
+    }
+
+    public void setMatin(boolean matin) {
+        this.matin = matin;
+    }
+
+    public boolean isMidi() {
+        return midi;
+    }
+
+    public void setMidi(boolean midi) {
+        this.midi = midi;
+    }
+
     public String toString()
     {
         String chaine = jour + " " + mois + " " + annee + "\n" + formation + "\n" + module + "\n";

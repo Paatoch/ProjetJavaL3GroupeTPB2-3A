@@ -46,7 +46,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     private JLabel lblValider = new JLabel();
     ImageIcon iconValidate = new ImageIcon("Images/validate.png");
     private JLabel lblModule = new JLabel("Nom du module");
-    private JLabel lblModuleHeure = new JLabel("Nombre d'heures du module");
+    private JLabel lblModuleHeure = new JLabel("Nombre de seances du module");
 
     ArrayList<JTextField> textFieldModule = new ArrayList<JTextField>();
     ArrayList<JTextField> textFieldNbHeureTypeModule = new ArrayList<JTextField>();
@@ -54,6 +54,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     private JButton boutonAjouter = new JButton("Ajouter Formation");
     private boolean bool_Reponse;
     int i = 1;
+    int xi = 1;
     JPanel panelFormation = new JPanel();
 
     public PanelFormation(final Formation formation) {
@@ -66,6 +67,12 @@ public class PanelFormation extends JPanel implements ActionListener {
         //panelFormation.setPreferredSize(new Dimension(500, 400));
         panelFormation.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
+        
+        if(!formation.getModule().isEmpty())
+        {
+            textFieldNomFormation.setText(formation.getNomFormation());
+            textFieldNbHeureTypeSeance.setText(Float.toString(formation.getDureeTypeSeance()));
+        }
 
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblNomFormation, contraintes);
@@ -74,7 +81,7 @@ public class PanelFormation extends JPanel implements ActionListener {
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         textFieldNomFormation.setPreferredSize(new Dimension(100, 30));
         panelFormation.add(textFieldNomFormation, contraintes);
-
+        
         contraintes.gridx = 2;
         contraintes.gridy = 0;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
@@ -85,37 +92,68 @@ public class PanelFormation extends JPanel implements ActionListener {
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(textFieldNbHeureTypeSeance, contraintes);
 
+        if(!formation.getModule().isEmpty())
+        {
+            for(Module unModule : formation.getModule())
+            {
+                JLabel lblModuleLoop = new JLabel("Nom du module");
+                contraintes.gridx = 0;
+                contraintes.gridy = xi;
+                contraintes.fill = GridBagConstraints.HORIZONTAL;
+                panelFormation.add(lblModuleLoop, contraintes);
+                
+                JTextField txtNomModule = new JTextField(unModule.getNomModule());
+                contraintes.gridx = 1;
+                contraintes.gridy = xi;
+                contraintes.fill = GridBagConstraints.HORIZONTAL;
+                panelFormation.add(txtNomModule, contraintes);
+                
+                JLabel lblModuleHeureLoop = new JLabel("Nombre de seances du module");
+                contraintes.gridx = 2;
+                contraintes.gridy = xi;
+                contraintes.fill = GridBagConstraints.HORIZONTAL;
+                panelFormation.add(lblModuleHeureLoop, contraintes);
+                
+                JTextField txtSeanceModule = new JTextField(Float.toString(unModule.getNbSeances()));
+                contraintes.gridx = 3;
+                contraintes.gridy = xi;
+                contraintes.fill = GridBagConstraints.HORIZONTAL;
+                panelFormation.add(txtSeanceModule, contraintes);
+                xi++;
+                
+                textFieldNbHeureTypeModule.add(txtSeanceModule);
+                textFieldModule.add(txtNomModule);
+            }
+        }
+        
         contraintes.gridx = 0;
-        contraintes.gridy = 2;
+        contraintes.gridy = xi;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblModule, contraintes);
 
         contraintes.gridx = 1;
-        contraintes.gridy = 2;
+        contraintes.gridy = xi;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         JTextField text = new JTextField();
         textFieldModule.add(text);
         text.setPreferredSize(new Dimension(100, 30));
-        panelFormation.add(textFieldModule.get(0), contraintes);
+        panelFormation.add(textFieldModule.get(xi-1), contraintes);
 
         contraintes.gridx = 2;
-        contraintes.gridy = 2;
+        contraintes.gridy = xi;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblModuleHeure, contraintes);
 
         contraintes.gridx = 3;
-        contraintes.gridy = 2;
+        contraintes.gridy = xi;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         JTextField textHeure = new JTextField();
         textFieldNbHeureTypeModule.add(textHeure);
         textHeure.setPreferredSize(new Dimension(100, 30));
-        panelFormation.add(textFieldNbHeureTypeModule.get(0), contraintes);
+        panelFormation.add(textFieldNbHeureTypeModule.get(xi-1), contraintes);
 
-        contraintes.gridx = 1;
-        contraintes.gridy = 4;
 
         boutonAjouter.addActionListener(this);
-        //panelFormation.add(boutonAjouter, contraintes);
         add(boutonAjouter);
 
         lblValider.setIcon(iconValidate);
@@ -137,7 +175,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                 Float nbHeureModule = null;
                 String nomModule = null;
                 String nbHeureModules = null;
-                //System.out.println(nomFormation + " " + nbHeureType);
                 ArrayList<String> ArrayString = new ArrayList<String>();
                 formation.setNomFormation(nomFormation);
                 formation.setDureeTypeSeance(nbHeureType);
@@ -159,7 +196,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                     i++;
                     formation.addModule(module);
                 }
-                System.out.println(formation);
             }
         });
 
