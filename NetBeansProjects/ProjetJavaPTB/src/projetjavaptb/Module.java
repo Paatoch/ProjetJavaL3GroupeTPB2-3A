@@ -15,11 +15,11 @@ import java.io.Serializable;
 
 public class Module implements Serializable  {
     private String nomModule ;
-    private float nbHeureModule ;
+    private int nbSeances ;
     
-    public Module (String parNomModule, float parNbHeureModule){
+    public Module (String parNomModule, int parNbSeance){
         this.nomModule = parNomModule;
-        this.nbHeureModule = parNbHeureModule;
+        this.nbSeances = parNbSeance;
         
     }
 
@@ -31,17 +31,17 @@ public class Module implements Serializable  {
         this.nomModule = nomModule;
     }
 
-    public float getNbHeureModule() {
-        return nbHeureModule;
+    public int getNbSeances() {
+        return nbSeances;
     }
 
-    public void setNbHeureModule(float nbHeureModule) {
-        this.nbHeureModule = nbHeureModule;
+    public void setNbSeances(int nbHeureModule) {
+        this.nbSeances = nbHeureModule;
     }
 
     public String toString (){
         String s = getNomModule() + 
-         "  qui dure  :" + nbHeureModule + " heures " +"\n";
+         "  qui contient  :" + nbSeances + " séances " +"\n";
        return s;
     }
     

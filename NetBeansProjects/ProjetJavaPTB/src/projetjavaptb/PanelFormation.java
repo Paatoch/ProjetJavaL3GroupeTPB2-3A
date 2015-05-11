@@ -155,7 +155,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                             nbHeureModule = Float.parseFloat(nbHeureModules);
                         }
                     }
-                    Module module = new Module(nomModule, Float.parseFloat(ArrayString.get(i)));
+                    Module module = new Module(nomModule, Integer.parseInt(ArrayString.get(i)));
                     i++;
                     formation.addModule(module);
                 }

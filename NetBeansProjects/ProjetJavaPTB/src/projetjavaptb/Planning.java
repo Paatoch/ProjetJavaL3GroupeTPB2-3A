@@ -18,7 +18,6 @@ import java.util.ArrayList;
 Cette classe represente la reservation d'un cours 
 Le planning entier / par mois 
 Il y aura donc une array Liste de Cours_Reservation
-
 c'est a remplir
 */
 
@@ -29,7 +28,7 @@ public class Planning {
             }
 
 	public String toString (){
-            String chaine = "" ;
+           String chaine = "" ;
            for ( int i=0; i<listePlanning.size() ; i++)
         {
             chaine += "\n" + listePlanning+ "\n" ;}

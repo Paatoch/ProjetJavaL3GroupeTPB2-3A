@@ -32,7 +32,7 @@ public class MethodesPourFichier {
             stream.close();
             System.out.println("Ecriture dans le fichier");
         } catch (IOException e) {
-            System.err.println("Erreur dans la m�thode ecriture de MethodesPourFichier");
+            System.err.println("Erreur dans la methode ecriture de MethodesPourFichier");
             e.printStackTrace();
         }
     }//ecriture

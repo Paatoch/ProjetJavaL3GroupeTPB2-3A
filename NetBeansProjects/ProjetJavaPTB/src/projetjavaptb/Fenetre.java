@@ -360,8 +360,9 @@ public class Fenetre extends JFrame implements ActionListener {
                     Point p = e.getPoint(); //recup la position de la souris 
                     int row = contentTemp.rowAtPoint(p); //indice de la ligne a cette position
                     int col = contentTemp.columnAtPoint(p); //indice colonne 
-                    JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
+                    //JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
                     tempMouse = e.getID();
+                    Formulaire_Cours formulaire =  new Formulaire_Cours ((int)contentTemp.getValueAt(row, col), anneeCourante,    listeMois.get(moisCourant),  formation);
                     }
                     else tempMouse = 0;
                 }

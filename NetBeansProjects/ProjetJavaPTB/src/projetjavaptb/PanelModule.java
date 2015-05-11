@@ -60,10 +60,10 @@ public class PanelModule extends JPanel implements ActionListener {
                             if(fe.getSource().equals(search))
                                 if(temp!= search.getText()) 
                                 {
-                                    float dureeModule = formation.getModule().get(i).getNbHeureModule();
+                                    int dureeModule = formation.getModule().get(i).getNbSeances();
                                     Module leModule1 = new Module(search.getText(), dureeModule);
                                     formation.getModule().set(i, leModule1);
-                                    System.out.println(leModule1.getNbHeureModule());
+                                    System.out.println(leModule1.getNbSeances());
                                 }
                             i++;
                         }
@@ -74,7 +74,7 @@ public class PanelModule extends JPanel implements ActionListener {
                 panelModule.add(listModulesName.get(lesModules), contraintes);
                 contraintes.gridy = yi;
                 contraintes.gridx = 1;
-                listModulesDuree.add(new JTextField(Float.toString(unModule.getNbHeureModule())));
+                listModulesDuree.add(new JTextField(Integer.toString(unModule.getNbSeances())));
                 listModulesDuree.get(lesModules).addFocusListener(new FocusListener() {
                      @Override
                     public void focusGained(FocusEvent fe) {
@@ -93,7 +93,7 @@ public class PanelModule extends JPanel implements ActionListener {
                                 {
                                     try{
                                         String nomModule = formation.getModule().get(i).getNomModule();
-                                        Module leModule1 = new Module(nomModule, Float.parseFloat(search.getText()));
+                                        Module leModule1 = new Module(nomModule, Integer.parseInt(search.getText()));
                                         formation.getModule().set(i, leModule1);
                                     }
                                     catch(NumberFormatException  e){
