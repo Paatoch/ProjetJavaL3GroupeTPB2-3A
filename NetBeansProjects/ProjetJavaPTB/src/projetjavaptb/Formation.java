@@ -20,6 +20,8 @@ public class Formation {
     protected Float dureeTypeSeance;
     protected ArrayList<Module> listeModule = new ArrayList<>();
 
+    public Formation(){}
+    
     public Formation(String nomFormation, Float parDureeTypeSeance, Module parModule) {
         this.nomFormation = nomFormation;
         this.dureeTypeSeance = parDureeTypeSeance;
@@ -62,6 +64,16 @@ public class Formation {
             }
         }
         return null;
+    }
+    
+    public void clear()
+    {
+        listeModule.clear();
+    }
+    //Ajouté par Teddy pour récupérer la liste de module
+    public ArrayList<Module> getModule()
+    {
+        return listeModule;
     }
     
     public String toString (){

@@ -11,11 +11,9 @@ package projetjavaptb;
  * @author BenjaminTabet
  */
 import java.awt.Color;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
 import java.awt.Font;
-import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 

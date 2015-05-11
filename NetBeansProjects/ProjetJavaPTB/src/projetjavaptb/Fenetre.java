@@ -46,6 +46,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
     public JComboBox comboAnnees = new JComboBox();
     public JLabel lblMois = new JLabel();
+    public final Formation formation = new Formation ();
     
     ImageIcon iconPrev = new ImageIcon("Images/prev.png");
     ImageIcon iconNext = new ImageIcon("Images/next.png");
@@ -70,7 +71,19 @@ public class Fenetre extends JFrame implements ActionListener {
      
     public String sMenuFormation = "Formation";
     public String sCreateFormation = "Ajouter";
-    public String sOpenFormation = "Consulter";
+    public String sOpenFormation = "Modifier";
+    
+    /*Création des composants de la fenêtre*/
+        JMenuBar mb = new JMenuBar();
+        JMenu menu = new JMenu(sMenu);
+        JMenuItem open = new JMenuItem(sOpen);
+        JMenuItem save = new JMenuItem(sSave);
+        JMenuItem create = new JMenuItem(sCreate);
+        JMenuItem close = new JMenuItem(sClose);
+        JMenu menuFormation = new JMenu (sMenuFormation);
+        JMenuItem openFormation = new JMenuItem(sOpenFormation);
+        JMenuItem createFormation = new JMenuItem(sCreateFormation);
+    
     // declaration JTABLE
     JTable contentTemp = new JTable();
         
@@ -111,7 +124,7 @@ public class Fenetre extends JFrame implements ActionListener {
         /*Définition de la couleur de fond de la fenêtre*/
         panelSource.setBackground(Color.GRAY);
         panelHaut.setBackground(Color.GRAY);
-
+        
         /*Création des composants de la fenêtre*/
         JMenuBar mb = new JMenuBar();
         JMenu menu = new JMenu(sMenu);
@@ -239,23 +252,35 @@ public class Fenetre extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (sClose.equals(e.getActionCommand())) {
+        if (e.getSource() == close) {
             /*Ouverture d'une fenetre de dialog pour quitter*/
             int reponse = JOptionPane.showConfirmDialog(this, "Quitter sans enregistrer?", "Quitter", WIDTH, JOptionPane.ERROR_MESSAGE);
             if (reponse == JOptionPane.YES_OPTION) {
                 System.exit(0);
             }
         }
-        if (sCreateFormation.equals(e.getActionCommand())){
-            PanelFormation panel = new PanelFormation ();
+        if (e.getSource() == createFormation){
+            PanelFormation panel = new PanelFormation (formation);
+            contentPanel.removeAll();
+            setContentPane(panel);
+            revalidate();
+            repaint ();
+        }
+        
+        if (e.getSource() == open){
+            
+        }
+        
+        if (e.getSource() == openFormation){
+            PanelModule panel = new PanelModule (formation);
             contentPanel.removeAll();
             setContentPane(panel);
             revalidate();
             repaint ();
         }
 
-        if (sCreate.equals(e.getActionCommand())) {
-
+        if (e.getSource() == create) {
+            
             for (int i = 0; i <= 2; i++) {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }

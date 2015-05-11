@@ -56,7 +56,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     int i = 1;
     JPanel panelFormation = new JPanel();
 
-    public PanelFormation() {
+    public PanelFormation(final Formation formation) {
         //this.setLayout(new GridBagLayout ());
 
         // Ajout des elements au panel`
@@ -139,9 +139,11 @@ public class PanelFormation extends JPanel implements ActionListener {
                 String nbHeureModules = null;
                 //System.out.println(nomFormation + " " + nbHeureType);
                 ArrayList<String> ArrayString = new ArrayList<String>();
-                Formation formation = new Formation(nomFormation, nbHeureType);
+                formation.setNomFormation(nomFormation);
+                formation.setDureeTypeSeance(nbHeureType);
 
                 int i = 0;
+                formation.clear();
                 for (JTextField text : textFieldModule) {
                     for (JTextField text2 : textFieldNbHeureTypeModule) {
                         if (text.getText().isEmpty()) {
@@ -157,7 +159,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                     i++;
                     formation.addModule(module);
                 }
-
                 System.out.println(formation);
             }
         });
@@ -166,7 +167,8 @@ public class PanelFormation extends JPanel implements ActionListener {
         //lblValider.setPreferredSize(new Dimension (20,50));
         contraintes.gridx = 1;
         contraintes.gridy = 5;
-
+        
+        
         add(panelFormation);
         setVisible(true);
         validate();
