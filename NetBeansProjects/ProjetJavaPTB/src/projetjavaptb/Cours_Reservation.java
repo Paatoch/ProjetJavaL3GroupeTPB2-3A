@@ -14,19 +14,41 @@ import java.io.Serializable;
  */
 
 /*
-Cette classe represente la reservation d'un cours 
-Il faudra donc récupéré les paramètres lors du click sur le bouton valider une réservation
-il y aura donc en paramètre :
+ Cette classe represente la reservation d'un cours 
+ Il faudra donc récupéré les paramètres lors du click sur le bouton valider une réservation
+ il y aura donc en paramètre :
 
-    - Jour
-    - Mois 
-    - Année
-    sélectionnés par l'utilisateur
-    - Formation + Module  
-    - Matin / après midi 
-*/
+ - Jour
+ - Mois 
+ - Année
+ sélectionnés par l'utilisateur
+ - Formation + Module  
+ - Matin / après midi 
+ */
+public class Cours_Reservation implements Serializable {
 
-public class Cours_Reservation implements Serializable{
-    
-    
+    private int jour, annee;
+    private String mois, formation, module;
+    private boolean matin, midi;
+
+    public Cours_Reservation() {
+    }
+
+    public Cours_Reservation(int un_jour, int une_annee, String un_mois, String une_formation, String un_module, boolean un_matin, boolean un_midi) {
+        jour = un_jour;
+        annee = une_annee;
+        mois = un_mois;
+        formation = une_formation;
+        module = un_module;
+        matin = un_matin;
+        midi = un_midi;
+    }
+    public String toString()
+    {
+        String chaine = jour + " " + mois + " " + annee + "\n" + formation + "\n" + module + "\n";
+        if(matin) chaine+= "Cours le matin.\n";
+        if(midi) chaine+= "Cours le midi.\n";
+        
+        return chaine;
+    }
 }
