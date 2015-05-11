@@ -140,25 +140,25 @@ public class PanelFormation extends JPanel implements ActionListener {
                 //System.out.println(nomFormation + " " + nbHeureType);
                 ArrayList<String> ArrayString = new ArrayList<String>();
                 Formation formation = new Formation(nomFormation, nbHeureType);
-                
+
                 int i = 0;
                 for (JTextField text : textFieldModule) {
                     for (JTextField text2 : textFieldNbHeureTypeModule) {
                         if (text.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
+                            JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
                         } else {
                             nomModule = text.getText();
                             ArrayString.add(text2.getText());
                             nbHeureModules = text2.getText();
                             nbHeureModule = Float.parseFloat(nbHeureModules);
                         }
-                }
+                    }
                     Module module = new Module(nomModule, Float.parseFloat(ArrayString.get(i)));
                     i++;
-                formation.addModule(module);  
+                    formation.addModule(module);
                 }
-               
-                System.out.println(formation);         
+
+                System.out.println(formation);
             }
         });
 
