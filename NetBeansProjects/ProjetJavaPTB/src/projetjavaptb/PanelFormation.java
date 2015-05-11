@@ -146,7 +146,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                 formation.clear();
                 for (JTextField text : textFieldModule) {
                     for (JTextField text2 : textFieldNbHeureTypeModule) {
-                        if (text.getText().isEmpty()) {
+                        if (nomFormation.isEmpty()) {
                             JOptionPane.showMessageDialog(panelFormation, "Veuillez renseigner une formation");
                         } else {
                             nomModule = text.getText();
@@ -180,7 +180,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == (boutonAjouter)) {
 
-            int reponse = JOptionPane.showConfirmDialog(this, "Voulez-vous ajouter une formation?", "Ajout", JOptionPane.YES_NO_CANCEL_OPTION);
+            int reponse = JOptionPane.showConfirmDialog(this, "Voulez-vous ajouter un module?", "Ajout", JOptionPane.YES_NO_CANCEL_OPTION);
             if (reponse == JOptionPane.YES_OPTION) {
                 // while (bool_Reponse = true) {
                 JTextField field = new JTextField();
@@ -206,7 +206,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                 contraintes.gridx = 2;
                 contraintes.gridy = 3 + i;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
-                panelFormation.add(new JLabel("Nombre d'heures du module"), contraintes);
+                panelFormation.add(new JLabel("Nombre de séances du module"), contraintes);
 
                 contraintes.gridx = 3;
                 contraintes.gridy = 3 + i;
@@ -217,7 +217,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                 validate();
                 repaint();
                 i++;
-                //  }
 
             } else {
                 bool_Reponse = false;
