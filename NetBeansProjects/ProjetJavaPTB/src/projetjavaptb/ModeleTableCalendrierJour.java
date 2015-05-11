@@ -48,8 +48,12 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
             }
         }
         this.setColumnCount(7);
-    }
+    
+         
+        
 
+    }
+    
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         /* Aucune colonne n'est editable*/

@@ -6,6 +6,7 @@
 package projetjavaptb;
 
 import Exception.*;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
-public class Formation {
+public class Formation implements Serializable {
 
     protected String nomFormation;
     protected Float dureeTypeSeance;
