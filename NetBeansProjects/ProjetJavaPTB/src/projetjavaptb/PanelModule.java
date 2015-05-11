@@ -41,9 +41,6 @@ public class PanelModule extends JPanel implements ActionListener {
         int yi = 0;
 
         //Début de la boucle sur chaque formation
-            JLabel lblNomFormation = new JLabel(formation.getNomFormation());
-            contraintes.fill = GridBagConstraints.BOTH;
-            panelModule.add(lblNomFormation, contraintes);
             for (Module unModule : formation.getModule()) {
                 contraintes.gridy = yi;
                 contraintes.gridx = 0;

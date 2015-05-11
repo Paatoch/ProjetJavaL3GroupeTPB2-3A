@@ -32,8 +32,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import projetjavaptb.ModeleTableCalendrierJour.MonCellRenderer;
 
@@ -47,8 +45,8 @@ public class Fenetre extends JFrame implements ActionListener {
 
     public JComboBox comboAnnees = new JComboBox();
     public JLabel lblMois = new JLabel();
-    public final Formation formation = new Formation ();
-    
+    public final Formation formation = new Formation();
+
     ImageIcon iconPrev = new ImageIcon("Images/prev.png");
     ImageIcon iconNext = new ImageIcon("Images/next.png");
     public ArrayList<String> listeMois;
@@ -58,43 +56,40 @@ public class Fenetre extends JFrame implements ActionListener {
     int moisCourant = 0;
     private JPanel panelSource = new JPanel(new BorderLayout());
     private JPanel panelHaut = new JPanel(new GridBagLayout());
-    private JPanel panelBas = new JPanel ();
+    private JPanel panelBas = new JPanel();
     private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     private int hauteur = (int) tailleEcran.getHeight();
     private int largeur = (int) tailleEcran.getWidth();
     private JPanel contentPanel = new JPanel(new GridBagLayout());
-    
+
     /*Création de chaine pour les noms utilisés dans la fenetre */
-    public String sMenu  = "Menu";
-    public String sOpen  = "Ouvrir";
-    public String sSave  = "Sauver";
+    public String sMenu = "Menu";
+    public String sOpen = "Ouvrir";
+    public String sSave = "Sauver";
     public String sCreate = "Créer";
     public String sClose = "Quitter";
-     
+
     public String sMenuFormation = "Formation";
     public String sCreateFormation = "Ajouter";
     public String sOpenFormation = "Modifier";
-    
+
     /*Création des composants de la fenêtre*/
-        JMenuBar mb = new JMenuBar();
-        JMenu menu = new JMenu(sMenu);
-        JMenuItem open = new JMenuItem(sOpen);
-        JMenuItem save = new JMenuItem(sSave);
-        JMenuItem create = new JMenuItem(sCreate);
-        JMenuItem close = new JMenuItem(sClose);
-        JMenu menuFormation = new JMenu (sMenuFormation);
-        JMenuItem openFormation = new JMenuItem(sOpenFormation);
-        JMenuItem createFormation = new JMenuItem(sCreateFormation);
-    
+    JMenuBar mb = new JMenuBar();
+    JMenu menu = new JMenu(sMenu);
+    JMenuItem open = new JMenuItem(sOpen);
+    JMenuItem save = new JMenuItem(sSave);
+    JMenuItem create = new JMenuItem(sCreate);
+    JMenuItem close = new JMenuItem(sClose);
+    JMenu menuFormation = new JMenu(sMenuFormation);
+    JMenuItem openFormation = new JMenuItem(sOpenFormation);
+    JMenuItem createFormation = new JMenuItem(sCreateFormation);
+
     // declaration JTABLE
     JTable contentTemp = new JTable();
 
-
-    
-    JLabel labelTeddy = new JLabel (" Teddy Blonbou  -   ");
-    JLabel labelPatrick = new JLabel ("Patrick Cabral  -   ");
-    JLabel labelBenjamin = new JLabel ("Benjamin Tabet    ");
-    
+    JLabel labelTeddy = new JLabel(" Teddy Blonbou  -   ");
+    JLabel labelPatrick = new JLabel("Patrick Cabral  -   ");
+    JLabel labelBenjamin = new JLabel("Benjamin Tabet    ");
 
     public Fenetre() {
         lblMois.setFont(new Font("Arial", Font.BOLD, 16));
@@ -132,19 +127,8 @@ public class Fenetre extends JFrame implements ActionListener {
         /*Définition de la couleur de fond de la fenêtre*/
         panelSource.setBackground(Color.GRAY);
         panelHaut.setBackground(Color.GRAY);
-        
-        /*Création des composants de la fenêtre*/
-        JMenuBar mb = new JMenuBar();
-        JMenu menu = new JMenu(sMenu);
-        JMenuItem open = new JMenuItem(sOpen);
-        JMenuItem save = new JMenuItem(sSave);
-        JMenuItem create = new JMenuItem(sCreate);
-        JMenuItem close = new JMenuItem(sClose);
-        JMenu menuFormation = new JMenu (sMenuFormation);
-        JMenuItem openFormation = new JMenuItem(sOpenFormation);
-        JMenuItem createFormation = new JMenuItem(sCreateFormation);
-        
-       // createFormation.addActionListener( new ListenerPanel1());
+
+        // createFormation.addActionListener( new ListenerPanel1());
 
         /* Affectation de raccourcis aux composants de la fenêtre*/
         menu.setMnemonic(KeyEvent.VK_M);
@@ -154,7 +138,7 @@ public class Fenetre extends JFrame implements ActionListener {
         create.setMnemonic(KeyEvent.VK_N);
 
         menuFormation.setMnemonic(KeyEvent.VK_F);
-        
+
         /*Ajout du Menu dans la MenuBar*/
         mb.add(menu);
         mb.add(menuFormation);
@@ -170,10 +154,9 @@ public class Fenetre extends JFrame implements ActionListener {
         /*Au démarrage la sauvegarde n'est pas visible*/
         save.setVisible(false);
 
-        /*Ajout du menuBar au Jpannel */       
+        /*Ajout du menuBar au Jpannel */
         this.setJMenuBar(mb);
-        
-       
+
         /*Ajout des Ècouteurs*/
         open.addActionListener(this);
         save.addActionListener(this);
@@ -183,7 +166,7 @@ public class Fenetre extends JFrame implements ActionListener {
         createFormation.addActionListener(this);
         comboAnnees.addItemListener(new ItemLesAnnees());
         validate();
-        
+
         /*Ajout des images uax labels */
         lblPrevMonth.setIcon(iconPrev);
         lblNextMonth.setIcon(iconNext);
@@ -191,17 +174,14 @@ public class Fenetre extends JFrame implements ActionListener {
         lblPrevMonth.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                if(moisCourant>0)
-                {
-                    moisCourant-=1;
+                if (moisCourant > 0) {
+                    moisCourant -= 1;
                     /*Récupération du nom du mois */
                     lblMois.setText(listeMois.get(moisCourant));
                     createCalendar(anneeCourante, moisCourant);
-                }
-                else
-                {
+                } else {
                     /*Condition dans le cas ou l'on passe à l'année précédante*/
-                    if(anneeCourante > Calendar.getInstance().get(Calendar.YEAR))   {
+                    if (anneeCourante > Calendar.getInstance().get(Calendar.YEAR)) {
                         moisCourant = 11;
                         anneeCourante -= 1;
                         comboAnnees.setSelectedItem(anneeCourante);
@@ -226,16 +206,13 @@ public class Fenetre extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent me) {
                 /*Si le mois courant est strictement inferieur a decembre alors on incremente de 1 le mois*/
-                if(moisCourant<11)
-                {
-                    moisCourant+=1;
+                if (moisCourant < 11) {
+                    moisCourant += 1;
                     lblMois.setText(listeMois.get(moisCourant));
                     lblMois.setVisible(true);
                     createCalendar(anneeCourante, moisCourant);
-                }
-                else
-                {
-                    if(anneeCourante < Calendar.getInstance().get(Calendar.YEAR) + 2)   {
+                } else {
+                    if (anneeCourante < Calendar.getInstance().get(Calendar.YEAR) + 2) {
                         moisCourant = 0;
                         /*Ajout d'une année dans le cas ou le mois est celui suivant Décembre*/
                         anneeCourante += 1;
@@ -256,15 +233,17 @@ public class Fenetre extends JFrame implements ActionListener {
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        
+
         panelBas.add(labelTeddy);
         panelBas.add(labelPatrick);
         panelBas.add(labelBenjamin);
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getSource());
+        System.out.println(close);
         if (e.getSource() == close) {
             /*Ouverture d'une fenetre de dialog pour quitter*/
             int reponse = JOptionPane.showConfirmDialog(this, "Quitter sans enregistrer?", "Quitter", WIDTH, JOptionPane.ERROR_MESSAGE);
@@ -272,37 +251,36 @@ public class Fenetre extends JFrame implements ActionListener {
                 System.exit(0);
             }
         }
-        if (e.getSource() == createFormation){
-            PanelFormation panel = new PanelFormation (formation);
+        if (e.getSource() == createFormation) {
+            PanelFormation panel = new PanelFormation(formation);
             contentPanel.removeAll();
             setContentPane(panel);
             revalidate();
-            repaint ();
+            repaint();
         }
-        
-        if (e.getSource() == open){
-            
+
+        if (e.getSource() == open) {
+
         }
-        
-        if (e.getSource() == openFormation){
-            PanelModule panel = new PanelModule (formation);
+
+        if (e.getSource() == openFormation) {
+            PanelModule panel = new PanelModule(formation);
             contentPanel.removeAll();
             setContentPane(panel);
             revalidate();
-            repaint ();
+            repaint();
         }
 
         if (e.getSource() == create) {
-            
+            comboAnnees.removeAllItems();
             for (int i = 0; i <= 2; i++) {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
             setContentPane(panelSource);
-            
-            
+
             panelSource.add(panelHaut, BorderLayout.NORTH);
             panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année et Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
-            
+
             //Affichage des boutons ameliorer
             //La combobox des annees est placee en haut et les labels des mois et les boutons en bas
             GridBagConstraints contraintes = new GridBagConstraints();
@@ -336,11 +314,10 @@ public class Fenetre extends JFrame implements ActionListener {
             createCalendar(anneeCourante, moisCourant);
             validate();
             repaint();
-            
+
         }
     }
 
-  
     private class ItemLesAnnees implements ItemListener {
 
         public void itemStateChanged(ItemEvent ie) {
@@ -350,12 +327,12 @@ public class Fenetre extends JFrame implements ActionListener {
             }
         }
     }
-    
+
     /*Class permettant la création du calendrier*/
     private void createCalendar(int uneAnnee, int unMois) {
         /*Suppression du contenu du panel*/
         contentPanel.removeAll();
-       
+
         contentPanel.setBorder(BorderFactory.createTitledBorder(null, "Planning", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         /*Création du calendrier grégorien*/
         GregorianCalendar startDate = new GregorianCalendar(uneAnnee, unMois, 1);
@@ -366,26 +343,25 @@ public class Fenetre extends JFrame implements ActionListener {
         int nbJour = startDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
-        
+
         ArrayList<JPanel> content = new ArrayList<>();
-        contentTemp.setDefaultRenderer(Object.class,new MonCellRenderer ());
-        
-        contentTemp.addMouseListener(new MouseAdapter(){ 
-            
-            
-             @Override 
-            public void mouseClicked(MouseEvent e) { 
-        
-                Point p=e.getPoint(); //recup la position de la souris 
-                int row=contentTemp.rowAtPoint(p); //indice de la ligne a cette position
-                int col = contentTemp.columnAtPoint(p); //indice colonne 
-                
-                JOptionPane.showMessageDialog(contentPanel,contentTemp.getValueAt(row,col)); //element a ligne row et colonne col 
-                
-            } 
-            
-            
-        });   
+        contentTemp.setDefaultRenderer(Object.class, new MonCellRenderer());
+
+        contentTemp.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Point p = e.getPoint(); //recup la position de la souris 
+                    int row = contentTemp.rowAtPoint(p); //indice de la ligne a cette position
+                    int col = contentTemp.columnAtPoint(p); //indice colonne 
+                    
+                    JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
+                }
+
+            }
+
+        });
         //JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
@@ -409,10 +385,10 @@ public class Fenetre extends JFrame implements ActionListener {
         contentPanel.getPreferredSize();
         panelSource.add(contentPanel, BorderLayout.CENTER);
         panelSource.add(panelBas, BorderLayout.SOUTH);
-       
-        labelBenjamin.setFont(new Font("Arial",Font.BOLD,14));
-        labelTeddy.setFont(new Font("Arial",Font.BOLD,14));
-        labelPatrick.setFont(new Font("Arial",Font.BOLD,14));
+
+        labelBenjamin.setFont(new Font("Arial", Font.BOLD, 14));
+        labelTeddy.setFont(new Font("Arial", Font.BOLD, 14));
+        labelPatrick.setFont(new Font("Arial", Font.BOLD, 14));
         validate();
     }
 }
