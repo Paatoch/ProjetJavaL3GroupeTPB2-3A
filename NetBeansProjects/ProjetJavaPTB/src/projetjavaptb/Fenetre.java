@@ -43,6 +43,8 @@ import projetjavaptb.ModeleTableCalendrierJour.MonCellRenderer;
  */
 public class Fenetre extends JFrame implements ActionListener {
 
+    int tempMouse = 0;
+    
     public JComboBox comboAnnees = new JComboBox();
     public JLabel lblMois = new JLabel();
     public final Formation formation = new Formation();
@@ -330,6 +332,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
     /*Class permettant la création du calendrier*/
     private void createCalendar(int uneAnnee, int unMois) {
+        
         /*Suppression du contenu du panel*/
         contentPanel.removeAll();
 
@@ -348,21 +351,25 @@ public class Fenetre extends JFrame implements ActionListener {
         contentTemp.setDefaultRenderer(Object.class, new MonCellRenderer());
 
         contentTemp.addMouseListener(new MouseAdapter() {
-
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                
                 if (e.getClickCount() == 2) {
+                    if(tempMouse != e.getID())
+                    {
                     Point p = e.getPoint(); //recup la position de la souris 
                     int row = contentTemp.rowAtPoint(p); //indice de la ligne a cette position
                     int col = contentTemp.columnAtPoint(p); //indice colonne 
-                    
                     JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
+                    tempMouse = e.getID();
+                    }
+                    else tempMouse = 0;
                 }
 
             }
 
         });
-        //JTable contentTemp = new JTable(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
+        
         contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
         JScrollPane Jpane = new JScrollPane(contentTemp);

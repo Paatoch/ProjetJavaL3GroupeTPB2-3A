@@ -23,6 +23,7 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
     Color c1 = new Color(0, 0, 0);
 
     public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines) {
+       
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
