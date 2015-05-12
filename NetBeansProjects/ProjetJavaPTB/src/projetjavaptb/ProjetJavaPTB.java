@@ -20,6 +20,8 @@ public class ProjetJavaPTB {
         if ("Nimbus".equals(info.getName())) {
             UIManager.setLookAndFeel(info.getClassName());
             break;
+            
+         
         }
     }
 } catch (Exception e) {

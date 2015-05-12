@@ -5,6 +5,7 @@
  */
 package projetjavaptb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,17 +22,21 @@ Il y aura donc une array Liste de Cours_Reservation
 c'est a remplir
 */
 
-public class Planning {
-    protected ArrayList<Cours_Reservation> listePlanning = new ArrayList<Cours_Reservation>();
+public class Planning implements Serializable{
+    protected ArrayList<Cours_Reservation> listePlanningC = new ArrayList<Cours_Reservation>();
+    protected Formation listePlanningF = new Formation();
 
-    public Planning( ) {
-            }
+    public Planning( ArrayList<Cours_Reservation> mesCours, Formation maFormation) 
+    {
+        listePlanningC = mesCours;
+        listePlanningF = maFormation;
+    }
 
 	public String toString (){
            String chaine = "" ;
-           for ( int i=0; i<listePlanning.size() ; i++)
+           for ( int i=0; i<listePlanningC.size() ; i++)
         {
-            chaine += "\n" + listePlanning+ "\n" ;}
+            chaine += "\n" + listePlanningC+ "\n" ;}
 	return chaine ; 
         }
 	

@@ -15,7 +15,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -30,9 +33,11 @@ public class PanelModule extends JPanel implements ActionListener {
     JPanel panelModule = new JPanel();
     ArrayList<JTextField> listModulesName = new ArrayList<>();
     ArrayList<JTextField> listModulesDuree = new ArrayList<>();
+    ArrayList<JTextField> listAbreviation = new ArrayList<>();
     ArrayList<JButton> listBoutonCouleur = new ArrayList<>();
+    ArrayList<JCheckBox> listCheckBox = new ArrayList<>();
     ArrayList <Color> listCouleur = new ArrayList <> ();
-   
+    
     String temp;
     Color couleur;
     String abreviation;
@@ -50,6 +55,7 @@ public class PanelModule extends JPanel implements ActionListener {
         for (Module unModule : formation.getModule()) {
             contraintes.gridy = yi;
             contraintes.gridx = 0;
+            listCouleur.add(unModule.getCouleurModule());
             listModulesName.add(new JTextField(unModule.getNomModule()));
             listModulesName.get(lesModules).addFocusListener(new FocusListener() {
                 @Override
@@ -81,8 +87,17 @@ public class PanelModule extends JPanel implements ActionListener {
             listModulesName.get(lesModules).setPreferredSize(new Dimension(100, 30));
             contraintes.fill = GridBagConstraints.HORIZONTAL;
             panelModule.add(listModulesName.get(lesModules), contraintes);
+            
+            JTextField uneAbreviation = new JTextField(unModule.getAbreviation());
+            uneAbreviation.setEnabled(false);
+            listAbreviation.add(uneAbreviation);
             contraintes.gridy = yi;
             contraintes.gridx = 1;
+            contraintes.fill = GridBagConstraints.HORIZONTAL;
+            panelModule.add(listAbreviation.get(yi), contraintes);
+            
+            contraintes.gridy = yi;
+            contraintes.gridx = 2;
             listModulesDuree.add(new JTextField(Integer.toString(unModule.getNbSeances())));
             listModulesDuree.get(lesModules).addFocusListener(new FocusListener() {
                 @Override
@@ -119,6 +134,69 @@ public class PanelModule extends JPanel implements ActionListener {
             listModulesDuree.get(lesModules).setPreferredSize(new Dimension(40, 30));
             contraintes.fill = GridBagConstraints.HORIZONTAL;
             panelModule.add(listModulesDuree.get(lesModules), contraintes);
+            
+            JCheckBox chkButton = new JCheckBox();
+            chkButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    int tempI = 0;
+                    for (JCheckBox search : listCheckBox) {
+                        if (ae.getSource().equals(search)) {
+                            listBoutonCouleur.get(tempI).setEnabled(true);
+                        }
+                        else
+                        {
+                            search.setEnabled(false);
+                            listBoutonCouleur.get(tempI).setSelected(false);
+                        }
+                        tempI++;
+                    }
+                }
+            });
+            chkButton.setSelected(false);
+            listCheckBox.add(chkButton);
+            contraintes.gridy = yi;
+            contraintes.gridx = 3;
+            contraintes.fill = GridBagConstraints.HORIZONTAL;
+            panelModule.add(chkButton, contraintes);
+            
+            JButton monBoutton = new JButton("Couleur");
+            monBoutton.setEnabled(false);
+            monBoutton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    int tempI = 0;
+                    for (JButton search : listBoutonCouleur) {
+                        if (ae.getSource().equals(search)) {
+                            if(search.isEnabled())
+                            {
+                                try {
+                                    Color couleur = JColorChooser.showDialog(null, "couleur du fond", Color.WHITE);
+                                    listCouleur.set(tempI, couleur);
+                                    JOptionPane.showMessageDialog(panelModule, "Couleur choisie");
+                                    for(JCheckBox x : listCheckBox) 
+                                    {
+                                        x.setEnabled(true);
+                                        x.setSelected(false);
+                                    }
+                                    search.setEnabled(false);
+                                    validate();
+                                    repaint();
+                                }
+                                catch (NullPointerException ex){
+
+                                }
+                            }
+                        }
+                        tempI++;
+                    }
+                }
+            });
+            listBoutonCouleur.add(monBoutton);
+            contraintes.gridy = yi;
+            contraintes.gridx = 4;
+            contraintes.fill = GridBagConstraints.HORIZONTAL;
+            panelModule.add(monBoutton, contraintes);
 
             //listCouleur.add(new JLabel());
             yi++;

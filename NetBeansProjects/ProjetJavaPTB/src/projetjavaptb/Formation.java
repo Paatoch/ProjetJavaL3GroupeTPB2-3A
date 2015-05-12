@@ -17,10 +17,12 @@ import java.util.ArrayList;
  */
 public class Formation implements Serializable {
 
+    /*Déclaration des variables*/
     protected String nomFormation;
     protected Float dureeTypeSeance;
     protected ArrayList<Module> listeModule = new ArrayList<>();
 
+    /*Constructeur vide*/
     public Formation(){}
     
     public Formation(String nomFormation, Float parDureeTypeSeance, Module parModule) {
@@ -35,6 +37,7 @@ public class Formation implements Serializable {
         this.dureeTypeSeance = nbHeureType;
     }
 
+   /*getters du nom de la formation*/
     public String getNomFormation() {
         return nomFormation;
     }
@@ -51,10 +54,12 @@ public class Formation implements Serializable {
         this.dureeTypeSeance = dureeTypeSeance;
     }
 
+    /*fonvtion permettant l'ajout d'un module*/
     public void addModule(Module parModule) {
         this.listeModule.add(parModule);
     }
 
+    /*Fonction permettant la récupération d'un module avec gestion d'exception*/
     public Module getModule(String parModule) throws Exception_Module {
         for (Module c : listeModule) {
 
@@ -67,15 +72,18 @@ public class Formation implements Serializable {
         return null;
     }
     
+    /*Fonction permettant de vider la liste des modules*/
     public void clear()
     {
         listeModule.clear();
     }
-    //Ajouté par Teddy pour récupérer la liste de module
+    
+    /*Fonction de récupération de la liste des modules*/
     public ArrayList<Module> getModule()
     {
         return listeModule;
     }
+    
     
     public String toString (){
         String s = "La formation  "+ getNomFormation() + " : " +"\n" +

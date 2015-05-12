@@ -1,11 +1,9 @@
 package projetjavaptb;
 
-import Exception.Exception_Module;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -63,7 +61,7 @@ public class Fenetre extends JFrame implements ActionListener {
     private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     private int hauteur = (int) tailleEcran.getHeight();
     private int largeur = (int) tailleEcran.getWidth();
-    private JPanel contentPanel = new JPanel(new GridBagLayout());
+    private final JPanel contentPanel = new JPanel(new GridBagLayout());
 
     /*Création de chaine pour les noms utilisés dans la fenetre */
     public String sMenu = "Menu";
@@ -155,7 +153,7 @@ public class Fenetre extends JFrame implements ActionListener {
         menuFormation.add(openFormation);
         menuFormation.add(createFormation);
         /*Au démarrage la sauvegarde n'est pas visible*/
-        save.setVisible(false);
+        save.setEnabled(false);
 
         /*Ajout du menuBar au Jpannel */
         this.setJMenuBar(mb);
@@ -260,10 +258,18 @@ public class Fenetre extends JFrame implements ActionListener {
             setContentPane(panel);
             revalidate();
             repaint();
+            save.setEnabled(true);
         }
 
         if (e.getSource() == open) {
-
+            MethodesPourFichier file = new MethodesPourFichier();
+            save.setEnabled(true);
+        }
+        
+        if (e.getSource() == save) {
+            Planning planning = new Planning( lesCours, formation);
+            MethodesPourFichier saveFile = new MethodesPourFichier();
+            saveFile.ecriture(planning);
         }
 
         if (e.getSource() == openFormation) {
@@ -272,6 +278,8 @@ public class Fenetre extends JFrame implements ActionListener {
             setContentPane(panel);
             revalidate();
             repaint();
+            
+            save.setEnabled(true);
         }
 
         if (e.getSource() == create) {
@@ -301,7 +309,6 @@ public class Fenetre extends JFrame implements ActionListener {
             contraintes.weighty = 1;
             panelHaut.add(lblPrevMonth, contraintes);
             //lesMois.setPreferredSize(new Dimension(50,50));
-            System.out.println(lblMois.toString());
             contraintes.insets = new Insets(2, 0, 4, 0);
             contraintes.gridx = 2;
             contraintes.gridy = 1;
@@ -317,7 +324,7 @@ public class Fenetre extends JFrame implements ActionListener {
             createCalendar(anneeCourante, moisCourant);
             validate();
             repaint();
-
+            save.setEnabled(true);
         }
     }
 
@@ -367,12 +374,12 @@ public class Fenetre extends JFrame implements ActionListener {
                         int maValeur;
                         try{
                             maValeur = (int)contentTemp.getValueAt(row-2, col);
-                            Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "midi");
+                            Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "midi", contentPanel);
                         }
                         catch(NullPointerException e1){
                             try{
                                 maValeur = (int)contentTemp.getValueAt(row-1, col);
-                                Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "matin");
+                                Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "matin", contentPanel);
                             }
                             catch(NullPointerException e2){
                             }

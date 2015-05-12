@@ -37,8 +37,10 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JButton boutonValiderCours = new JButton("Valider");
     private Formation uneFormation = new Formation();
     private ArrayList<Cours_Reservation> listeCours = new ArrayList<Cours_Reservation>();
+    private JPanel laFenetrePrincipal = new JPanel();
     
-    public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, final Formation formation, final ArrayList <Cours_Reservation> lesCours, String horaire) {
+    public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, final Formation formation, final ArrayList <Cours_Reservation> lesCours, String horaire, final JPanel contentPanel) {
+        laFenetrePrincipal = contentPanel;
         listeCours = lesCours;
         uneFormation = formation;
         this.jour = jour_cours;
@@ -120,7 +122,8 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, uneFormation.getNomFormation(), comboModules.getSelectedItem().toString(),checkMatin.isSelected(),checkAprem.isSelected());
         listeCours.add(cours);
-        
+        laFenetrePrincipal.repaint();
+        laFenetrePrincipal.validate();
         dispose();
     }
 

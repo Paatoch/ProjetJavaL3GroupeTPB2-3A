@@ -110,6 +110,8 @@ public class PanelFormation extends JPanel implements ActionListener {
                 contraintes.gridx = 1;
                 contraintes.gridy = xi;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
+                txtNomModule.setEditable(false);
+                txtNomModule.setBackground(Color.GRAY);
                 panelFormation.add(txtNomModule, contraintes);
 
                 JLabel lblModuleHeureLoop = new JLabel("Nombre de seances du module");
@@ -122,12 +124,15 @@ public class PanelFormation extends JPanel implements ActionListener {
                 contraintes.gridx = 3;
                 contraintes.gridy = xi;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
+                txtSeanceModule.setEditable(false);
+                txtSeanceModule.setBackground(Color.GRAY);
                 panelFormation.add(txtSeanceModule, contraintes);
 
                 JButton boutonCouleur = new JButton("Couleur");
                 contraintes.gridx = 4;
                 contraintes.gridy = xi;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
+                boutonCouleur.setEnabled(false);
                 panelFormation.add(boutonCouleur, contraintes);
                 xi++;
                 textFieldNbHeureTypeModule.add(txtSeanceModule);
@@ -201,14 +206,16 @@ public class PanelFormation extends JPanel implements ActionListener {
                     String nomModule = textFieldModule.get(x).getText();
                     int nbSeanceModules = Integer.parseInt(textFieldNbHeureTypeModule.get(x).getText());
                     Color uneCouleurModule = listcouleur.get(x);
-                    String uneAbreviation = nomFormation.substring(0, 2)+"-"+nomModule.substring(0, 2);
+                    String uneAbreviation;
+                    if(nomModule.length()<2 && nomFormation.length()<2) uneAbreviation = nomFormation;
+                    else if(nomFormation.length()<2) uneAbreviation = nomFormation.substring(0, 1)+"-"+nomModule;
+                    else uneAbreviation = nomFormation+"-"+nomModule.substring(0, 1);
                 
                 
                     Module module = new Module(nomModule, nbSeanceModules, uneCouleurModule, uneAbreviation);
                     //System.out.println(module);
                     formation.addModule(module);
                 }
-                System.out.println(formation);
             }
         });
 
@@ -240,11 +247,6 @@ public class PanelFormation extends JPanel implements ActionListener {
                 catch (NullPointerException ex){
                     
                 }
-                
-                 
-               
-                //xi++;
-                System.out.println(i);
             }
 
         }
