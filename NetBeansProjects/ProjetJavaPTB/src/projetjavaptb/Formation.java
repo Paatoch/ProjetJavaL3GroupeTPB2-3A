@@ -75,6 +75,8 @@ public class Formation implements Serializable {
     /*Fonction permettant de vider la liste des modules*/
     public void clear()
     {
+        nomFormation = null;
+        dureeTypeSeance = null;
         listeModule.clear();
     }
     
@@ -84,6 +86,12 @@ public class Formation implements Serializable {
         return listeModule;
     }
     
+    public void addAll(Formation uneFormation)
+    {
+        nomFormation = uneFormation.getNomFormation();
+        dureeTypeSeance = uneFormation.getDureeTypeSeance();
+        listeModule.addAll(uneFormation.getModule());
+    }
     
     public String toString (){
         String s = "La formation  "+ getNomFormation() + " : " +"\n" +

@@ -16,6 +16,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -262,8 +263,14 @@ public class Fenetre extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == open) {
-            MethodesPourFichier file = new MethodesPourFichier();
+            File file = new File("Sauvegarde/sauvegarde.bin");
+            Planning planning = (Planning)MethodesPourFichier.lecture(file);
+            lesCours.clear();
+            lesCours.addAll(planning.getListePlanningC());
+            formation.clear();
+            formation.addAll(planning.getListePlanningF());
             save.setEnabled(true);
+            createCalendar(anneeCourante, moisCourant);
         }
         
         if (e.getSource() == save) {

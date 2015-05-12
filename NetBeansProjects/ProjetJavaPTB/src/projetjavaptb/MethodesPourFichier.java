@@ -22,7 +22,7 @@ import java.io.ObjectOutputStream;
  */
 public class MethodesPourFichier {
 
-    private static String cheminBinaryFile = "Sauvegarde/sauvegarde";
+    private static String cheminBinaryFile = "Sauvegarde/sauvegarde.bin";
 
     public static void ecriture(Planning input) {
         ObjectOutputStream stream = null;
