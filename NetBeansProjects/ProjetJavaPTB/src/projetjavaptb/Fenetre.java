@@ -268,8 +268,7 @@ public class Fenetre extends JFrame implements ActionListener {
         
         if (e.getSource() == save) {
             Planning planning = new Planning( lesCours, formation);
-            MethodesPourFichier saveFile = new MethodesPourFichier();
-            saveFile.ecriture(planning);
+            MethodesPourFichier.ecriture(planning);
         }
 
         if (e.getSource() == openFormation) {

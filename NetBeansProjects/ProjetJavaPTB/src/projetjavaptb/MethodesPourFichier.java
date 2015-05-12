@@ -24,7 +24,7 @@ public class MethodesPourFichier {
 
     private static String cheminBinaryFile = "Sauvegarde/sauvegarde";
 
-    public void ecriture(Planning input) {
+    public static void ecriture(Planning input) {
         ObjectOutputStream stream = null;
         try {
             stream = new ObjectOutputStream(new FileOutputStream(cheminBinaryFile));
