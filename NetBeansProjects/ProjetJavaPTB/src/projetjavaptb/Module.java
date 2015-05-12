@@ -5,6 +5,7 @@
  */
 package projetjavaptb;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -12,16 +13,38 @@ import java.io.Serializable;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
+public class Module implements Serializable {
 
-public class Module implements Serializable  {
-    private String nomModule ;
-    private int nbSeances ;
-    
-    public Module (String parNomModule, int parNbSeance){
+    private String nomModule;
+    private int nbSeances;
+    Color couleurModule;
+    String abreviationModule;
+      
+    public Module(String parNomModule, int parNbSeance, Color parCouleurModule, String parAbreviationModule) {
         this.nomModule = parNomModule;
         this.nbSeances = parNbSeance;
-        
+        couleurModule = parCouleurModule;
+        abreviationModule = parAbreviationModule;
+
     }
+
+    public Color getCouleurModule() {
+        return couleurModule;
+    }
+
+    public void setCouleurModule(Color couleurModule) {
+        this.couleurModule = couleurModule;
+    }
+
+    public String getAbreviation() {
+        return abreviationModule;
+    }
+
+    public void setAbreviation(String abreviation) {
+        this.abreviationModule = abreviation;
+    }
+
+  
 
     public String getNomModule() {
         return nomModule;
@@ -39,11 +62,11 @@ public class Module implements Serializable  {
         this.nbSeances = nbHeureModule;
     }
 
-    public String toString (){
-        String s = getNomModule() + 
-         "  qui contient  :" + nbSeances + " séances " +"\n";
-       return s;
+    public String toString() {
+        String s = getNomModule()
+                + "  qui contient  :" + getNbSeances() + " séances " + "\n"
+                + " " + getCouleurModule ().toString() + "  " + getAbreviation() ;
+        return s;
     }
-    
 
 }

@@ -5,6 +5,7 @@
  */
 package projetjavaptb;
 
+import java.awt.Color;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,7 +45,7 @@ public class ModuleTest {
     public void testGetNomModule() {
         System.out.println("*****************");
         System.out.println("Test : getNomModule");
-        Module instance = new Module("java", 10);
+        Module instance = new Module("java", 10, Color.CYAN, "CH");
         String expResult = "java";
         String result = instance.getNomModule();
         assertEquals(expResult, result);
@@ -58,7 +59,7 @@ public class ModuleTest {
         System.out.println("*****************");
         System.out.println("Test : setNomModule");
         String nomModule = "java";
-        Module instance = new Module ("test" , 12);
+        Module instance = new Module ("test", 12, Color.CYAN, "CH");
         instance.setNomModule(nomModule);
         assertEquals(instance.getNomModule(), nomModule);
     }
@@ -70,7 +71,7 @@ public class ModuleTest {
     public void testGetNbSeances() {
         System.out.println("*****************");
         System.out.println("Test : getNbSeances");
-        Module instance = new Module ("java", 12);
+        Module instance = new Module ("test", 12, Color.CYAN, "CH");
         int expResult = 12;
         int result = instance.getNbSeances();
         assertEquals(expResult, result);
@@ -84,7 +85,7 @@ public class ModuleTest {
         System.out.println("*****************");
         System.out.println("Test : setNbSeances");
         int nbHeureModule = 12;
-        Module instance = new Module ( "java", 12);
+        Module instance = new Module ("test", 12, Color.CYAN, "CH");
         instance.setNbSeances(nbHeureModule);
         assertEquals(instance.getNbSeances(), nbHeureModule);
     }
@@ -96,7 +97,7 @@ public class ModuleTest {
     public void testToString() {
         System.out.println("*****************");
         System.out.println("Test : toString");
-        Module instance = new Module ( "java" , 12);
+        Module instance = new Module ("test", 12, Color.CYAN, "CH");
         String expResult = instance.getNomModule() + "  qui contient  :" + instance.getNbSeances() + " séances "+"\n";
         String result = instance.toString();
         assertEquals(expResult, result);

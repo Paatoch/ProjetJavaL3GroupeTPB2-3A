@@ -388,6 +388,7 @@ public class Fenetre extends JFrame implements ActionListener {
         contentTemp.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, lesCours, listeMois.get(unMois), uneAnnee));
         JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
         JScrollPane Jpane = new JScrollPane(contentTemp);
+        //Jpane.setSize(new Dimension(400,500));
         JScrollPane JpaneLeft = new JScrollPane(leftContent);
         JPanel temp = new JPanel(new BorderLayout());
         temp.add(Jpane, BorderLayout.CENTER);

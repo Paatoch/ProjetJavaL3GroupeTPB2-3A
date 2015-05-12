@@ -5,6 +5,7 @@
  */
 package projetjavaptb;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -99,7 +100,7 @@ public class FormationTest {
     public void testAddModule() {
         System.out.println("*****************");
         System.out.println("Test : addModule");
-        Module unModule = new Module("java", 10);
+        Module unModule = new Module("java", 10, Color.CYAN,"CH" );
         Module parModule = unModule;
         String chaine = unModule.toString();
 //        System.out.println(chaine);

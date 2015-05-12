@@ -95,9 +95,10 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 cell.setBackground(Color.GRAY);
             } else {
                 cell.setBackground(Color.WHITE);
-                this.setFont(new Font("Arial", Font.BOLD, 14));
+                //this.setFont(new Font("Arial", Font.BOLD, 14));
                 this.setForeground(Color.BLACK);
             }
+            
             return cell;
         }
     }

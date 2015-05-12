@@ -44,6 +44,7 @@ public class MethodesPourFichier {
             stream = new ObjectInputStream(new FileInputStream(fichier));
             resultat = (Object) stream.readObject();
             stream.close();
+            System.out.println("Lecture dans le fichier");
         } catch (IOException e) {
             System.err.println("Erreur d'entree / sortie dans la methode lecture de MethodesPourFichier");
             e.printStackTrace();
