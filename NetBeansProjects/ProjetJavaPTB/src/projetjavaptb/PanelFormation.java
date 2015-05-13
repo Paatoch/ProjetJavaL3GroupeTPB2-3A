@@ -65,8 +65,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     Color couleurModule;
 
     public PanelFormation(final Formation formation) {
-        //this.setLayout(new GridBagLayout ());
-
+       
         // Ajout des elements au panel`
         //this.add(label, contraintes);
         panelFormation.setBorder(new TitledBorder("Formation"));
@@ -75,11 +74,15 @@ public class PanelFormation extends JPanel implements ActionListener {
         panelFormation.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
 
-      /*  if (!formation.getModule().isEmpty()) {
+        if (!formation.getModule().isEmpty()) {
             textFieldNomFormation.setText(formation.getNomFormation());
             textFieldNbHeureTypeSeance.setText(Float.toString(formation.getDureeTypeSeance()));
-        }
-*/
+            textFieldNomFormation.setEditable(false);
+            textFieldNbHeureTypeSeance.setEditable(false);
+            textFieldNomFormation.setBackground(Color.LIGHT_GRAY);
+            textFieldNbHeureTypeSeance.setBackground(Color.LIGHT_GRAY);
+            }
+
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblNomFormation, contraintes);
 
@@ -111,7 +114,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                 contraintes.gridy = xi;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
                 txtNomModule.setEditable(false);
-                txtNomModule.setBackground(Color.GRAY);
+                txtNomModule.setBackground(Color.LIGHT_GRAY);
                 panelFormation.add(txtNomModule, contraintes);
 
                 JLabel lblModuleHeureLoop = new JLabel("Nombre de seances du module");
@@ -125,7 +128,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                 contraintes.gridy = xi;
                 contraintes.fill = GridBagConstraints.HORIZONTAL;
                 txtSeanceModule.setEditable(false);
-                txtSeanceModule.setBackground(Color.GRAY);
+                txtSeanceModule.setBackground(Color.LIGHT_GRAY);
                 panelFormation.add(txtSeanceModule, contraintes);
 
                 JButton boutonCouleur = new JButton("Couleur");
@@ -198,11 +201,12 @@ public class PanelFormation extends JPanel implements ActionListener {
                 String nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
                 System.out.println(nbHeureTypeS);
                 Float nbHeureType = Float.parseFloat(nbHeureTypeS);
+                
+                //int i = 0;
+                formation.clear();
                 formation.setNomFormation(nomFormation);
                 formation.setDureeTypeSeance(nbHeureType);
 
-                //int i = 0;
-                formation.clear();
                 for(int x=0 ; x<textFieldModule.size();x++)
                 {
                     String nomModule = textFieldModule.get(x).getText();

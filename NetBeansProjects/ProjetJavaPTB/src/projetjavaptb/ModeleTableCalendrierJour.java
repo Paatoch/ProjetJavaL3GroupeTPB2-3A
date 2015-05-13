@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -39,14 +40,16 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours, 1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours, 2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours.getModule(), 1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours.getModule(), 2, i);
+                            
                         }
                     }
                 }
             } else {
                 jourEnCours = 1;
                 this.setValueAt(1, 0, 6);
+                
             }
         }
 
@@ -61,6 +64,8 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                         {
                             if(unCours.isMatin())this.setValueAt(unCours, j+1, i);
                             if(unCours.isMidi())this.setValueAt(unCours, j+2, i);
+                           
+                            
                         }
                     }
                 }
@@ -97,9 +102,13 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 cell.setBackground(Color.WHITE);
                 //this.setFont(new Font("Arial", Font.BOLD, 14));
                 this.setForeground(Color.BLACK);
+               
             }
             
             return cell;
         }
+       
     }
+
+ 
 }

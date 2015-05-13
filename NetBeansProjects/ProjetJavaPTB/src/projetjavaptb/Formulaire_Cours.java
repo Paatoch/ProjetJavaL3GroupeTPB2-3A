@@ -123,6 +123,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, uneFormation.getNomFormation(), comboModules.getSelectedItem().toString(),checkMatin.isSelected(),checkAprem.isSelected());
         listeCours.add(cours);
         laFenetrePrincipal.repaint();
+        laFenetrePrincipal.getParent().validate();
         laFenetrePrincipal.validate();
         dispose();
     }

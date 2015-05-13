@@ -16,6 +16,7 @@ import java.io.Serializable;
  - Formation + Module  
  - Matin / après midi 
  */
+
 public class Cours_Reservation implements Serializable {
 
     private int jour, annee;

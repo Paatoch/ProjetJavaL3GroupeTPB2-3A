@@ -244,8 +244,8 @@ public class Fenetre extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getSource());
-        System.out.println(close);
+       // System.out.println(e.getSource());
+       // System.out.println(close);
         if (e.getSource() == close) {
             /*Ouverture d'une fenetre de dialog pour quitter*/
             int reponse = JOptionPane.showConfirmDialog(this, "Quitter sans enregistrer?", "Quitter", WIDTH, JOptionPane.ERROR_MESSAGE);
@@ -373,7 +373,7 @@ public void addPanel (){
             public void mouseClicked(MouseEvent e) {
                 
                 if (e.getClickCount() == 2) {
-                    System.out.println(e.getID());
+                    //System.out.println(e.getID());
                     if(tempMouse != e.getID())
                     {
                         Point p = e.getPoint(); //recup la position de la souris 
@@ -385,13 +385,15 @@ public void addPanel (){
                         try{
                             maValeur = (int)contentTemp.getValueAt(row-2, col);
                             Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "midi", contentPanel);
+                            validate();
                         }
                         catch(NullPointerException e1){
                             try{
                                 maValeur = (int)contentTemp.getValueAt(row-1, col);
                                 Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    listeMois.get(moisCourant),  formation, lesCours, "matin", contentPanel);
-                            }
-                            catch(NullPointerException e2){
+                                validate();
+                                }
+                        catch(NullPointerException e2){
                             }
                         }
                     }
@@ -431,4 +433,14 @@ public void addPanel (){
         labelPatrick.setFont(new Font("Arial", Font.BOLD, 14));
         validate();
     }
+    
+    @Override 
+public void repaint() 
+{ 
+//	repaint le component courant 
+super.repaint(); 
+//	repaint tous les components qu'il possède 
+for(int i = 0; i < this.countComponents(); i++) 
+this.getComponent(i).repaint(); 
+} 
 }

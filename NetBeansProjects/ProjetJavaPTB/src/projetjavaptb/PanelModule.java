@@ -49,8 +49,27 @@ public class PanelModule extends JPanel implements ActionListener {
         panelModule.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
         int lesModules = 0;
-        int yi = 0;
+        int yi = 1;
 
+        contraintes.gridy = 0;
+        contraintes.gridx = 0;
+        contraintes.fill = GridBagConstraints.HORIZONTAL;
+        JLabel lblNomModule = new JLabel ("Nom du module");
+        panelModule.add(lblNomModule, contraintes);
+        contraintes.gridy = 0;
+        contraintes.gridx = 1;
+         contraintes.fill = GridBagConstraints.HORIZONTAL;
+        JLabel abvModule = new JLabel ("Abreviation du module");
+        panelModule.add(abvModule, contraintes);
+        JLabel lblnbSeancesModule = new JLabel ("Nombre de séances du module");
+        contraintes.gridy = 0;
+        contraintes.gridx = 2;
+        panelModule.add(lblnbSeancesModule, contraintes);
+        JLabel lblCouleurModule = new JLabel ("Couleur Module");
+        contraintes.gridy = 0;
+        contraintes.gridx = 4;
+        panelModule.add(lblCouleurModule, contraintes);
+        
         //Début de la boucle sur chaque formation
         for (Module unModule : formation.getModule()) {
             contraintes.gridy = yi;
@@ -94,7 +113,7 @@ public class PanelModule extends JPanel implements ActionListener {
             contraintes.gridy = yi;
             contraintes.gridx = 1;
             contraintes.fill = GridBagConstraints.HORIZONTAL;
-            panelModule.add(listAbreviation.get(yi), contraintes);
+            panelModule.add(listAbreviation.get(yi-1), contraintes);
             
             contraintes.gridy = yi;
             contraintes.gridx = 2;
