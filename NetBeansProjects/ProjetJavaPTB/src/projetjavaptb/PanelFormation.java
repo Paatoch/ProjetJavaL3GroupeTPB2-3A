@@ -75,11 +75,11 @@ public class PanelFormation extends JPanel implements ActionListener {
         panelFormation.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
 
-        if (!formation.getModule().isEmpty()) {
+      /*  if (!formation.getModule().isEmpty()) {
             textFieldNomFormation.setText(formation.getNomFormation());
             textFieldNbHeureTypeSeance.setText(Float.toString(formation.getDureeTypeSeance()));
         }
-
+*/
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblNomFormation, contraintes);
 
@@ -194,7 +194,9 @@ public class PanelFormation extends JPanel implements ActionListener {
 
             public void mouseClicked(MouseEvent me) {
                 String nomFormation = textFieldNomFormation.getText();
+                System.out.println(nomFormation);
                 String nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
+                System.out.println(nbHeureTypeS);
                 Float nbHeureType = Float.parseFloat(nbHeureTypeS);
                 formation.setNomFormation(nomFormation);
                 formation.setDureeTypeSeance(nbHeureType);
@@ -215,6 +217,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                     Module module = new Module(nomModule, nbSeanceModules, uneCouleurModule, uneAbreviation);
                     //System.out.println(module);
                     formation.addModule(module);
+                    System.out.println(formation);
                 }
             }
         });

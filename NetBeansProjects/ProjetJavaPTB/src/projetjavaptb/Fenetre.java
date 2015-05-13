@@ -270,12 +270,13 @@ public class Fenetre extends JFrame implements ActionListener {
             formation.clear();
             formation.addAll(planning.getListePlanningF());
             save.setEnabled(true);
-            createCalendar(anneeCourante, moisCourant);
+            addPanel();
         }
         
         if (e.getSource() == save) {
             Planning planning = new Planning( lesCours, formation);
             MethodesPourFichier.ecriture(planning);
+            System.out.println(planning);
         }
 
         if (e.getSource() == openFormation) {
@@ -289,7 +290,11 @@ public class Fenetre extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == create) {
-            comboAnnees.removeAllItems();
+            addPanel();
+            }
+    }
+public void addPanel (){
+    comboAnnees.removeAllItems();
             for (int i = 0; i <= 2; i++) {
                 comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             }
@@ -331,9 +336,8 @@ public class Fenetre extends JFrame implements ActionListener {
             validate();
             repaint();
             save.setEnabled(true);
-        }
-    }
-
+        
+}
     private class ItemLesAnnees implements ItemListener {
 
         public void itemStateChanged(ItemEvent ie) {
