@@ -95,9 +95,7 @@ public class Cours_Reservation implements Serializable {
 
     public String toString()
     {
-        String chaine = jour + " " + mois + " " + annee + "\n" + formation + "\n" + module + "\n";
-        if(matin) chaine+= "Cours le matin.\n";
-        if(midi) chaine+= "Cours le midi.\n";
+        String chaine =  formation + "\n" + module + "\n";
         
         return chaine;
     }

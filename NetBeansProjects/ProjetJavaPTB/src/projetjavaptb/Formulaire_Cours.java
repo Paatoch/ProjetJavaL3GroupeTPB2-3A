@@ -120,6 +120,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, uneFormation.getNomFormation(), comboModules.getSelectedItem().toString(),checkMatin.isSelected(),checkAprem.isSelected());
         listeCours.add(cours);
         laFenetrePrincipal.repaint();

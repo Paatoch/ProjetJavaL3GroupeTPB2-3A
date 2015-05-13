@@ -54,8 +54,8 @@ public class PanelFormation extends JPanel implements ActionListener {
     ArrayList<JTextField> textFieldModule = new ArrayList<JTextField>();
     ArrayList<JTextField> textFieldNbHeureTypeModule = new ArrayList<JTextField>();
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
-    ArrayList <Color> listcouleur = new ArrayList <Color>();
-    private JButton boutonAjouter = new JButton("Ajouter Formation");
+    ArrayList<Color> listcouleur = new ArrayList<Color>();
+    private JButton boutonAjouter = new JButton("Ajouter Module");
     private boolean bool_Reponse;
     int i = 1;
     int xi = 1;
@@ -65,7 +65,7 @@ public class PanelFormation extends JPanel implements ActionListener {
     Color couleurModule;
 
     public PanelFormation(final Formation formation) {
-       
+
         // Ajout des elements au panel`
         //this.add(label, contraintes);
         panelFormation.setBorder(new TitledBorder("Formation"));
@@ -81,7 +81,7 @@ public class PanelFormation extends JPanel implements ActionListener {
             textFieldNbHeureTypeSeance.setEditable(false);
             textFieldNomFormation.setBackground(Color.LIGHT_GRAY);
             textFieldNbHeureTypeSeance.setBackground(Color.LIGHT_GRAY);
-            }
+        }
 
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblNomFormation, contraintes);
@@ -196,33 +196,59 @@ public class PanelFormation extends JPanel implements ActionListener {
             }
 
             public void mouseClicked(MouseEvent me) {
-                String nomFormation = textFieldNomFormation.getText();
-                System.out.println(nomFormation);
-                String nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
-                System.out.println(nbHeureTypeS);
-                Float nbHeureType = Float.parseFloat(nbHeureTypeS);
+
+                String nomFormation = null;
+                String nbHeureTypeS = null;
+                Float nbHeureType = null;
+                try {
+                    nomFormation = textFieldNomFormation.getText();
+                    System.out.println(nomFormation);
+                } catch (NumberFormatException excp) {
+                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                }
+                try {
+                    nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
+                    System.out.println(nbHeureTypeS);
+                    nbHeureType= Float.parseFloat(nbHeureTypeS);
+                } catch (NumberFormatException excp) {
+                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                }
+                Color uneCouleur = null;
+                int nbSeanceModules = 0;
                 
-                //int i = 0;
                 formation.clear();
                 formation.setNomFormation(nomFormation);
                 formation.setDureeTypeSeance(nbHeureType);
 
-                for(int x=0 ; x<textFieldModule.size();x++)
-                {
-                    String nomModule = textFieldModule.get(x).getText();
-                    int nbSeanceModules = Integer.parseInt(textFieldNbHeureTypeModule.get(x).getText());
-                    Color uneCouleurModule = listcouleur.get(x);
-                    String uneAbreviation;
-                    if(nomModule.length()<2 && nomFormation.length()<2) uneAbreviation = nomFormation;
-                    else if(nomFormation.length()<2) uneAbreviation = nomFormation.substring(0, 1)+"-"+nomModule;
-                    else uneAbreviation = nomFormation+"-"+nomModule.substring(0, 1);
-                
-                
-                    Module module = new Module(nomModule, nbSeanceModules, uneCouleurModule, uneAbreviation);
-                    //System.out.println(module);
-                    formation.addModule(module);
-                    System.out.println(formation);
+                for (int x = 0; x < textFieldModule.size(); x++) {
+                    try {
+                        String nomModule = textFieldModule.get(x).getText();
+                        nbSeanceModules = Integer.parseInt(textFieldNbHeureTypeModule.get(x).getText());
+                        String uneAbreviation;
+
+                        uneCouleur = listcouleur.get(x);
+                        if (nomModule.length() < 2 && nomFormation.length() < 2) {
+                            uneAbreviation = nomFormation;
+                        } else if (nomFormation.length() < 2) {
+                            uneAbreviation = nomFormation.substring(0, 1) + "-" + nomModule;
+                        } else {
+                            uneAbreviation = nomFormation + "-" + nomModule.substring(0, 1);
+                        }
+
+                        Module module = new Module(nomModule, nbSeanceModules, uneCouleur, uneAbreviation);
+                        formation.addModule(module);
+
+                    } catch (NumberFormatException excpetion) {
+                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                    } catch (NullPointerException exception) {
+                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                    } catch (IndexOutOfBoundsException exceptionE) {
+                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+
+                    }
+
                 }
+
             }
         });
 
@@ -243,16 +269,16 @@ public class PanelFormation extends JPanel implements ActionListener {
 
         for (int i = 0; i < buttonList.size(); i++) {
             if (e.getSource() == buttonList.get(i)) {
-                
+
                 try {
                     Color couleur = JColorChooser.showDialog(null, "couleur du fond", Color.WHITE);
                     listcouleur.add(couleur);
                     JOptionPane.showMessageDialog(panelFormation, "Couleur choisie");
                     buttonList.get(i).setEnabled(false);
-                    validate();repaint();
-                }
-                catch (NullPointerException ex){
-                    
+                    validate();
+                    repaint();
+                } catch (NullPointerException ex) {
+
                 }
             }
 
@@ -316,10 +342,10 @@ public class PanelFormation extends JPanel implements ActionListener {
 
         }
     }
-   /*public void paint( Graphics g, Color couleur, int x, int y)
-   {    g.setColor(couleur);
-	g.fillRect(x,y,10, 20);
+    /*public void paint( Graphics g, Color couleur, int x, int y)
+     {    g.setColor(couleur);
+     g.fillRect(x,y,10, 20);
 	
-   }*/
+     }*/
 
 }

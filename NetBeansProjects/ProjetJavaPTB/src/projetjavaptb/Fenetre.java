@@ -42,7 +42,7 @@ import projetjavaptb.ModeleTableCalendrierJour.MonCellRenderer;
  * @author BenjaminTabet
  */
 public class Fenetre extends JFrame implements ActionListener {
-
+    Planning planning;
     int tempMouse = 0;
     public final ArrayList<Cours_Reservation> lesCours = new ArrayList<Cours_Reservation>();
     public JComboBox comboAnnees = new JComboBox();
@@ -264,7 +264,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
         if (e.getSource() == open) {
             File file = new File("Sauvegarde/sauvegarde.bin");
-            Planning planning = (Planning)MethodesPourFichier.lecture(file);
+             planning = (Planning)MethodesPourFichier.lecture(file);
             lesCours.clear();
             lesCours.addAll(planning.getListePlanningC());
             formation.clear();

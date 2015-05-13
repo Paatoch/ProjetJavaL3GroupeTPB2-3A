@@ -40,8 +40,8 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours.getModule(), 1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours.getModule(), 2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours, 1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours, 2, i);
                             
                         }
                     }

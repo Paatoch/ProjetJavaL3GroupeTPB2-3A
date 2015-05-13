@@ -44,7 +44,7 @@ public class MethodesPourFichierTest {
     @Test
     public void testEcriture() {
         System.out.println("ecriture");
-        Object input = null;
+        Planning input = null;
         File cheminBinaryFile = null;
         MethodesPourFichier.ecriture(input, cheminBinaryFile);
         // TODO review the generated test code and remove the default call to fail.
