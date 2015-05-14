@@ -46,8 +46,9 @@ public class PanelFormation extends JPanel implements ActionListener {
     private JTextField textFieldNomFormation = new JTextField();
     private JLabel lblNomFormation = new JLabel("Nom de la formation");
     private JLabel lblNbHeureTypeSeance = new JLabel("Nombre d'heures type pour une séance");
-    private JLabel lblValider = new JLabel();
-    ImageIcon iconValidate = new ImageIcon("Images/validate.png");
+    //private JLabel lblValider = new JLabel();
+    private JButton boutonValider = new JButton("Valider formation");
+    //ImageIcon iconValidate = new ImageIcon("Images/validate.png");
     private JLabel lblModule = new JLabel("Nom du module");
     private JLabel lblModuleHeure = new JLabel("Nombre de seances du module");
 
@@ -63,9 +64,10 @@ public class PanelFormation extends JPanel implements ActionListener {
 
     String abreviation;
     Color couleurModule;
+    Formation maFormation;
 
     public PanelFormation(final Formation formation) {
-
+        maFormation = formation;
         // Ajout des elements au panel`
         //this.add(label, contraintes);
         panelFormation.setBorder(new TitledBorder("Formation"));
@@ -181,79 +183,11 @@ public class PanelFormation extends JPanel implements ActionListener {
             boutons.addActionListener(this);
         }
         boutonAjouter.addActionListener(this);
+        boutonValider.addActionListener(this);
+        add(boutonValider);
         add(boutonAjouter);
 
-        lblValider.setIcon(iconValidate);
-        lblValider.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
-
-            public void mouseClicked(MouseEvent me) {
-
-                String nomFormation = null;
-                String nbHeureTypeS = null;
-                Float nbHeureType = null;
-                try {
-                    nomFormation = textFieldNomFormation.getText();
-                    System.out.println(nomFormation);
-                } catch (NumberFormatException excp) {
-                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
-                }
-                try {
-                    nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
-                    System.out.println(nbHeureTypeS);
-                    nbHeureType= Float.parseFloat(nbHeureTypeS);
-                } catch (NumberFormatException excp) {
-                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
-                }
-                Color uneCouleur = null;
-                int nbSeanceModules = 0;
-                
-                formation.clear();
-                formation.setNomFormation(nomFormation);
-                formation.setDureeTypeSeance(nbHeureType);
-
-                for (int x = 0; x < textFieldModule.size(); x++) {
-                    try {
-                        String nomModule = textFieldModule.get(x).getText();
-                        nbSeanceModules = Integer.parseInt(textFieldNbHeureTypeModule.get(x).getText());
-                        String uneAbreviation;
-
-                        uneCouleur = listcouleur.get(x);
-                        if (nomModule.length() < 2 && nomFormation.length() < 2) {
-                            uneAbreviation = nomFormation;
-                        } else if (nomFormation.length() < 2) {
-                            uneAbreviation = nomFormation.substring(0, 1) + "-" + nomModule;
-                        } else {
-                            uneAbreviation = nomFormation + "-" + nomModule.substring(0, 1);
-                        }
-
-                        Module module = new Module(nomModule, nbSeanceModules, uneCouleur, uneAbreviation);
-                        formation.addModule(module);
-
-                    } catch (NumberFormatException excpetion) {
-                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
-                    } catch (NullPointerException exception) {
-                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
-                    } catch (IndexOutOfBoundsException exceptionE) {
-                        JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
-
-                    }
-
-                }
-
-            }
-        });
-
-        add(lblValider);
-        //lblValider.setPreferredSize(new Dimension (20,50));
         contraintes.gridx = 1;
         contraintes.gridy = 5;
 
@@ -283,6 +217,63 @@ public class PanelFormation extends JPanel implements ActionListener {
             }
 
         }
+        if (e.getSource() == boutonValider) {
+           int reponse = JOptionPane.showConfirmDialog(this, "Voulez-vous valider votre formation?", "Valider", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (reponse == JOptionPane.YES_OPTION) {
+            
+            String nomFormation = null;
+            String nbHeureTypeS = null;
+            Float nbHeureType = null;
+            try {
+                nomFormation = textFieldNomFormation.getText();
+                System.out.println(nomFormation);
+            } catch (NumberFormatException excp) {
+                JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+            }
+            try {
+                nbHeureTypeS = textFieldNbHeureTypeSeance.getText();
+                System.out.println(nbHeureTypeS);
+                nbHeureType = Float.parseFloat(nbHeureTypeS);
+            } catch (NumberFormatException excp) {
+                JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+            }
+            Color uneCouleur = null;
+            int nbSeanceModules = 0;
+
+            maFormation.clear();
+            maFormation.setNomFormation(nomFormation);
+            maFormation.setDureeTypeSeance(nbHeureType);
+
+            for (int x = 0; x < textFieldModule.size(); x++) {
+                try {
+                    String nomModule = textFieldModule.get(x).getText();
+                    nbSeanceModules = Integer.parseInt(textFieldNbHeureTypeModule.get(x).getText());
+                    String uneAbreviation;
+
+                    uneCouleur = listcouleur.get(x);
+                    if (nomModule.length() < 2 && nomFormation.length() < 2) {
+                        uneAbreviation = nomFormation;
+                    } else if (nomFormation.length() < 2) {
+                        uneAbreviation = nomFormation.substring(0, 1) + "-" + nomModule;
+                    } else {
+                        uneAbreviation = nomFormation + "-" + nomModule.substring(0, 1);
+                    }
+
+                    Module module = new Module(nomModule, nbSeanceModules, uneCouleur, uneAbreviation);
+                    maFormation.addModule(module);
+
+                } catch (NumberFormatException excpetion) {
+                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                } catch (NullPointerException exception) {
+                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+                } catch (IndexOutOfBoundsException exceptionE) {
+                    JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
+
+                }
+
+            }
+
+        }}
 
         if (e.getSource() == (boutonAjouter)) {
 
@@ -342,10 +333,5 @@ public class PanelFormation extends JPanel implements ActionListener {
 
         }
     }
-    /*public void paint( Graphics g, Color couleur, int x, int y)
-     {    g.setColor(couleur);
-     g.fillRect(x,y,10, 20);
-	
-     }*/
 
 }
