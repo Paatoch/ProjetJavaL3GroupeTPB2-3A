@@ -27,18 +27,18 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
         for (int i = 0; i < 7; i++) {
-            //if(i>=5) this.getColumnClass(i).
-            if (premierJour != 1) {
+             if (premierJour != 1) {
                 if (i >= premierJour - 2) {
                     jourEnCours++;
                     this.setValueAt(jourEnCours, 0, i);
                     for(Cours_Reservation unCours : Global.planning.getListePlanningC())
                     {
+                        
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
-                        {
-                            if(unCours.isMatin())this.setValueAt(unCours.getFormation(), 1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours.getFormation(), 2, i);
-                            
+                        {   if(unCours.isMatin()){
+                                this.setValueAt(unCours, 1, i);}
+                            if(unCours.isMidi())this.setValueAt(unCours, 2, i);
+                            System.out.println(unCours);
                         }
                     }
                 }
@@ -58,8 +58,8 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours.getFormation(), j+1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours.getFormation(), j+2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours, j+1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours, j+2, i);
                         }
                     }
                 }
@@ -92,12 +92,14 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
 
             if (column >= 5) {
                 cell.setBackground(Color.GRAY);
-            } else {
+            } 
+            else {
                 cell.setBackground(Color.WHITE);
                 //this.setFont(new Font("Arial", Font.BOLD, 14));
                 this.setForeground(Color.BLACK);
                
             }
+            
             
             return cell;
         }

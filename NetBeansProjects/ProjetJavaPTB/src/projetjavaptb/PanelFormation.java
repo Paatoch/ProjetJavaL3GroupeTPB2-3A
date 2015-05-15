@@ -5,8 +5,10 @@
  */
 package projetjavaptb;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -51,13 +53,16 @@ public class PanelFormation extends JPanel implements ActionListener {
     String nomFormation = null;
     JTextField moduleEncours = null;
     JPanel panelFormation = new JPanel();
+    JPanel panelBouton = new JPanel (new FlowLayout ());
 
     String abreviation;
     Color couleurModule;
 
     public PanelFormation() {
+        this.setLayout(new BorderLayout ());
         // Ajout des elements au panel`
         //this.add(label, contraintes);
+        panelFormation.getPreferredSize();
         panelFormation.setBorder(new TitledBorder("Formation"));
         panelFormation.setBackground(Color.GRAY);
         //panelFormation.setPreferredSize(new Dimension(500, 400));
@@ -111,11 +116,13 @@ public class PanelFormation extends JPanel implements ActionListener {
                 }
             });
         }
-
+        contraintes.gridx = 0;
+        contraintes.gridy = 0;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(lblNomFormation, contraintes);
 
         contraintes.gridx = 1;
+        contraintes.gridy = 0;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         textFieldNomFormation.setPreferredSize(new Dimension(100, 30));
         panelFormation.add(textFieldNomFormation, contraintes);
@@ -182,7 +189,7 @@ public class PanelFormation extends JPanel implements ActionListener {
         contraintes.gridx = 1;
         contraintes.gridy = xi;
         contraintes.fill = GridBagConstraints.HORIZONTAL;
-        JTextField text = new JTextField("");
+        JTextField text = new JTextField();
         textFieldModule.add(text);
         text.addFocusListener(new FocusListener() {
 
@@ -244,18 +251,16 @@ public class PanelFormation extends JPanel implements ActionListener {
         }
         boutonAjouter.addActionListener(this);
         boutonValider.addActionListener(this);
-        add(boutonValider);
-        add(boutonAjouter);
+        panelBouton.add(boutonAjouter);
+        panelBouton.add(boutonValider);
 
 
-        contraintes.gridx = 1;
-        contraintes.gridy = 5;
-
-        add(panelFormation);
+       
+        this.add(panelFormation, BorderLayout.NORTH);
+        this.add(panelBouton);
         setVisible(true);
         validate();
         repaint();
-        getPreferredSize();
 
     }
 
@@ -269,11 +274,11 @@ public class PanelFormation extends JPanel implements ActionListener {
                     if(textFieldModule.get(i).getText().equals(""))  
                     {
                         JOptionPane.showMessageDialog(panelFormation,"Le champs nom du module ne peut rester vide");
-                        textFieldModule.get(i).requestFocusInWindow();
+                        // textFieldModule.get(i).requestFocusInWindow();
                     }
                     else    { 
                         JOptionPane.showMessageDialog(panelFormation,"Le champs nombre de séance ne peut rester vide");
-                        textFieldNbHeureTypeModule.get(i).requestFocusInWindow();
+                        //textFieldNbHeureTypeModule.get(i).requestFocusInWindow();
                     }
                 }
                 else
@@ -308,12 +313,12 @@ public class PanelFormation extends JPanel implements ActionListener {
                         if(nomFormation == null)
                         {
                             JOptionPane.showMessageDialog(panelFormation,"Le nom d'une formation est vide");
-                            textFieldNomFormation.requestFocusInWindow();
+                            //textFieldNomFormation.requestFocusInWindow();
                         }
                         else
                         {
                             JOptionPane.showMessageDialog(panelFormation,"Le champs duree d'une formation est incorrect");
-                            textFieldNbHeureTypeSeance.requestFocusInWindow();
+                            //textFieldNbHeureTypeSeance.requestFocusInWindow();
                         }
                     }
                 }

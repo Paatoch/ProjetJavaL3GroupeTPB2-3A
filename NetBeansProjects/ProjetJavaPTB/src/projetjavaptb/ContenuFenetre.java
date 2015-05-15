@@ -39,6 +39,9 @@ public class ContenuFenetre extends JPanel {
     private JLabel lblSuiv = new JLabel();
     private JLabel lblMois = new JLabel();
     private JLabel labelTeddy = new JLabel(" Teddy Blonbou  -   ");
+
+    
+    
     private JLabel labelPatrick = new JLabel("Patrick Cabral  -   ");
     private JLabel labelBenjamin = new JLabel("Benjamin Tabet    ");
     private int anneeCourante, moisCourant;
@@ -48,10 +51,9 @@ public class ContenuFenetre extends JPanel {
     public ContenuFenetre() {
         RemplitLabel("new");
         setLayout(new BorderLayout());
-        add(panelHaut, BorderLayout.NORTH);
+        
         setBackground(Color.GRAY);
-        add(panelCalendrier, BorderLayout.CENTER);
-        add(panelBas, BorderLayout.SOUTH);
+        
         /****************/
         /***PANEL HAUT***/
         /****************/
@@ -125,7 +127,7 @@ public class ContenuFenetre extends JPanel {
         /***PANEL CALENDRIER***/
         /**********************/
         
-        panelCalendrier.getPreferredSize();
+        //panelCalendrier.getPreferredSize();
         
         /***************/
         /***PANEL BAS***/
@@ -137,6 +139,9 @@ public class ContenuFenetre extends JPanel {
         labelBenjamin.setFont(new Font("Arial", Font.BOLD, 14));
         labelTeddy.setFont(new Font("Arial", Font.BOLD, 14));
         labelPatrick.setFont(new Font("Arial", Font.BOLD, 14));
+        add(panelHaut, BorderLayout.NORTH);
+        add(panelCalendrier, BorderLayout.CENTER);
+        add(panelBas, BorderLayout.SOUTH);
     }
 
     /*public void setPlanning(Planning unPlanning) {
@@ -147,6 +152,10 @@ public class ContenuFenetre extends JPanel {
         repaint();
     }*/
 
+    public void setPanelCalendrier(JPanel panelCalendrier) {
+        this.panelCalendrier = panelCalendrier;
+    }
+    
     public void Affiche(String moment) {
         if(!premierFois)
         {

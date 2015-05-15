@@ -96,8 +96,7 @@ public class Cours_Reservation implements Serializable {
     @Override
     public String toString()
     {
-        String chaine =  getFormation() + "\n" + getModule() + "\n";
-        
+        String chaine =  getFormation() + "\n" + getModule() + "\n" +  " Matin " + isMatin() + " Aprem " +isMidi() ;
         return chaine;
     }
 }

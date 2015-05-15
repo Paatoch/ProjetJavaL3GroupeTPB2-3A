@@ -93,9 +93,13 @@ public class Fenetre extends JFrame implements ActionListener{
             PanelFormation panel = new PanelFormation();
             monContenu.getPanelHaut().setVisible(false);
             monContenu.getPanelCalendrier().removeAll();
-            monContenu.getPanelCalendrier().add(panel);
+           // monContenu.getPanelCalendrier().add(panel);
             monContenu.revalidate();
             monContenu.repaint();
+           
+            setContentPane(panel);
+            validate();
+            repaint();
             save.setEnabled(true);
             afficher.setEnabled(true);
             openFormation.setEnabled(true);            
@@ -105,23 +109,35 @@ public class Fenetre extends JFrame implements ActionListener{
             PanelModule panel = new PanelModule();
             monContenu.getPanelHaut().setVisible(false);
             monContenu.getPanelCalendrier().removeAll();
-            monContenu.getPanelCalendrier().add(panel);
+            //monContenu.getPanelCalendrier().add(panel);
+            
+            setContentPane(panel);
+            validate();
+            repaint();
             monContenu.revalidate();
             monContenu.repaint();
         }
         
         if (ae.getSource() == afficher) {
+            setContentPane(monContenu);
             monContenu.getPanelCalendrier().removeAll();
             monContenu.getPanelHaut().setVisible(true);
             monContenu.Affiche("");
+            validate();
+            repaint();
         }
         
         if (ae.getSource() == open) {
+            
+            setContentPane(monContenu);
+            validate();
+            repaint();
             monContenu.getPanelHaut().setVisible(true);
             monContenu.getPanelCalendrier().removeAll();
             File file = new File("Sauvegarde/sauvegarde.bin");
             Global.planning = (Planning)MethodesPourFichier.lecture(file);
-            //monContenu.setPlanning(Global.planning);
+            System.out.println(Global.planning);//monContenu.setPlanning(Global.planning);
+            
             monContenu.Affiche("");
             afficher.setEnabled(true);
             save.setEnabled(true);
@@ -134,6 +150,9 @@ public class Fenetre extends JFrame implements ActionListener{
         }
 
         if (ae.getSource() == create) {
+            setContentPane(monContenu);
+            validate();
+            repaint();
             Global.planning.clear();
             monContenu.getPanelCalendrier().removeAll();
             monContenu.Affiche("new");

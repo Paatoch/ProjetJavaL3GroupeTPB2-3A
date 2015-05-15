@@ -32,7 +32,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JLabel horaire = new JLabel();
 
     private JButton boutonValiderCours = new JButton("Valider");
-    
+
     public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, String horaire) {
         this.jour = jour_cours;
         this.annee = annee_cours;
@@ -40,56 +40,74 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         labelDate.setText(jour + "  " + mois + "  " + "  " + annee);
         labelFormation.setText(Global.planning.getListePlanningF().getNomFormation());
         String selectComboBox = "nOn";
-        
+
         this.horaire.setText(horaire);
-        for(Cours_Reservation ceCours : Global.planning.getListePlanningC())
-        {
-            if(jour == ceCours.getJour() && mois == ceCours.getMois() && annee == ceCours.getAnnee())
-            {
-                if(horaire == "matin")
-                {
+        for (Cours_Reservation ceCours : Global.planning.getListePlanningC()) {
+            System.out.println("jour" + jour + "cejour" + ceCours.getJour());
+            System.out.println(" mois" + mois + " cemois" + ceCours.getMois());
+            System.out.println(" annee" + annee + " cetteAnnee" + ceCours.getAnnee());
+
+            if (jour == ceCours.getJour() && mois.equals(ceCours.getMois()) && annee == ceCours.getAnnee()) {
+                System.out.println("TestTest2");
+                if (horaire.equals("matin")) {
+                    System.out.println("TestTest2");
                     matin = true;
                     midi = false;
-                    if(ceCours.isMatin())   selectComboBox = ceCours.getModule();
-                }
-                else if(ceCours.isMidi()){
+                    if (ceCours.isMatin()) {
+                        selectComboBox = ceCours.getModule();
+                    }
+                } else if (horaire.equals("midi")) {
+                    System.out.println("TestTest3");
                     midi = true;
                     matin = false;
                     selectComboBox = ceCours.getModule();
                 }
             }
         }
-        
+
         for (Module unModule : Global.planning.getListePlanningF().getModule()) {
             comboModules.addItem(unModule.getNomModule());
         }
-        if(!selectComboBox.equals("nOn"))   comboModules.setSelectedItem(selectComboBox);
-        
+        if (!selectComboBox.equals("nOn")) {
+            comboModules.setSelectedItem(selectComboBox);
+        }
+
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy= 0;
+        c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.CENTER;
         panelFormulaire.add(labelDate, c);
         c.gridx = 0;
-        c.gridy= 1;
+        c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
         panelFormulaire.add(this.horaire, c);
         c.gridx = 0;
-        c.gridy= 2;
+        c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
-        panelFormulaire.add(labelFormation,c);
+        panelFormulaire.add(labelFormation, c);
         c.gridx = 0;
-        c.gridy= 3;
+        c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         panelFormulaire.add(comboModules, c);
         c.gridx = 0;
-        c.gridy= 4; 
+        c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
         
-        panelFormulaire.add(boutonValiderCours,c);
+        /* verif si c'est le matin ou l'après midi */
+        
+        if (horaire.equals("matin")) {
+            System.out.println("TestTest2");
+            matin = true;
+            midi = false;
+        } else if (horaire.equals("midi")) {
+            System.out.println("TestTest3");
+            midi = true;
+            matin = false;
+        }
+        panelFormulaire.add(boutonValiderCours, c);
         boutonValiderCours.addActionListener(this);
         // Ajout informations fenetre
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -101,10 +119,10 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), comboModules.getSelectedItem().toString(),matin,midi);
+        Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), comboModules.getSelectedItem().toString(), matin, midi);
+        System.out.println(cours);
         Global.planning.getListePlanningC().add(cours);
         dispose();
     }

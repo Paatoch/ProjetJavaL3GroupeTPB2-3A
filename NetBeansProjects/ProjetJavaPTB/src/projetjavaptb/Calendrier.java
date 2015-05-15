@@ -60,10 +60,11 @@ public class Calendrier extends JPanel {
                     try{
                         maValeur = (int)tableauCalendrier.getValueAt(row-2, col);
                         Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,Global.listeMois.get(moisCourant), "midi");
-                    }
+                         }
                     catch(NullPointerException e1){
                         try{
                             maValeur = (int)tableauCalendrier.getValueAt(row-1, col);
+                           // tableauCalendrier.setValueAt("ggggg",row-1, col);
                             Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    Global.listeMois.get(moisCourant), "matin");
                             }
                     catch(NullPointerException e2){
@@ -76,7 +77,6 @@ public class Calendrier extends JPanel {
         });
         ArrayList<JPanel> content = new ArrayList<>();
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
-        JTable leftContent = new JTable(new ModeleTableCalendrierPeriode(nbSemaine));
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
         JPanel temp = new JPanel(new BorderLayout());
