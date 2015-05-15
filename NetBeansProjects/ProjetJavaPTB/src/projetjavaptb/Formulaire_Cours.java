@@ -94,7 +94,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         // Ajout informations fenetre
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("Formulaire ajout cours");
-        this.setSize(400, 500);
+        this.setSize(150, 300);
         this.setLocationRelativeTo(null);
         this.setContentPane(panelFormulaire);
         this.setVisible(true);

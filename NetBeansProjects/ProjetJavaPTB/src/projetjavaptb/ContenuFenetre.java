@@ -60,11 +60,9 @@ public class ContenuFenetre extends JPanel {
         /*
          * Ajout des données dans la liste déroulante des années *
          */
-        comboAnnees.addItem("");
         for (int i = 0; i <= 2; i++) {
             comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
         }
-        comboAnnees.setSelectedIndex(0);
 
         /*
          * Positionnement de la liste déroulate *
@@ -127,7 +125,7 @@ public class ContenuFenetre extends JPanel {
         /***PANEL CALENDRIER***/
         /**********************/
         
-        //panelCalendrier.add(monCalendrier);
+        panelCalendrier.getPreferredSize();
         
         /***************/
         /***PANEL BAS***/

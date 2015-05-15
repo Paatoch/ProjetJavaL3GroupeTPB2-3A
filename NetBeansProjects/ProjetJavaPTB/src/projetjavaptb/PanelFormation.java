@@ -177,6 +177,7 @@ public class PanelFormation extends JPanel implements ActionListener {
         setVisible(true);
         validate();
         repaint();
+        getPreferredSize();
 
     }
 

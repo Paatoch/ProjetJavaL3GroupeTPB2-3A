@@ -225,6 +225,8 @@ public class PanelModule extends JPanel implements ActionListener {
         setVisible(true);
         validate();
         repaint();
+        
+        getPreferredSize();
     }
 
     @Override
