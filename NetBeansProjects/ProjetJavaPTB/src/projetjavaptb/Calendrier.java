@@ -50,31 +50,25 @@ public class Calendrier extends JPanel {
         tableauCalendrier.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
                 if (e.getClickCount() == 2) {
-                    //System.out.println(e.getID());
-                    if(tempMouse != e.getID())
-                    {
-                        Point p = e.getPoint(); //recup la position de la souris 
-                        int row = tableauCalendrier.rowAtPoint(p); //indice de la ligne a cette position
-                        int col = tableauCalendrier.columnAtPoint(p); //indice colonne 
-                        //JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
-                        tempMouse = e.getID();
-                        int maValeur;
+                    Point p = e.getPoint(); //recup la position de la souris 
+                    int row = tableauCalendrier.rowAtPoint(p); //indice de la ligne a cette position
+                    int col = tableauCalendrier.columnAtPoint(p); //indice colonne 
+                    //JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
+                    tempMouse = e.getID();
+                    int maValeur;
+                    try{
+                        maValeur = (int)tableauCalendrier.getValueAt(row-2, col);
+                        Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,Global.listeMois.get(moisCourant), "midi");
+                    }
+                    catch(NullPointerException e1){
                         try{
-                            maValeur = (int)tableauCalendrier.getValueAt(row-2, col);
-                            Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,Global.listeMois.get(moisCourant), "midi");
-                        }
-                        catch(NullPointerException e1){
-                            try{
-                                maValeur = (int)tableauCalendrier.getValueAt(row-1, col);
-                                Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    Global.listeMois.get(moisCourant), "matin");
-                                }
-                        catch(NullPointerException e2){
+                            maValeur = (int)tableauCalendrier.getValueAt(row-1, col);
+                            Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,    Global.listeMois.get(moisCourant), "matin");
                             }
+                    catch(NullPointerException e2){
                         }
                     }
-                    else tempMouse = 0;
                 }
 
             }

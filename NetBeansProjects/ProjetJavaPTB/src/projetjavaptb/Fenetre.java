@@ -111,7 +111,6 @@ public class Fenetre extends JFrame implements ActionListener{
         }
         
         if (ae.getSource() == afficher) {
-            System.out.println("ierufnsiun");
             monContenu.getPanelCalendrier().removeAll();
             monContenu.getPanelHaut().setVisible(true);
             monContenu.Affiche("");

@@ -17,7 +17,7 @@ public class Module implements Serializable {
 
     private String nomModule;
     private int nbSeances;
-    Color couleurModule;
+    private Color couleurModule;
     String abreviationModule;
       
     public Module(String parNomModule, int parNbSeance, Color parCouleurModule, String parAbreviationModule) {
