@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class Formation implements Serializable {
 
     /*Déclaration des variables*/
-    protected String nomFormation;
-    protected Float dureeTypeSeance;
-    protected ArrayList<Module> listeModule = new ArrayList<>();
+    private String nomFormation;
+    private Float dureeTypeSeance;
+    private ArrayList<Module> listeModule = new ArrayList<>();
 
     /*Constructeur vide*/
     public Formation(){}
@@ -33,7 +33,7 @@ public class Formation implements Serializable {
     }
 
    public  Formation(String nomFormation, Float nbHeureType) {
-         this.nomFormation = nomFormation;
+        this.nomFormation = nomFormation;
         this.dureeTypeSeance = nbHeureType;
     }
 

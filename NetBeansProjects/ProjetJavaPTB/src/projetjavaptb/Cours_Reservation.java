@@ -93,9 +93,10 @@ public class Cours_Reservation implements Serializable {
         this.midi = midi;
     }
 
+    @Override
     public String toString()
     {
-        String chaine =  formation + "\n" + module + "\n";
+        String chaine =  getFormation() + "\n" + getModule() + "\n";
         
         return chaine;
     }

@@ -23,8 +23,10 @@ c'est a remplir
 */
 
 public class Planning implements Serializable{
-    public ArrayList<Cours_Reservation> listePlanningC = new ArrayList<Cours_Reservation>();
-    protected Formation listePlanningF = new Formation();
+    private ArrayList<Cours_Reservation> listePlanningC = new ArrayList<Cours_Reservation>();
+    private Formation listePlanningF = new Formation();
+    
+    public Planning(){}
     
     public Planning( ArrayList<Cours_Reservation> mesCours, Formation maFormation) 
     {
@@ -37,6 +39,7 @@ public class Planning implements Serializable{
     }
 
     public void setListePlanningC(ArrayList<Cours_Reservation> listePlanningC) {
+        this.listePlanningC.clear();
         this.listePlanningC = listePlanningC;
     }
 
@@ -48,6 +51,12 @@ public class Planning implements Serializable{
         this.listePlanningF = listePlanningF;
     }
 
+    public void clear()
+    {
+        listePlanningC.clear();
+        listePlanningF.clear();
+    }
+    
     public String toString (){
        String chaine = "" ;
        for ( int i=0; i<listePlanningC.size() ; i++)

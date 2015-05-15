@@ -13,9 +13,6 @@ package projetjavaptb;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -23,10 +20,9 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
 
     int jourEnCours = 0;
     Color c1 = new Color(0, 0, 0);
-    public ArrayList<Cours_Reservation> nosCours = new ArrayList<Cours_Reservation>();
     
-    public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines, final ArrayList<Cours_Reservation> lesCours, String leMois, int leAnnee) {
-        nosCours = lesCours;
+    
+    public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines, String leMois, int leAnnee) {
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
@@ -36,12 +32,12 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 if (i >= premierJour - 2) {
                     jourEnCours++;
                     this.setValueAt(jourEnCours, 0, i);
-                    for(Cours_Reservation unCours : nosCours)
+                    for(Cours_Reservation unCours : Global.planning.getListePlanningC())
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours, 1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours, 2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours.getFormation(), 1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours.getFormation(), 2, i);
                             
                         }
                     }
@@ -58,14 +54,12 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 jourEnCours++;
                 if (jourEnCours <= nbJourMois) {
                     this.setValueAt(jourEnCours, j, i);
-                    for(Cours_Reservation unCours : nosCours)
+                    for(Cours_Reservation unCours : Global.planning.getListePlanningC())
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours, j+1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours, j+2, i);
-                           
-                            
+                            if(unCours.isMatin())this.setValueAt(unCours.getFormation(), j+1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours.getFormation(), j+2, i);
                         }
                     }
                 }

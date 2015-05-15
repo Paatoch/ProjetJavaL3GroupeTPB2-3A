@@ -6,32 +6,17 @@
 package projetjavaptb;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -57,17 +42,14 @@ public class PanelFormation extends JPanel implements ActionListener {
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
     ArrayList<Color> listcouleur = new ArrayList<Color>();
     private JButton boutonAjouter = new JButton("Ajouter Module");
-    private boolean bool_Reponse;
     int i = 1;
     int xi = 1;
     JPanel panelFormation = new JPanel();
 
     String abreviation;
     Color couleurModule;
-    Formation maFormation;
 
-    public PanelFormation(final Formation formation) {
-        maFormation = formation;
+    public PanelFormation() {
         // Ajout des elements au panel`
         //this.add(label, contraintes);
         panelFormation.setBorder(new TitledBorder("Formation"));
@@ -76,9 +58,9 @@ public class PanelFormation extends JPanel implements ActionListener {
         panelFormation.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
 
-        if (!formation.getModule().isEmpty()) {
-            textFieldNomFormation.setText(formation.getNomFormation());
-            textFieldNbHeureTypeSeance.setText(Float.toString(formation.getDureeTypeSeance()));
+        if (!Global.planning.getListePlanningF().getModule().isEmpty()) {
+            textFieldNomFormation.setText(Global.planning.getListePlanningF().getNomFormation());
+            textFieldNbHeureTypeSeance.setText(Float.toString(Global.planning.getListePlanningF().getDureeTypeSeance()));
             textFieldNomFormation.setEditable(false);
             textFieldNbHeureTypeSeance.setEditable(false);
             textFieldNomFormation.setBackground(Color.LIGHT_GRAY);
@@ -103,8 +85,8 @@ public class PanelFormation extends JPanel implements ActionListener {
         contraintes.fill = GridBagConstraints.HORIZONTAL;
         panelFormation.add(textFieldNbHeureTypeSeance, contraintes);
 
-        if (!formation.getModule().isEmpty()) {
-            for (Module unModule : formation.getModule()) {
+        if (!Global.planning.getListePlanningF().getModule().isEmpty()) {
+            for (Module unModule : Global.planning.getListePlanningF().getModule()) {
                 JLabel lblModuleLoop = new JLabel("Nom du module");
                 contraintes.gridx = 0;
                 contraintes.gridy = xi;
@@ -240,9 +222,9 @@ public class PanelFormation extends JPanel implements ActionListener {
             Color uneCouleur = null;
             int nbSeanceModules = 0;
 
-            maFormation.clear();
-            maFormation.setNomFormation(nomFormation);
-            maFormation.setDureeTypeSeance(nbHeureType);
+            Global.planning.getListePlanningF().clear();
+            Global.planning.getListePlanningF().setNomFormation(nomFormation);
+            Global.planning.getListePlanningF().setDureeTypeSeance(nbHeureType);
 
             for (int x = 0; x < textFieldModule.size(); x++) {
                 try {
@@ -260,7 +242,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                     }
 
                     Module module = new Module(nomModule, nbSeanceModules, uneCouleur, uneAbreviation);
-                    maFormation.addModule(module);
+                    Global.planning.getListePlanningF().addModule(module);
 
                 } catch (NumberFormatException excpetion) {
                     JOptionPane.showMessageDialog(null, "Veuillez renseigner tous les champs");
@@ -279,7 +261,6 @@ public class PanelFormation extends JPanel implements ActionListener {
 
             int reponse = JOptionPane.showConfirmDialog(this, "Voulez-vous ajouter un module?", "Ajout", JOptionPane.YES_NO_CANCEL_OPTION);
             if (reponse == JOptionPane.YES_OPTION) {
-                // while (bool_Reponse = true) {
                 JTextField field = new JTextField();
 
                 textFieldModule.add(field);
@@ -325,12 +306,7 @@ public class PanelFormation extends JPanel implements ActionListener {
                 validate();
                 repaint();
                 i++;
-
-            } else {
-                bool_Reponse = false;
             }
-        } else {
-
         }
     }
 

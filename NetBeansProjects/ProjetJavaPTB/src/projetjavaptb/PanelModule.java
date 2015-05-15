@@ -42,9 +42,9 @@ public class PanelModule extends JPanel implements ActionListener {
     Color couleur;
     String abreviation;
 
-    public PanelModule(final Formation formation) {
+    public PanelModule() {
 
-        panelModule.setBorder(new TitledBorder("Modules par formations"));
+        panelModule.setBorder(new TitledBorder("Ajout de module a la formation"));
         panelModule.setBackground(Color.GRAY);
         panelModule.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
@@ -71,7 +71,7 @@ public class PanelModule extends JPanel implements ActionListener {
         panelModule.add(lblCouleurModule, contraintes);
         
         //Début de la boucle sur chaque formation
-        for (Module unModule : formation.getModule()) {
+        for (Module unModule : Global.planning.getListePlanningF().getModule()) {
             contraintes.gridy = yi;
             contraintes.gridx = 0;
             listCouleur.add(unModule.getCouleurModule());
@@ -92,11 +92,11 @@ public class PanelModule extends JPanel implements ActionListener {
                     for (JTextField search : listModulesName) {
                         if (fe.getSource().equals(search)) {
                             if (temp != search.getText()) {
-                                int dureeModule = formation.getModule().get(i).getNbSeances();
-                                couleur = formation.getModule().get(i).getCouleurModule();
-                                abreviation = formation.getModule().get(i).getAbreviation();
+                                int dureeModule = Global.planning.getListePlanningF().getModule().get(i).getNbSeances();
+                                couleur = Global.planning.getListePlanningF().getModule().get(i).getCouleurModule();
+                                abreviation = Global.planning.getListePlanningF().getModule().get(i).getAbreviation();
                                 Module leModule1 = new Module(search.getText(), dureeModule, couleur, abreviation);
-                                formation.getModule().set(i, leModule1);
+                                Global.planning.getListePlanningF().getModule().set(i, leModule1);
                             }
                         }
                         i++;
@@ -135,11 +135,11 @@ public class PanelModule extends JPanel implements ActionListener {
                         if (fe.getSource().equals(search)) {
                             if (!temp.equals(search.getText())) {
                                 try {
-                                    String nomModule = formation.getModule().get(i).getNomModule();
-                                    couleur = formation.getModule().get(i).getCouleurModule();
-                                    abreviation = formation.getModule().get(i).getAbreviation();
+                                    String nomModule = Global.planning.getListePlanningF().getModule().get(i).getNomModule();
+                                    couleur = Global.planning.getListePlanningF().getModule().get(i).getCouleurModule();
+                                    abreviation = Global.planning.getListePlanningF().getModule().get(i).getAbreviation();
                                     Module leModule1 = new Module(nomModule, Integer.parseInt(search.getText()), couleur, abreviation);
-                                    formation.getModule().set(i, leModule1);
+                                    Global.planning.getListePlanningF().getModule().set(i, leModule1);
                                 } catch (NumberFormatException e) {
                                     search.setText(temp);
                                 }
