@@ -87,6 +87,7 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                 boolean isSelected, boolean hasFocus, int row, int column) {
             Component cell = super.getTableCellRendererComponent(table, value,
                     isSelected, hasFocus, row, column);
+            String s = table.getModel().getValueAt(row, col).toString();
 
             this.setForeground(Color.BLACK);
 
