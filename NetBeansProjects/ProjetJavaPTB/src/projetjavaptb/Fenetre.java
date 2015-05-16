@@ -150,11 +150,7 @@ public class Fenetre extends JFrame implements ActionListener{
         }
 
         if (ae.getSource() == create) {
-            setContentPane(monContenu);
-            validate();
-            repaint();
             Global.planning.clear();
-            monContenu.getPanelCalendrier().removeAll();
             monContenu.Affiche("new");
             afficher.setEnabled(false);
             save.setEnabled(false);

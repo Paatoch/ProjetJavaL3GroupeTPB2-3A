@@ -35,9 +35,9 @@ public class ContenuFenetre extends JPanel {
     private JPanel panelCalendrier = new JPanel();
     GridBagConstraints positionBox, positionBouttonPre, positionLabelMois, positionBouttonSuiv;
     private JComboBox comboAnnees = new JComboBox();
-    private JLabel lblPre = new JLabel();
-    private JLabel lblSuiv = new JLabel();
-    private JLabel lblMois = new JLabel();
+    public JLabel lblPre = new JLabel();
+    public JLabel lblSuiv = new JLabel();
+    public JLabel lblMois = new JLabel();
     private JLabel labelTeddy = new JLabel(" Teddy Blonbou  -   ");
 
     
@@ -62,6 +62,7 @@ public class ContenuFenetre extends JPanel {
         /*
          * Ajout des données dans la liste déroulante des années *
          */
+        comboAnnees.addItem("");
         for (int i = 0; i <= 2; i++) {
             comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
         }
@@ -111,8 +112,14 @@ public class ContenuFenetre extends JPanel {
         itemListener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent itemEvent) {
+                if(comboAnnees.getItemCount()==4)
+                {
+                    comboAnnees.removeItemAt(0);
+                    panelHaut.repaint();
+                    panelHaut.revalidate();
+                }
                 if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-                    anneeCourante = (int) itemEvent.getItem();                        
+                    if(!itemEvent.getItem().equals(""))anneeCourante = (int) itemEvent.getItem();                        
                     Affiche("");
                 }
             }
@@ -167,20 +174,27 @@ public class ContenuFenetre extends JPanel {
         else {
             premierFois = true;
         }
-        lblMois.setText(Global.listeMois.get(moisCourant));
-        lblMois.setVisible(true);
-        lblPre.setVisible(true);
-        lblSuiv.setVisible(true);
         panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année & Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         if(moment.equals("new"))
         {
+            panelCalendrier.remove(this);
+            lblMois.setVisible(false);
+            lblPre.setVisible(false);
+            lblSuiv.setVisible(false);
             premierFois = false;
-            comboAnnees.removeAll();
+            comboAnnees.removeAllItems();
             comboAnnees.addItem("");
             for (int i = 0; i <= 2; i++)comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             comboAnnees.setSelectedIndex(0);
         }
-        FabriqueCalendrier(anneeCourante, moisCourant);
+        else    
+        {
+            FabriqueCalendrier(anneeCourante, moisCourant);
+            lblMois.setText(Global.listeMois.get(moisCourant));
+            lblMois.setVisible(true);
+            lblPre.setVisible(true);
+            lblSuiv.setVisible(true);
+        }
         revalidate();
         repaint();
     }
@@ -281,6 +295,11 @@ public class ContenuFenetre extends JPanel {
     public JPanel getPanelHaut()
     {
         return(this.panelHaut);
+    }
+    
+    public JComboBox getComboAnnee()
+    {
+        return comboAnnees;
     }
     
 }
