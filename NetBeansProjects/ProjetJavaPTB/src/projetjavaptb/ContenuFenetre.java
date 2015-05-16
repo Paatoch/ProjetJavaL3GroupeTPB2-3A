@@ -47,6 +47,7 @@ public class ContenuFenetre extends JPanel {
     private int anneeCourante, moisCourant;
     private ItemListener itemListener;
     public boolean premierFois = false;
+    public boolean newCreate = true;
 
     public ContenuFenetre() {
         RemplitLabel("new");
@@ -120,7 +121,8 @@ public class ContenuFenetre extends JPanel {
                 }
                 if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
                     if(!itemEvent.getItem().equals(""))anneeCourante = (int) itemEvent.getItem();                        
-                    Affiche("");
+                    if(newCreate)Affiche("");
+                    else newCreate = true;
                 }
             }
         };
@@ -167,8 +169,7 @@ public class ContenuFenetre extends JPanel {
         if(!premierFois)
         {
             premierFois = true;
-            if(anneeCourante == Calendar.getInstance().get(Calendar.YEAR))
-            moisCourant = Calendar.getInstance().get(Calendar.MONTH);
+            if(anneeCourante == Calendar.getInstance().get(Calendar.YEAR))moisCourant = Calendar.getInstance().get(Calendar.MONTH);
             else moisCourant = 0;
         }
         else {
@@ -177,18 +178,21 @@ public class ContenuFenetre extends JPanel {
         panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année & Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         if(moment.equals("new"))
         {
-            panelCalendrier.remove(this);
+            System.out.println("premier");
+            panelCalendrier.removeAll();
             lblMois.setVisible(false);
             lblPre.setVisible(false);
             lblSuiv.setVisible(false);
             premierFois = false;
             comboAnnees.removeAllItems();
+            newCreate = false;
             comboAnnees.addItem("");
             for (int i = 0; i <= 2; i++)comboAnnees.addItem(Calendar.getInstance().get(Calendar.YEAR) + i);
             comboAnnees.setSelectedIndex(0);
         }
-        else    
+        else
         {
+            System.out.println("deuxieme");
             FabriqueCalendrier(anneeCourante, moisCourant);
             lblMois.setText(Global.listeMois.get(moisCourant));
             lblMois.setVisible(true);
