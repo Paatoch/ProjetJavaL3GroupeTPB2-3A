@@ -28,6 +28,7 @@ public class Calendrier extends JPanel {
     
     public Calendrier(int annee, int mois)
     {
+        this.setLayout(new BorderLayout());
         tempMouse = 0;
         anneeCourante = annee;
         moisCourant = mois;
@@ -75,26 +76,10 @@ public class Calendrier extends JPanel {
             }
 
         });
-        ArrayList<JPanel> content = new ArrayList<>();
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
-        JPanel temp = new JPanel(new BorderLayout());
-        temp.add(Jpane, BorderLayout.CENTER);
-        temp.add(JpaneLeft, BorderLayout.WEST);
-        content.add(temp);
-        GridBagConstraints contraintes = new GridBagConstraints();
-        contraintes.insets = new Insets(4, 0, 10, 0);
-        contraintes.fill = GridBagConstraints.BOTH;
-        contraintes.weightx = 0.3;
-        contraintes.weighty = 1;
-        
-        
-        for (int i = 0; i < content.size(); i++) {
-            contraintes.gridy = i + 1;
-            add(content.get(i), contraintes);
-        }
-        content.clear();
-        getPreferredSize();
+        add(Jpane, BorderLayout.CENTER);
+        add(JpaneLeft, BorderLayout.WEST);
     }
 }

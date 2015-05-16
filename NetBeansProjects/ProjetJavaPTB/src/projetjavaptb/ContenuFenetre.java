@@ -32,7 +32,7 @@ public class ContenuFenetre extends JPanel {
 
     private JPanel panelHaut = new JPanel(new GridBagLayout());
     private JPanel panelBas = new JPanel();
-    private JPanel panelCalendrier = new JPanel();
+    private JPanel panelCalendrier = new JPanel( new BorderLayout());
     GridBagConstraints positionBox, positionBouttonPre, positionLabelMois, positionBouttonSuiv;
     private JComboBox comboAnnees = new JComboBox();
     public JLabel lblPre = new JLabel();
@@ -178,7 +178,6 @@ public class ContenuFenetre extends JPanel {
         panelHaut.setBorder(BorderFactory.createTitledBorder(null, "Choix Année & Mois", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         if(moment.equals("new"))
         {
-            System.out.println("premier");
             panelCalendrier.removeAll();
             lblMois.setVisible(false);
             lblPre.setVisible(false);
@@ -192,7 +191,6 @@ public class ContenuFenetre extends JPanel {
         }
         else
         {
-            System.out.println("deuxieme");
             FabriqueCalendrier(anneeCourante, moisCourant);
             lblMois.setText(Global.listeMois.get(moisCourant));
             lblMois.setVisible(true);
@@ -286,7 +284,9 @@ public class ContenuFenetre extends JPanel {
         panelCalendrier.removeAll();
         setBorder(BorderFactory.createTitledBorder(null, "Planning", TitledBorder.CENTER, TitledBorder.TOP, new Font("Arial", Font.BOLD, 16)));
         Calendrier monCalendrier = new Calendrier(annee,mois);
-        panelCalendrier.add(monCalendrier);
+        panelCalendrier.add(monCalendrier, BorderLayout.CENTER);
+        LegendeCalendrier legende = new LegendeCalendrier();
+        panelCalendrier.add(legende, BorderLayout.SOUTH);        
         revalidate();
         repaint();
     }
