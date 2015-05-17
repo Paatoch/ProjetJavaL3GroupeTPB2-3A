@@ -69,7 +69,8 @@ public class Calendrier extends JPanel {
                     increment++;
                 }
                 Refaire.setEnabled(true);
-                Global.planning.getListePlanningC().remove(trouve);
+                Defaire.setEnabled(false);
+                Global.planning.getListePlanningC().remove(tempCoursRefaire);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
             }
         });
