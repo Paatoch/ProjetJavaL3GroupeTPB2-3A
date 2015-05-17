@@ -159,6 +159,8 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
                     Global.planning.getListePlanningC().add(cours);
                     ContenuFenetre.Repaint(annee, leMois);
                     dispose();
+                    Calendrier.Defaire.setEnabled(true);
+                    Calendrier.tempCoursDefaire.copyCours(cours);
                 } 
                 else {
                     panelWarning.removeAll();

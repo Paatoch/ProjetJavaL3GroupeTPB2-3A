@@ -6,11 +6,13 @@
 package projetjavaptb;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,6 +25,11 @@ public class Calendrier extends JPanel {
         
     private int tempMouse, anneeCourante, moisCourant;
     private JTable tableauCalendrier;
+    public static JButton Defaire = new JButton("Défaire");
+    public static JButton Refaire = new JButton("Refaire");
+    public static Cours_Reservation tempCoursDefaire = new Cours_Reservation();
+    public static Cours_Reservation tempCoursRefaire = new Cours_Reservation();
+    public static JPanel mesBouttons = new JPanel();
     
     public Calendrier(int annee, int mois)
     {
@@ -43,6 +50,29 @@ public class Calendrier extends JPanel {
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
+        Defaire.setEnabled(false);
+        Refaire.setEnabled(false);
+        
+        Defaire.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int trouve = 0;
+                int increment = 0;
+                for(Cours_Reservation unCours : Global.planning.getListePlanningC())
+                {
+                    if(tempCoursDefaire.compare(unCours))
+                    {
+                        trouve = increment;
+                        tempCoursRefaire = unCours;
+                    }
+                    increment++;
+                }
+                Refaire.setEnabled(true);
+                Global.planning.getListePlanningC().remove(trouve);
+                ContenuFenetre.Repaint(anneeCourante, moisCourant);
+            }
+        });
         
         tableauCalendrier = new JTable();
         tableauCalendrier.setDefaultRenderer(Object.class, new ModeleTableCalendrierJour.MonCellRenderer());
@@ -75,9 +105,13 @@ public class Calendrier extends JPanel {
 
         });
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
+        
+        mesBouttons.add(Defaire);
+        mesBouttons.add(Refaire);
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
         add(Jpane, BorderLayout.CENTER);
         add(JpaneLeft, BorderLayout.WEST);
+        add(mesBouttons, BorderLayout.SOUTH);
     }
 }
