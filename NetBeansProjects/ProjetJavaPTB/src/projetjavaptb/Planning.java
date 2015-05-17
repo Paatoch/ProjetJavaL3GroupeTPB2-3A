@@ -77,6 +77,4 @@ public class Planning implements Serializable{
         chaine += "\n" + listePlanningC+ "\n" ;}
     return chaine ; 
     }
-	
-   
 }

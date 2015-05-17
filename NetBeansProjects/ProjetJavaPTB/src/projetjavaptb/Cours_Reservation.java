@@ -96,7 +96,7 @@ public class Cours_Reservation implements Serializable {
     
     public boolean compare(Cours_Reservation unCours)
     {
-        if(jour==unCours.getJour()&& mois==unCours.getMois()&&annee==unCours.getAnnee()&& formation==unCours.getFormation() && module==unCours.getModule() && matin==unCours.matin && midi==unCours.midi)
+        if(jour==unCours.getJour() && mois==unCours.getMois()&&annee==unCours.getAnnee()&& formation==unCours.getFormation() && module==unCours.getModule() && matin==unCours.matin && midi==unCours.midi)
             return true;
         else
             return false;
