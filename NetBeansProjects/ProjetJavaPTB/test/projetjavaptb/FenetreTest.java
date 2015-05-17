@@ -11,7 +11,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -38,15 +37,17 @@ public class FenetreTest {
     public void tearDown() {
     }
 
+
+
     /**
      * Test of actionPerformed method, of class Fenetre.
      */
     @Test
     public void testActionPerformed() {
-        System.out.println("Test : actionPerformed");
-        ActionEvent e = null;
-        Fenetre instance = new Fenetre();
-        instance.actionPerformed(e);
+//        System.out.println("actionPerformed");
+//        ActionEvent ae = null;
+//        Fenetre instance = new Fenetre();
+//        instance.actionPerformed(ae);
     }
     
 }

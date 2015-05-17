@@ -46,9 +46,7 @@ public class MethodesPourFichierTest {
         System.out.println("ecriture");
         Planning input = null;
         File cheminBinaryFile = null;
-        MethodesPourFichier.ecriture(input, cheminBinaryFile);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MethodesPourFichier.ecriture(input);
     }
 
     /**
@@ -61,8 +59,6 @@ public class MethodesPourFichierTest {
         Object expResult = null;
         Object result = MethodesPourFichier.lecture(fichier);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

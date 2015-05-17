@@ -5,7 +5,6 @@
  */
 package projetjavaptb;
 
-import java.awt.event.ActionEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Benjamin Tabet
  */
-public class Formulaire_CoursTest {
+public class LegendeCalendrierTest {
     
-    public Formulaire_CoursTest() {
+    public LegendeCalendrierTest() {
     }
     
     @BeforeClass
@@ -38,23 +37,11 @@ public class Formulaire_CoursTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of verifCours method, of class Formulaire_Cours.
-     */
     @Test
-    public void testVerifCours() {
-        
-    }
-
     /**
-     * Test of actionPerformed method, of class Formulaire_Cours.
+     * Pas de méthode a tester dans cette classe
      */
-    @Test
-    public void testActionPerformed() {
-//        System.out.println("actionPerformed");
-//        ActionEvent e = null;
-//        Formulaire_Cours instance = null;
-//        instance.actionPerformed(e);
+    public void testSomeMethod() {
     }
     
 }

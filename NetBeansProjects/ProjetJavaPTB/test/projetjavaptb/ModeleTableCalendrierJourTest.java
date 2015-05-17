@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Bnejamin Tabet
  */
 public class ModeleTableCalendrierJourTest {
     
@@ -39,18 +39,17 @@ public class ModeleTableCalendrierJourTest {
 
     /**
      * Test of isCellEditable method, of class ModeleTableCalendrierJour.
+     * test du retour de la fonction
      */
     @Test
     public void testIsCellEditable() {
         System.out.println("isCellEditable");
-        int rowIndex = 0;
-        int columnIndex = 0;
-        ModeleTableCalendrierJour instance = null;
+        int rowIndex = 1;
+        int columnIndex = 1;
+        ModeleTableCalendrierJour instance = new ModeleTableCalendrierJour(1,1,1, "octobre", 2015);
         boolean expResult = false;
         boolean result = instance.isCellEditable(rowIndex, columnIndex);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
