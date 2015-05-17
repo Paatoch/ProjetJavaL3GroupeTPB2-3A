@@ -112,6 +112,17 @@ public class Cours_Reservation implements Serializable {
        matin=unCours.matin;
        midi=unCours.midi;
    }
+    
+    public void clear()
+    {
+       jour = 0;
+       mois= "";
+       annee= 0;
+       formation= null;
+       module=null;
+       matin=false;
+       midi=false;
+    }
     @Override
     public String toString()
     {

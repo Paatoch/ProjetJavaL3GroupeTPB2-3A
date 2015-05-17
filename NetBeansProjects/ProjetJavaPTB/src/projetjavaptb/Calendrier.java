@@ -70,12 +70,22 @@ public class Calendrier extends JPanel {
                 }
                 Refaire.setEnabled(true);
                 Defaire.setEnabled(false);
-                tempCoursDefaire = null;
+                tempCoursDefaire.clear();
                 Global.planning.getListePlanningC().remove(tempCoursRefaire);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
             }
         });
         
+        Refaire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                tempCoursDefaire.copyCours(tempCoursRefaire);
+                tempCoursRefaire.clear();
+                Refaire.setEnabled(false);
+                Defaire.setEnabled(true);
+            }
+        });
         tableauCalendrier = new JTable();
         tableauCalendrier.setDefaultRenderer(Object.class, new ModeleTableCalendrierJour.MonCellRenderer());
         tableauCalendrier.addMouseListener(new MouseAdapter() {
