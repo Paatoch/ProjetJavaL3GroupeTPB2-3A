@@ -5,7 +5,6 @@
  */
 package projetjavaptb;
 
-import java.awt.event.ActionEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Benjamin Tabet
  */
-public class Formulaire_CoursTest {
+public class CalendrierTest {
     
-    public Formulaire_CoursTest() {
+    public CalendrierTest() {
     }
     
     @BeforeClass
@@ -38,23 +37,20 @@ public class Formulaire_CoursTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of verifCours method, of class Formulaire_Cours.
-     */
     @Test
-    public void testVerifCours() {
-        
+    public void testSomeMethod() {
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of actionPerformed method, of class Formulaire_Cours.
+     * Test of TestFalse method, of class Calendrier.
      */
     @Test
-    public void testActionPerformed() {
-//        System.out.println("actionPerformed");
-//        ActionEvent e = null;
-//        Formulaire_Cours instance = null;
-//        instance.actionPerformed(e);
+    public void testTestFalse() {
+        System.out.println("TestFalse");
+        Calendrier instance = null;
+        instance.TestFalse();
     }
     
 }

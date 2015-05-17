@@ -5,7 +5,6 @@
  */
 package projetjavaptb;
 
-import java.awt.event.ActionEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Benjamin Tabet
  */
-public class Formulaire_CoursTest {
+public class GlobalTest {
     
-    public Formulaire_CoursTest() {
+    public GlobalTest() {
     }
     
     @BeforeClass
@@ -39,22 +38,14 @@ public class Formulaire_CoursTest {
     }
 
     /**
-     * Test of verifCours method, of class Formulaire_Cours.
+     * Test of Remplit method, of class Global.
+     * Fonction static et qui sert a remplir la liste de mois donc rien a tester
      */
     @Test
-    public void testVerifCours() {
+    public void testRemplit() {
+        System.out.println("Remplit");
+        Global.Remplit();
         
-    }
-
-    /**
-     * Test of actionPerformed method, of class Formulaire_Cours.
-     */
-    @Test
-    public void testActionPerformed() {
-//        System.out.println("actionPerformed");
-//        ActionEvent e = null;
-//        Formulaire_Cours instance = null;
-//        instance.actionPerformed(e);
     }
     
 }

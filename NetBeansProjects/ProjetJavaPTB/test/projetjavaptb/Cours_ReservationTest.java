@@ -7,14 +7,14 @@ package projetjavaptb;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
- * @author Utilisateur
+ * @author Benjamin Tabet
  */
 public class Cours_ReservationTest {
 
@@ -22,22 +22,23 @@ public class Cours_ReservationTest {
     public Cours_ReservationTest() {
 
     }
-    
+
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws Exception {
     }
-    
+
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
     }
-    
+
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
     }
+
 
     /**
      * Test of getJour method, of class Cours_Reservation.
@@ -236,14 +237,52 @@ public class Cours_ReservationTest {
         System.out.println("*****************");
         System.out.println("Test : toString");
         Cours_Reservation instance = new Cours_Reservation();
-        instance.setJour(26);
-        instance.setMois("octobre");
-        instance.setAnnee(1994);
         instance.setFormation("Miage");
         instance.setModule("programmation");
-        String expResult = instance.getJour() + " " + instance.getMois() + " " + instance.getAnnee() + "\n" + instance.getFormation() + "\n" + instance.getModule() + "\n";
+        String expResult = instance.getFormation() + "\n" + instance.getModule() ;
         String result = instance.toString();
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of compare method, of class Cours_Reservation.
+     * On vérifie que la comparaison a bien fonctionné entre les deux cours 
+     */
+    @Test
+    public void testCompare() {
+        System.out.println("compare");
+        Cours_Reservation cours1 = new Cours_Reservation(1, 2015, "octobre", "esiag", "informatique", false, true);
+        Cours_Reservation instance = new Cours_Reservation(2, 2015, "octobre", "esiag", "informatique", false, true);
+        boolean expResult = false;
+        boolean result = instance.compare(cours1);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of copyCours method, of class Cours_Reservation.
+     * on test le fait que l'annee du cours ait bien été copié dans l'autre cours
+     */
+    @Test
+    public void testCopyCours() {
+        System.out.println("copyCours");
+        Cours_Reservation unCours = new Cours_Reservation(1, 2015, "octobre", "esiag", "informatique", false, true);
+        Cours_Reservation instance = new Cours_Reservation();
+        instance.copyCours(unCours);
+        assertEquals(unCours.getAnnee(), instance.getAnnee());
+    }
+
+    /**
+     * Test of clear method, of class Cours_Reservation.
+     * On test le fait que l'année ait bien été remise a zéro aprtès l'appel de la fonction
+     */
+    @Test
+    public void testClear() {
+        System.out.println("clear");
+        Cours_Reservation instance = new Cours_Reservation(1, 2015, "octobre", "esiag", "informatique", false, true);
+        instance.clear();
+        assertEquals(instance.getAnnee(), 0);
+    }
+
+
     
 }

@@ -98,9 +98,59 @@ public class ModuleTest {
         System.out.println("*****************");
         System.out.println("Test : toString");
         Module instance = new Module ("test", 12, Color.CYAN, "CH");
-        String expResult = instance.getNomModule() + "  qui contient  :" + instance.getNbSeances() + " séances "+"\n";
+        String expResult = "test  qui contient  :12 séances  " + "\n" + " java.awt.Color[r=0,g=255,b=255]  CH";
+        System.out.println(expResult);
         String result = instance.toString();
+        System.out.println(result);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getCouleurModule method, of class Module.
+     */
+    @Test
+    public void testGetCouleurModule() {
+        System.out.println("getCouleurModule");
+        Module instance = new Module("informatique", 10, Color.darkGray, "info");
+        Color expResult = Color.DARK_GRAY;
+        Color result = instance.getCouleurModule();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setCouleurModule method, of class Module.
+     */
+    @Test
+    public void testSetCouleurModule() {
+        System.out.println("setCouleurModule");
+        Color couleurModule = Color.DARK_GRAY;
+        Module instance = new Module("informatique", 10, Color.BLACK, "info");
+        instance.setCouleurModule(couleurModule);
+        assertEquals(instance.getCouleurModule(), couleurModule);
+    }
+
+    /**
+     * Test of getAbreviation method, of class Module.
+     */
+    @Test
+    public void testGetAbreviation() {
+        System.out.println("getAbreviation");
+        Module instance = new Module("informatique", 10, Color.BLACK, "info");;
+        String expResult = "info";
+        String result = instance.getAbreviation();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setAbreviation method, of class Module.
+     */
+    @Test
+    public void testSetAbreviation() {
+        System.out.println("setAbreviation");
+        String abreviation = "inf";
+        Module instance = new Module("informatique", 10, Color.BLACK, "info");;
+        instance.setAbreviation(abreviation);
+        assertEquals(instance.getAbreviation(), abreviation);
     }
     
 }
