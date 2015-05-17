@@ -66,7 +66,7 @@ public class Formation implements Serializable {
             if (c.getNomModule().toUpperCase().equals(parModule.toUpperCase())) {
                 return c;
             } else {
-                throw new Exception_Module();
+                return null;
             }
         }
         return null;

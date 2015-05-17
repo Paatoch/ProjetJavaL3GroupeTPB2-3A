@@ -37,6 +37,19 @@ public class Planning implements Serializable{
     public ArrayList<Cours_Reservation> getListePlanningC() {
         return listePlanningC;
     }
+    
+    public Cours_Reservation getCours(int jour, int annee, String mois, boolean matin, boolean midi)
+    {
+        for(Cours_Reservation cours :listePlanningC)
+        {
+            if(cours.getJour()==jour && cours.getAnnee()==annee && cours.getMois().equals(mois))
+            {
+                if(matin && cours.isMatin()) return cours;
+                if(midi && cours.isMidi()) return cours;
+            }
+        }
+        return null;
+    }
 
     public void setListePlanningC(ArrayList<Cours_Reservation> listePlanningC) {
         this.listePlanningC.clear();

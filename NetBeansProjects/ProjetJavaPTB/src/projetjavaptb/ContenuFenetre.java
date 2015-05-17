@@ -32,7 +32,7 @@ public class ContenuFenetre extends JPanel {
 
     private JPanel panelHaut = new JPanel(new GridBagLayout());
     private JPanel panelBas = new JPanel();
-    private JPanel panelCalendrier = new JPanel( new BorderLayout());
+    private static JPanel panelCalendrier = new JPanel( new BorderLayout());
     GridBagConstraints positionBox, positionBouttonPre, positionLabelMois, positionBouttonSuiv;
     private JComboBox comboAnnees = new JComboBox();
     public JLabel lblPre = new JLabel();
@@ -153,13 +153,6 @@ public class ContenuFenetre extends JPanel {
         add(panelBas, BorderLayout.SOUTH);
     }
 
-    /*public void setPlanning(Planning unPlanning) {
-        Global.planning.setListePlanningC(unPlanning.getListePlanningC());
-        Global.planning.setListePlanningF(unPlanning.getListePlanningF());
-        Affiche("");
-        revalidate();
-        repaint();
-    }*/
 
     public void setPanelCalendrier(JPanel panelCalendrier) {
         this.panelCalendrier = panelCalendrier;
@@ -291,6 +284,22 @@ public class ContenuFenetre extends JPanel {
         repaint();
     }
 
+    public static void StatFabriqueCal(int annee, int mois)
+    {
+        panelCalendrier.removeAll();
+        Calendrier monCalendrier = new Calendrier(annee,mois);
+        panelCalendrier.add(monCalendrier, BorderLayout.CENTER);
+        LegendeCalendrier legende = new LegendeCalendrier();
+        panelCalendrier.add(legende, BorderLayout.SOUTH);  
+    }
+    
+    public static void Repaint(int annee, int mois)
+    {
+        StatFabriqueCal(annee,mois);
+        panelCalendrier.revalidate();
+        panelCalendrier.repaint();
+    }
+    
     public JPanel getPanelCalendrier()
     {
         return(this.panelCalendrier);
