@@ -41,6 +41,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JLabel horaire = new JLabel();
 
     private JButton boutonValiderCours = new JButton("Valider");
+    private JButton boutonModifierCours = new JButton("Modifier");
     private JButton boutonSupprimerCours = new JButton("Supprimer");
     private JButton boutonAnnuler = new JButton("Annuler");
 
@@ -113,13 +114,18 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         c.gridx = 0;
         c.gridy = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
-        panelFormulaire.add(boutonSupprimerCours, c);
+        panelFormulaire.add(boutonModifierCours, c);
         c.gridx = 0;
         c.gridy = 6;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        panelFormulaire.add(boutonSupprimerCours, c);
+        c.gridx = 0;
+        c.gridy = 7;
         c.fill = GridBagConstraints.HORIZONTAL;
         panelFormulaire.add(boutonAnnuler, c);
         boutonValiderCours.addActionListener(this);
         boutonSupprimerCours.addActionListener(this);
+        boutonModifierCours.addActionListener(this);
         boutonAnnuler.addActionListener(this);
         // Ajout informations fenetre
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -151,6 +157,7 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
                     Calendrier.tempCours = new Cours_Reservation();
                     Calendrier.tempCours.copyCours(cours);
                     ContenuFenetre.defaire.setEnabled(true);
+                    ContenuFenetre.tempAction = "Ajout";
                     ContenuFenetre.Repaint(annee, leMois);
                     dispose();                    
                 } 
@@ -169,10 +176,32 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
                 if (cours != null) {
                     Global.planning.getListePlanningC().remove(cours);
                 }
+                Calendrier.tempCours.copyCours(cours);
+                ContenuFenetre.refaire.setEnabled(true);
+                ContenuFenetre.tempAction = "Suppression";
                 ContenuFenetre.Repaint(annee, leMois);
                 dispose();
             }
-            else dispose();
+            else
+            {
+                if(e.getSource() == boutonModifierCours)
+                {
+                    Cours_Reservation cours = Global.planning.getCours(jour, annee, mois, matin, midi);
+                    Calendrier.tempCours2 = null;
+                    Calendrier.tempCours2 = new Cours_Reservation();
+                    Calendrier.tempCours2.copyCours(cours);
+                    cours.setModule(comboModules.getSelectedItem().toString());
+                    Calendrier.tempCours = null;
+                    Calendrier.tempCours = new Cours_Reservation();
+                    Calendrier.tempCours.copyCours(cours);
+                    ContenuFenetre.defaire.setEnabled(true);
+                    ContenuFenetre.tempAction = "Modifier";
+                    ContenuFenetre.Repaint(annee, leMois);
+                    dispose();
+                }
+                else
+                dispose();
+            }
         }
     }
     

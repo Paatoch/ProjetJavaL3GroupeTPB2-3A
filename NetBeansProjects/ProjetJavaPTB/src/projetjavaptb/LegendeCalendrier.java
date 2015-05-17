@@ -71,9 +71,9 @@ public class LegendeCalendrier extends JPanel {
         else sHeureFormation = Integer.toString(heureFormation);
         if(Integer.toString(minuteFormation).length()==1) sMinuteFormation = "0"+Integer.toString(minuteFormation);
         else sMinuteFormation = Integer.toString(minuteFormation);
-        if(heureFormation<24) jourFormation = "Moins d'un jour de formation";
+        if(heureFormation<=7) jourFormation = "1 jour de formation";
         else{
-            jourFormation = Integer.toString(heureFormation/24) + " jours de formation";
+            jourFormation = Integer.toString(1+heureFormation/24*7) + " jours de formation";
         }
         
         GridBagConstraints c = new GridBagConstraints();

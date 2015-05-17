@@ -47,6 +47,7 @@ public class ContenuFenetre extends JPanel {
 
     public static JButton defaire = new JButton("Défaire");
     public static JButton refaire = new JButton("Refaire");
+    public static String tempAction;
     static JPanel panelButon = new JPanel(new FlowLayout());
     private JLabel labelPatrick = new JLabel("Patrick Cabral  -   ");
     private JLabel labelBenjamin = new JLabel("Benjamin Tabet    ");
@@ -58,7 +59,6 @@ public class ContenuFenetre extends JPanel {
     public ContenuFenetre() {
         RemplitLabel("new");
         setLayout(new BorderLayout());
-
         setBackground(Color.GRAY);
 
         /**
@@ -158,30 +158,14 @@ public class ContenuFenetre extends JPanel {
         defaire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                int trouve = 0;
-                int increment = 0;
-                Cours_Reservation tempCoursTest = new Cours_Reservation ();
-                for (Cours_Reservation unCours : Global.planning.getListePlanningC()) {
-                    if (Calendrier.tempCours.compare(unCours)) {
-                        trouve = increment;
-                        tempCoursTest = unCours;
-                    }
-                    increment++;
-                }
-                refaire.setEnabled(true);
-                defaire.setEnabled(false);
-                Global.planning.getListePlanningC().remove(tempCoursTest);
-                ContenuFenetre.Repaint(anneeCourante, moisCourant);
+                Defaire();
             }
         });
 
         refaire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent aev) {
-                Global.planning.getListePlanningC().add(Calendrier.tempCours);
-                ContenuFenetre.Repaint(anneeCourante, moisCourant);
-                defaire.setEnabled(true);
-                refaire.setEnabled(false);
+                Refaire();
             }
         });
         
@@ -212,19 +196,6 @@ public class ContenuFenetre extends JPanel {
     public void setPanelCalendrier(JPanel panelCalendrier) {
         this.panelCalendrier = panelCalendrier;
     }
-
-    /*public static void TestFalse() {
-        if (tempCoursDefaire.getFormation() == null) {
-            defaire.setEnabled(false);
-        } else {
-            defaire.setEnabled(true);
-        }
-        if (tempCoursRefaire.getFormation() == null) {
-            refaire.setEnabled(false);
-        } else {
-            refaire.setEnabled(true);
-        }
-    }*/
 
     public void Affiche(String moment) {
         if (!premierFois) {
@@ -361,9 +332,7 @@ public class ContenuFenetre extends JPanel {
         panelCalendrier.add(monCalendrier, BorderLayout.CENTER);
         LegendeCalendrier legende = new LegendeCalendrier();
         panelCalendrier.add(legende, BorderLayout.SOUTH);
-        //TestFalse();
         panelCalendrier.add(panelButon, BorderLayout.NORTH);
-
     }
 
     public static void Repaint(int annee, int mois) {
@@ -384,4 +353,60 @@ public class ContenuFenetre extends JPanel {
         return comboAnnees;
     }
 
+    public void Defaire()
+    {
+        switch(tempAction)
+        {
+            case "Ajout":   int trouve = 0;
+                            int increment = 0;
+                            Cours_Reservation tempCoursTest = new Cours_Reservation ();
+                            for (Cours_Reservation unCours : Global.planning.getListePlanningC()) {
+                                if (Calendrier.tempCours.compare(unCours)) {
+                                    trouve = increment;
+                                    tempCoursTest = unCours;
+                                }
+                                increment++;
+                            }
+                            Global.planning.getListePlanningC().remove(tempCoursTest);
+                            tempAction = "Suppression";
+            break;
+                
+            case "Modifier":    modifier();
+            break;
+        }
+        refaire.setEnabled(true);
+        defaire.setEnabled(false);
+        ContenuFenetre.Repaint(anneeCourante, moisCourant);
+    }
+
+    public void Refaire()
+    {
+        switch(tempAction)
+        {
+            case "Suppression":     Global.planning.getListePlanningC().add(Calendrier.tempCours);
+                                    tempAction = "Ajout";
+            break;
+                
+            case "Modifier":        modifier();
+            break;
+        }
+        defaire.setEnabled(true);
+        refaire.setEnabled(false);
+        ContenuFenetre.Repaint(anneeCourante, moisCourant);
+    }
+    
+    public void modifier()
+    {
+        Cours_Reservation cours = Global.planning.getCours(Calendrier.tempCours.getJour(), Calendrier.tempCours.getAnnee(), Calendrier.tempCours.getMois(), Calendrier.tempCours.isMatin(), Calendrier.tempCours.isMidi());
+        String nomModule = Calendrier.tempCours2.getModule();
+        Calendrier.tempCours2 = null;
+        Calendrier.tempCours2 = new Cours_Reservation();
+        Calendrier.tempCours2.copyCours(cours);
+        cours.setModule(nomModule);
+        Calendrier.tempCours = null;
+        Calendrier.tempCours = new Cours_Reservation();
+        Calendrier.tempCours.copyCours(cours);
+        tempAction = "Modifier";
+        
+    }
 }

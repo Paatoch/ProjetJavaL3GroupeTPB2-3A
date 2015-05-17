@@ -28,6 +28,7 @@ public class Calendrier extends JPanel {
     private int anneeCourante, moisCourant;
     private JTable tableauCalendrier;
     public static Cours_Reservation tempCours = new Cours_Reservation();
+    public static Cours_Reservation tempCours2 = new Cours_Reservation();
     //public static Cours_Reservation tempCoursRefaire = new Cours_Reservation();
     
     public Calendrier(int annee, int mois)
@@ -78,8 +79,6 @@ public class Calendrier extends JPanel {
         });
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
         
-      //  mesBouttons.add(Defaire);
-      //  mesBouttons.add(Refaire);
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
         add(Jpane, BorderLayout.CENTER);
