@@ -42,7 +42,7 @@ public class Fenetre extends JFrame implements ActionListener{
         this.setTitle("Mon Calendrier");
         
         /*définition de la taille à la fenêtre*/
-        this.setSize((int) tailleEcran.getWidth(), (int)tailleEcran.getHeight());
+        this.setSize((int) tailleEcran.getWidth()-10, (int)tailleEcran.getHeight()-40);
         this.setLocationRelativeTo(null);
         
         //On prévient notre JFrame que notre JPanel sera son content pane

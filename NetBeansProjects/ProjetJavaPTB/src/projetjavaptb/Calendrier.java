@@ -6,12 +6,10 @@
 package projetjavaptb;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

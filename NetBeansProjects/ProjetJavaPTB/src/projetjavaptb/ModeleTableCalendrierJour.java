@@ -59,8 +59,8 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                             }
                             incre = Global.planning.getListePlanningF().getModule(unCours.getModule()).getNbSeances();
                             
-                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", 1, i);
-                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", 2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours.getModule() + "(" + num + "/" + incre +")", 1, i);
+                            if(unCours.isMatin())this.setValueAt(unCours.getModule() + "(" + num + "/" + incre +")", 2, i);
                         }
                     }
                 }
@@ -90,8 +90,8 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                                 incre++;
                             }
                             incre = Global.planning.getListePlanningF().getModule(unCours.getModule()).getNbSeances();
-                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", j+1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours + "(" + num + "/" + incre +")", j+2, i);
+                            if(unCours.isMatin())this.setValueAt(unCours.getModule() + "(" + num + "/" + incre +")", j+1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours.getModule() + "(" + num + "/" + incre +")", j+2, i);
                         }
                     }
                 }
