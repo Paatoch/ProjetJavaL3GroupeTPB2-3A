@@ -12,8 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
 public class LegendeCalendrier extends JPanel {
     

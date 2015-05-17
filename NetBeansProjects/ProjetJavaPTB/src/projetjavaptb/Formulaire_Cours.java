@@ -24,8 +24,9 @@ import javax.swing.SwingConstants;
 import static projetjavaptb.Global.planning;
 
 /**
- *
  * @author patrickcabral
+ * @author BLONBOUT
+ * @author BenjaminTabet
  */
 public class Formulaire_Cours extends JFrame implements ActionListener {
 
@@ -159,8 +160,12 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
                     Global.planning.getListePlanningC().add(cours);
                     ContenuFenetre.Repaint(annee, leMois);
                     dispose();
-                    Calendrier.Defaire.setEnabled(true);
+                    ContenuFenetre.defaire.setEnabled(true);
+                    Calendrier.tempCoursDefaire.clear();
+                    Calendrier.tempCoursRefaire.clear();
+                    
                     Calendrier.tempCoursDefaire.copyCours(cours);
+                    
                 } 
                 else {
                     panelWarning.removeAll();

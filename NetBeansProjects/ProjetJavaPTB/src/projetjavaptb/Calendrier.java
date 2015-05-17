@@ -18,15 +18,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
- *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
+
 public class Calendrier extends JPanel {
         
     private int tempMouse, anneeCourante, moisCourant;
-    private JTable tableauCalendrier;
+    private JTable tableauCalendrier;/*
     public static JButton Defaire = new JButton("Défaire");
-    public static JButton Refaire = new JButton("Refaire");
+    public static JButton Refaire = new JButton("Refaire");*/
     public static Cours_Reservation tempCoursDefaire = new Cours_Reservation();
     public static Cours_Reservation tempCoursRefaire = new Cours_Reservation();
     public static JPanel mesBouttons = new JPanel();
@@ -50,9 +52,9 @@ public class Calendrier extends JPanel {
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
-        TestFalse();
+//        TestFalse();
         
-        Defaire.addActionListener(new ActionListener() {
+        /*Defaire.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -75,13 +77,15 @@ public class Calendrier extends JPanel {
         
         Refaire.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent aev) {
+                
+                System.out.println("je clique");
                 tempCoursDefaire.copyCours(tempCoursRefaire);
                 tempCoursRefaire.clear();
                 Global.planning.getListePlanningC().add(tempCoursDefaire);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
             }
-        });
+        });*/
         tableauCalendrier = new JTable();
         tableauCalendrier.setDefaultRenderer(Object.class, new ModeleTableCalendrierJour.MonCellRenderer());
         tableauCalendrier.addMouseListener(new MouseAdapter() {
@@ -114,19 +118,19 @@ public class Calendrier extends JPanel {
         });
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
         
-        mesBouttons.add(Defaire);
-        mesBouttons.add(Refaire);
+      //  mesBouttons.add(Defaire);
+      //  mesBouttons.add(Refaire);
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
         add(Jpane, BorderLayout.CENTER);
         add(JpaneLeft, BorderLayout.WEST);
         add(mesBouttons, BorderLayout.SOUTH);
     }
-    public void TestFalse()
+    /* public void TestFalse()
     {
-        if(tempCoursDefaire.getFormation() == null)Defaire.setEnabled(false);
-        else Defaire.setEnabled(true);
-        if(tempCoursRefaire.getFormation() == null)Refaire.setEnabled(false);
-        else Refaire.setEnabled(true);
-    }
+    if(tempCoursDefaire.getFormation() == null)Defaire.setEnabled(false);
+    else Defaire.setEnabled(true);
+    if(tempCoursRefaire.getFormation() == null)Refaire.setEnabled(false);
+    else Refaire.setEnabled(true);
+    }*/
 }
