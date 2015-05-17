@@ -372,7 +372,9 @@ public class ContenuFenetre extends JPanel {
             break;
                 
             case "Modifier":    modifier();
-            break;
+                break;
+            default:
+                break;
         }
         refaire.setEnabled(true);
         defaire.setEnabled(false);
@@ -385,10 +387,10 @@ public class ContenuFenetre extends JPanel {
         {
             case "Suppression":     Global.planning.getListePlanningC().add(Calendrier.tempCours);
                                     tempAction = "Ajout";
-            break;
+                break;
                 
             case "Modifier":        modifier();
-            break;
+                break;
         }
         defaire.setEnabled(true);
         refaire.setEnabled(false);
