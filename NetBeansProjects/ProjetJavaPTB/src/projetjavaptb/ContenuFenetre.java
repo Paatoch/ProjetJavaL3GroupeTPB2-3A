@@ -178,11 +178,8 @@ public class ContenuFenetre extends JPanel {
             @Override
             public void keyPressed(KeyEvent ek) {
 
-                System.out.println("Test touche");
-
                 if (ek.isControlDown() && ek.getKeyCode() == KeyEvent.VK_Y) {
 
-                    System.out.println("Test Ctrl y");
                     Refaire();
                 }
 
