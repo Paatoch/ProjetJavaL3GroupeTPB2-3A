@@ -102,6 +102,16 @@ public class Cours_Reservation implements Serializable {
             return false;
     }
 
+    public void copyCours (Cours_Reservation unCours)
+   {
+       jour = unCours.getJour();
+       mois=unCours.getMois();
+       annee=unCours.getAnnee();
+       formation=unCours.getFormation();
+       module=unCours.getModule();
+       matin=unCours.matin;
+       midi=unCours.midi;
+   }
     @Override
     public String toString()
     {
