@@ -18,23 +18,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
- *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
+
 public class Calendrier extends JPanel {
         
-    private int tempMouse, anneeCourante, moisCourant;
+    private int anneeCourante, moisCourant;
     private JTable tableauCalendrier;
-    public static JButton Defaire = new JButton("Défaire");
-    public static JButton Refaire = new JButton("Refaire");
-    public static Cours_Reservation tempCoursDefaire = new Cours_Reservation();
-    public static Cours_Reservation tempCoursRefaire = new Cours_Reservation();
-    public static JPanel mesBouttons = new JPanel();
+    public static Cours_Reservation tempCours = new Cours_Reservation();
+    //public static Cours_Reservation tempCoursRefaire = new Cours_Reservation();
     
     public Calendrier(int annee, int mois)
     {
         this.setLayout(new BorderLayout());
-        tempMouse = 0;
         anneeCourante = annee;
         moisCourant = mois;
         /*Création du calendrier grégorien*/
@@ -50,38 +48,6 @@ public class Calendrier extends JPanel {
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
-        TestFalse();
-        
-        Defaire.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                int trouve = 0;
-                int increment = 0;
-                for(Cours_Reservation unCours : Global.planning.getListePlanningC())
-                {
-                    if(tempCoursDefaire.compare(unCours))
-                    {
-                        trouve = increment;
-                        tempCoursRefaire = unCours;
-                    }
-                    increment++;
-                }
-                tempCoursDefaire.clear();
-                Global.planning.getListePlanningC().remove(tempCoursRefaire);
-                ContenuFenetre.Repaint(anneeCourante, moisCourant);
-            }
-        });
-        
-        Refaire.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                tempCoursDefaire.copyCours(tempCoursRefaire);
-                tempCoursRefaire.clear();
-                Global.planning.getListePlanningC().add(tempCoursDefaire);
-                ContenuFenetre.Repaint(anneeCourante, moisCourant);
-            }
-        });
         tableauCalendrier = new JTable();
         tableauCalendrier.setDefaultRenderer(Object.class, new ModeleTableCalendrierJour.MonCellRenderer());
         tableauCalendrier.addMouseListener(new MouseAdapter() {
@@ -91,8 +57,6 @@ public class Calendrier extends JPanel {
                     Point p = e.getPoint(); //recup la position de la souris 
                     int row = tableauCalendrier.rowAtPoint(p); //indice de la ligne a cette position
                     int col = tableauCalendrier.columnAtPoint(p); //indice colonne 
-                    //JOptionPane.showMessageDialog(contentPanel, contentTemp.getValueAt(row, col)); //element a ligne row et colonne col 
-                    tempMouse = e.getID();
                     int maValeur;
                     try{
                         maValeur = (int)tableauCalendrier.getValueAt(row-2, col);
@@ -114,19 +78,11 @@ public class Calendrier extends JPanel {
         });
         tableauCalendrier.setModel(new ModeleTableCalendrierJour(premierJour, nbJour, nbSemaine, Global.listeMois.get(moisCourant) ,anneeCourante));
         
-        mesBouttons.add(Defaire);
-        mesBouttons.add(Refaire);
+      //  mesBouttons.add(Defaire);
+      //  mesBouttons.add(Refaire);
         JScrollPane Jpane = new JScrollPane(tableauCalendrier);
         JScrollPane JpaneLeft = new JScrollPane(new JTable(new ModeleTableCalendrierPeriode(nbSemaine)));
         add(Jpane, BorderLayout.CENTER);
         add(JpaneLeft, BorderLayout.WEST);
-        add(mesBouttons, BorderLayout.SOUTH);
-    }
-    public void TestFalse()
-    {
-        if(tempCoursDefaire.getFormation() == null)Defaire.setEnabled(false);
-        else Defaire.setEnabled(true);
-        if(tempCoursRefaire.getFormation() == null)Refaire.setEnabled(false);
-        else Refaire.setEnabled(true);
     }
 }

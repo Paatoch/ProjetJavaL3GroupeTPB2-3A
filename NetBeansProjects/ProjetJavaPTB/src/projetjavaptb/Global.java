@@ -8,8 +8,9 @@ package projetjavaptb;
 import java.util.ArrayList;
 
 /**
- *
+ * @author patrickcabral
  * @author BLONBOUT
+ * @author BenjaminTabet
  */
 public class Global {
         public static Planning planning = new Planning();

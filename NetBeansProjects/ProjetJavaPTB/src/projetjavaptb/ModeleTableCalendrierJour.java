@@ -10,6 +10,7 @@ package projetjavaptb;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
+
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
@@ -22,7 +23,7 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
     
     int jourEnCours = 0;
     Color c1 = new Color(0, 0, 0);
-    Hashtable<String, ArrayList<Cours_Reservation>> lesCours = new Hashtable<String, ArrayList<Cours_Reservation>>();
+    Hashtable<String, ArrayList<Cours_Reservation>> lesCours = new Hashtable<>();
     
     public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines, String leMois, int leAnnee) {
         for(Module unModule : Global.planning.getListePlanningF().getModule())
