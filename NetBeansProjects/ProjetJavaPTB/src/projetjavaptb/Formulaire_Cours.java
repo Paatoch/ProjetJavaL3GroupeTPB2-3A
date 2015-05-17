@@ -8,6 +8,7 @@ package projetjavaptb;
 import Exception.Exception_Module;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import static projetjavaptb.Global.planning;
 
 /**
@@ -41,9 +43,10 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JButton boutonValiderCours = new JButton("Valider");
     private JButton boutonSupprimerCours = new JButton("Supprimer");
     private JButton boutonAnnuler = new JButton("Annuler");
+    String moduleSelect;
 
     public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, String horaire) {
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout());
         this.jour = jour_cours;
         this.annee = annee_cours;
         this.mois = mois_cours;
@@ -125,20 +128,17 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
         c.gridy = 6;
         c.fill = GridBagConstraints.HORIZONTAL;
         panelFormulaire.add(boutonAnnuler, c);
-        panelFormulaire.getPreferredSize();
-        panelWarning.getPreferredSize();
         boutonValiderCours.addActionListener(this);
         boutonSupprimerCours.addActionListener(this);
         boutonAnnuler.addActionListener(this);
         // Ajout informations fenetre
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("Formulaire ajout cours");
-        this.setSize(150, 300);
         this.setLocationRelativeTo(null);
-        this.add(panelFormulaire, BorderLayout.CENTER);
-        this.add(panelWarning, BorderLayout.SOUTH);
+        this.add(panelFormulaire);
+        this.add(panelWarning);
+        this.setSize(180, 300);
         this.setVisible(true);
-
     }
 
     @Override
@@ -153,19 +153,20 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
             i++;
         }
         if (e.getSource() == boutonValiderCours) {
-            //System.out.println("on a appuyé" + comboModules.getSelectedItem().toString());
-            String moduleSelect = comboModules.getSelectedItem().toString();
-            Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), comboModules.getSelectedItem().toString(), matin, midi);
+            moduleSelect = comboModules.getSelectedItem().toString();
+            Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), moduleSelect, matin, midi);
                 if (verifCours()) {
                     Global.planning.getListePlanningC().add(cours);
                     ContenuFenetre.Repaint(annee, leMois);
                     dispose();
                 } 
                 else {
-                    JLabel Attention = new JLabel("Le nombre de cours pour ce module ne peut pas être dépassé veuillez changer de module");
+                    panelWarning.removeAll();
+                    JLabel Attention = new JLabel("<html>Le nombre de cours <br/> pour ce module ne <br/>peut pas être dépassé <br/>veuillez changer de module</html>");
                     Attention.setForeground(Color.RED);
                     panelWarning.add(Attention);
-                    panelWarning.getPreferredSize();
+                    repaint();
+                    revalidate();
                 }
         } 
         else {
@@ -183,16 +184,12 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     
     public boolean verifCours()
     {
-        int nbModuleMax = 0;
-        try {
-            nbModuleMax = Global.planning.getListePlanningF().getModule(comboModules.getSelectedItem().toString()).getNbSeances();
-        } catch (Exception_Module ex) {
-            Logger.getLogger(Formulaire_Cours.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int nbModuleMax;
+        nbModuleMax = Global.planning.getListePlanningF().getModule(moduleSelect).getNbSeances();
         int i = 0;
         for(Cours_Reservation cours : Global.planning.getListePlanningC())
         {
-            if(cours.getModule().equals(comboModules.getSelectedItem().toString())) i++;
+            if(cours.getModule().equals(moduleSelect)) i++;
         }
         if(i<nbModuleMax) return true;
         else return false;

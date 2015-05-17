@@ -61,7 +61,7 @@ public class Calendrier extends JPanel {
                     try{
                         maValeur = (int)tableauCalendrier.getValueAt(row-2, col);
                         Formulaire_Cours formulaire =  new Formulaire_Cours (maValeur, anneeCourante,Global.listeMois.get(moisCourant), "midi");
-                         }
+                        }
                     catch(NullPointerException e1){
                         try{
                             maValeur = (int)tableauCalendrier.getValueAt(row-1, col);

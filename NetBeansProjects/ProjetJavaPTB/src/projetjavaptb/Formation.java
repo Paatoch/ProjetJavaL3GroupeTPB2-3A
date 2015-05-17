@@ -60,13 +60,11 @@ public class Formation implements Serializable {
     }
 
     /*Fonction permettant la récupération d'un module avec gestion d'exception*/
-    public Module getModule(String parModule) throws Exception_Module {
+    public Module getModule(String parModule)
+    {
         for (Module c : listeModule) {
-
             if (c.getNomModule().toUpperCase().equals(parModule.toUpperCase())) {
                 return c;
-            } else {
-                return null;
             }
         }
         return null;

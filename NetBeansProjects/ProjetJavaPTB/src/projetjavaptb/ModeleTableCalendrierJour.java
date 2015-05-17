@@ -13,6 +13,8 @@ package projetjavaptb;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Hashtable;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -20,9 +22,20 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
     
     int jourEnCours = 0;
     Color c1 = new Color(0, 0, 0);
-    
+    Hashtable<String, ArrayList<Cours_Reservation>> lesCours = new Hashtable<String, ArrayList<Cours_Reservation>>();
     
     public ModeleTableCalendrierJour(int premierJour, int nbJourMois, int nbSemaines, String leMois, int leAnnee) {
+        for(Module unModule : Global.planning.getListePlanningF().getModule())
+        {
+            ArrayList<Cours_Reservation> list = new ArrayList<Cours_Reservation>();
+            lesCours.put(unModule.getNomModule(), list);
+        }
+        for(Cours_Reservation unCours : Global.planning.getListePlanningC())
+        {
+            ArrayList<Cours_Reservation> list = new ArrayList<Cours_Reservation>();
+            list = lesCours.get(unCours.getModule());
+            list.add(unCours);
+        }
         String title[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         this.setRowCount(nbSemaines * 3);
         this.setColumnIdentifiers(title);
@@ -33,12 +46,21 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     this.setValueAt(jourEnCours, 0, i);
                     for(Cours_Reservation unCours : Global.planning.getListePlanningC())
                     {
-                        
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
-                        {   if(unCours.isMatin()){
-                                this.setValueAt(unCours, 1, i);}
-                            if(unCours.isMidi())this.setValueAt(unCours, 2, i);
-                            System.out.println(unCours);
+                        {
+                            ArrayList<Cours_Reservation> list = new ArrayList<Cours_Reservation>();
+                            list = lesCours.get(unCours.getModule());
+                            int num = 1;
+                            int incre = 0;
+                            for(Cours_Reservation leCours : list)
+                            {
+                                if(leCours.compare(unCours)) num += incre;
+                                incre++;
+                            }
+                            incre = Global.planning.getListePlanningF().getModule(unCours.getModule()).getNbSeances();
+                            
+                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", 1, i);
+                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", 2, i);
                         }
                     }
                 }
@@ -58,21 +80,24 @@ public class ModeleTableCalendrierJour extends DefaultTableModel {
                     {
                         if(unCours.getAnnee() == leAnnee && unCours.getMois().equals(leMois) && jourEnCours == unCours.getJour())
                         {
-                            if(unCours.isMatin())this.setValueAt(unCours, j+1, i);
-                            if(unCours.isMidi())this.setValueAt(unCours, j+2, i);
+                            ArrayList<Cours_Reservation> list = new ArrayList<Cours_Reservation>();
+                            list = lesCours.get(unCours.getModule());
+                            int num = 1;
+                            int incre = 0;
+                            for(Cours_Reservation leCours : list)
+                            {
+                                if(leCours.compare(unCours)) num += incre;
+                                incre++;
                             }
-                            }
+                            incre = Global.planning.getListePlanningF().getModule(unCours.getModule()).getNbSeances();
+                            if(unCours.isMatin())this.setValueAt(unCours + "(" + num + "/" + incre +")", j+1, i);
+                            if(unCours.isMidi())this.setValueAt(unCours + "(" + num + "/" + incre +")", j+2, i);
                         }
                     }
                 }
+            }
+        }
         this.setColumnCount(7);
-         //for (Formation maFormation : Global.planning.getListePlanningF()) {
-                 //   for (Module monModule : maFormation.getModule()) {
-                   //     if (s.contains(monModule.getNomModule())
-                     //         {
-                       //     cell.setBackground(monModule.getCouleurModule());
-                        //}
-        
     }
     
     @Override
