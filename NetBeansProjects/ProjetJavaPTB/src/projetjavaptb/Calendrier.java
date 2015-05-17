@@ -50,8 +50,7 @@ public class Calendrier extends JPanel {
         /*Variable contenant le premier jour du mois*/
         int premierJour = startDate.get(GregorianCalendar.DAY_OF_WEEK);
         
-        Defaire.setEnabled(false);
-        Refaire.setEnabled(false);
+        TestFalse();
         
         Defaire.addActionListener(new ActionListener() {
 
@@ -68,8 +67,6 @@ public class Calendrier extends JPanel {
                     }
                     increment++;
                 }
-                Refaire.setEnabled(true);
-                Defaire.setEnabled(false);
                 tempCoursDefaire.clear();
                 Global.planning.getListePlanningC().remove(tempCoursRefaire);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
@@ -79,11 +76,10 @@ public class Calendrier extends JPanel {
         Refaire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
                 tempCoursDefaire.copyCours(tempCoursRefaire);
                 tempCoursRefaire.clear();
-                Refaire.setEnabled(false);
-                Defaire.setEnabled(true);
+                Global.planning.getListePlanningC().add(tempCoursDefaire);
+                ContenuFenetre.Repaint(anneeCourante, moisCourant);
             }
         });
         tableauCalendrier = new JTable();
@@ -125,5 +121,12 @@ public class Calendrier extends JPanel {
         add(Jpane, BorderLayout.CENTER);
         add(JpaneLeft, BorderLayout.WEST);
         add(mesBouttons, BorderLayout.SOUTH);
+    }
+    public void TestFalse()
+    {
+        if(tempCoursDefaire.getFormation() == null)Defaire.setEnabled(false);
+        else Defaire.setEnabled(true);
+        if(tempCoursRefaire.getFormation() == null)Refaire.setEnabled(false);
+        else Refaire.setEnabled(true);
     }
 }
