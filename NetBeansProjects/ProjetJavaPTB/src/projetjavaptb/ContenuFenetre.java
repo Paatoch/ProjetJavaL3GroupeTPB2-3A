@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -25,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -168,7 +172,28 @@ public class ContenuFenetre extends JPanel {
                 Refaire();
             }
         });
-        
+
+        panelCalendrier.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent ek) {
+
+                System.out.println("Test touche");
+
+                if (ek.isControlDown() && ek.getKeyCode() == KeyEvent.VK_Y) {
+
+                    System.out.println("Test Ctrl y");
+                    Refaire();
+                }
+
+                if ((ek.getKeyCode() == KeyEvent.VK_W) && ((ek.getModifiers() | KeyEvent.CTRL_MASK) == KeyEvent.CTRL_MASK)) {
+
+                    Defaire();
+                }
+
+            }
+        });
+
         panelButon.add(defaire);
         panelButon.add(refaire);
 
@@ -191,6 +216,7 @@ public class ContenuFenetre extends JPanel {
         add(panelHaut, BorderLayout.NORTH);
         add(panelCalendrier, BorderLayout.CENTER);
         add(panelBas, BorderLayout.SOUTH);
+
     }
 
     public void setPanelCalendrier(JPanel panelCalendrier) {
@@ -322,6 +348,8 @@ public class ContenuFenetre extends JPanel {
         panelCalendrier.add(legende, BorderLayout.SOUTH);
         //TestFalse();
         panelCalendrier.add(panelButon, BorderLayout.NORTH);
+        panelCalendrier.setFocusable(true);
+        panelCalendrier.requestFocusInWindow();
         revalidate();
         repaint();
     }
@@ -333,6 +361,8 @@ public class ContenuFenetre extends JPanel {
         LegendeCalendrier legende = new LegendeCalendrier();
         panelCalendrier.add(legende, BorderLayout.SOUTH);
         panelCalendrier.add(panelButon, BorderLayout.NORTH);
+        panelCalendrier.setFocusable(true);
+        panelCalendrier.requestFocusInWindow();
     }
 
     public static void Repaint(int annee, int mois) {
@@ -353,25 +383,25 @@ public class ContenuFenetre extends JPanel {
         return comboAnnees;
     }
 
-    public void Defaire()
-    {
-        switch(tempAction)
-        {
-            case "Ajout":   int trouve = 0;
-                            int increment = 0;
-                            Cours_Reservation tempCoursTest = new Cours_Reservation ();
-                            for (Cours_Reservation unCours : Global.planning.getListePlanningC()) {
-                                if (Calendrier.tempCours.compare(unCours)) {
-                                    trouve = increment;
-                                    tempCoursTest = unCours;
-                                }
-                                increment++;
-                            }
-                            Global.planning.getListePlanningC().remove(tempCoursTest);
-                            tempAction = "Suppression";
-            break;
-                
-            case "Modifier":    modifier();
+    public void Defaire() {
+        switch (tempAction) {
+            case "Ajout":
+                int trouve = 0;
+                int increment = 0;
+                Cours_Reservation tempCoursTest = new Cours_Reservation();
+                for (Cours_Reservation unCours : Global.planning.getListePlanningC()) {
+                    if (Calendrier.tempCours.compare(unCours)) {
+                        trouve = increment;
+                        tempCoursTest = unCours;
+                    }
+                    increment++;
+                }
+                Global.planning.getListePlanningC().remove(tempCoursTest);
+                tempAction = "Suppression";
+                break;
+
+            case "Modifier":
+                modifier();
                 break;
             default:
                 break;
@@ -381,24 +411,23 @@ public class ContenuFenetre extends JPanel {
         ContenuFenetre.Repaint(anneeCourante, moisCourant);
     }
 
-    public void Refaire()
-    {
-        switch(tempAction)
-        {
-            case "Suppression":     Global.planning.getListePlanningC().add(Calendrier.tempCours);
-                                    tempAction = "Ajout";
+    public void Refaire() {
+        switch (tempAction) {
+            case "Suppression":
+                Global.planning.getListePlanningC().add(Calendrier.tempCours);
+                tempAction = "Ajout";
                 break;
-                
-            case "Modifier":        modifier();
+
+            case "Modifier":
+                modifier();
                 break;
         }
         defaire.setEnabled(true);
         refaire.setEnabled(false);
         ContenuFenetre.Repaint(anneeCourante, moisCourant);
     }
-    
-    public void modifier()
-    {
+
+    public void modifier() {
         Cours_Reservation cours = Global.planning.getCours(Calendrier.tempCours.getJour(), Calendrier.tempCours.getAnnee(), Calendrier.tempCours.getMois(), Calendrier.tempCours.isMatin(), Calendrier.tempCours.isMidi());
         String nomModule = Calendrier.tempCours2.getModule();
         Calendrier.tempCours2 = null;
@@ -409,6 +438,6 @@ public class ContenuFenetre extends JPanel {
         Calendrier.tempCours = new Cours_Reservation();
         Calendrier.tempCours.copyCours(cours);
         tempAction = "Modifier";
-        
+
     }
 }

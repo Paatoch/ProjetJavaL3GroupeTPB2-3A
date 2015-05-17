@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
+
 public class Global {
         public static Planning planning = new Planning();
         public static ArrayList<String> listeMois = new ArrayList<>();

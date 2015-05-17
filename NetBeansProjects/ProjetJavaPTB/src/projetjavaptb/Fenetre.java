@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author BLONBOUT
  * @author BenjaminTabet
  */
+
 public class Fenetre extends JFrame implements ActionListener{
     private ContenuFenetre monContenu ;
     private final Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
