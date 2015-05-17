@@ -27,8 +27,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-import static projetjavaptb.Calendrier.tempCoursDefaire;
-import static projetjavaptb.Calendrier.tempCoursRefaire;
 
 /**
  * @author patrickcabral
@@ -158,25 +156,21 @@ public class ContenuFenetre extends JPanel {
          * *******************
          */
         defaire.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int trouve = 0;
                 int increment = 0;
-                Cours_Reservation tempCours = new Cours_Reservation ();
+                Cours_Reservation tempCoursTest = new Cours_Reservation ();
                 for (Cours_Reservation unCours : Global.planning.getListePlanningC()) {
-                    if (tempCoursDefaire.compare(unCours)) {
+                    if (Calendrier.tempCours.compare(unCours)) {
                         trouve = increment;
-                        System.out.println(unCours);
-                        tempCoursRefaire.copyCours(unCours);
-                        tempCours = unCours;
+                        tempCoursTest = unCours;
                     }
                     increment++;
                 }
-                System.out.println(tempCoursDefaire);
-                
-                tempCoursDefaire.clear();
-                Global.planning.getListePlanningC().remove(tempCours);
+                refaire.setEnabled(true);
+                defaire.setEnabled(false);
+                Global.planning.getListePlanningC().remove(tempCoursTest);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
             }
         });
@@ -184,16 +178,13 @@ public class ContenuFenetre extends JPanel {
         refaire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent aev) {
-
-                System.out.println("je clique");
-                tempCoursDefaire.copyCours(tempCoursRefaire);
-                System.out.println(tempCoursRefaire);
-                tempCoursRefaire.clear();
-                Global.planning.getListePlanningC().add(tempCoursDefaire);
+                Global.planning.getListePlanningC().add(Calendrier.tempCours);
                 ContenuFenetre.Repaint(anneeCourante, moisCourant);
+                defaire.setEnabled(true);
+                refaire.setEnabled(false);
             }
         });
-
+        
         panelButon.add(defaire);
         panelButon.add(refaire);
 
@@ -222,7 +213,7 @@ public class ContenuFenetre extends JPanel {
         this.panelCalendrier = panelCalendrier;
     }
 
-    public static void TestFalse() {
+    /*public static void TestFalse() {
         if (tempCoursDefaire.getFormation() == null) {
             defaire.setEnabled(false);
         } else {
@@ -233,7 +224,7 @@ public class ContenuFenetre extends JPanel {
         } else {
             refaire.setEnabled(true);
         }
-    }
+    }*/
 
     public void Affiche(String moment) {
         if (!premierFois) {
@@ -267,6 +258,8 @@ public class ContenuFenetre extends JPanel {
             lblPre.setVisible(true);
             lblSuiv.setVisible(true);
         }
+        refaire.setEnabled(false);
+        defaire.setEnabled(false);
         revalidate();
         repaint();
     }
@@ -356,7 +349,7 @@ public class ContenuFenetre extends JPanel {
         panelCalendrier.add(monCalendrier, BorderLayout.CENTER);
         LegendeCalendrier legende = new LegendeCalendrier();
         panelCalendrier.add(legende, BorderLayout.SOUTH);
-        TestFalse();
+        //TestFalse();
         panelCalendrier.add(panelButon, BorderLayout.NORTH);
         revalidate();
         repaint();
@@ -368,7 +361,7 @@ public class ContenuFenetre extends JPanel {
         panelCalendrier.add(monCalendrier, BorderLayout.CENTER);
         LegendeCalendrier legende = new LegendeCalendrier();
         panelCalendrier.add(legende, BorderLayout.SOUTH);
-        TestFalse();
+        //TestFalse();
         panelCalendrier.add(panelButon, BorderLayout.NORTH);
 
     }

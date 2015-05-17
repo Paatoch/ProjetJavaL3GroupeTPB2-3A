@@ -112,7 +112,6 @@ public class Cours_Reservation implements Serializable {
        mois=unCours.getMois();
        annee=unCours.getAnnee();
        formation=unCours.getFormation();
-       System.out.println(unCours.getModule());
        module=unCours.getModule();
        matin=unCours.matin;
        midi=unCours.midi;

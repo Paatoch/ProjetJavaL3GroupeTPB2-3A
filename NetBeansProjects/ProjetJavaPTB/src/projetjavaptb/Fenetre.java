@@ -136,7 +136,6 @@ public class Fenetre extends JFrame implements ActionListener{
             monContenu.getPanelCalendrier().removeAll();
             File file = new File("Sauvegarde/sauvegarde.bin");
             Global.planning = (Planning)MethodesPourFichier.lecture(file);
-            System.out.println(Global.planning);//monContenu.setPlanning(Global.planning);
             
             monContenu.Affiche("");
             afficher.setEnabled(true);
@@ -146,7 +145,6 @@ public class Fenetre extends JFrame implements ActionListener{
         
         if (ae.getSource() == save) {
             MethodesPourFichier.ecriture(Global.planning);
-            System.out.println(Global.planning);
         }
 
         if (ae.getSource() == create) {

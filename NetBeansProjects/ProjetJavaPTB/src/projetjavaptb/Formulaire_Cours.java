@@ -21,7 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import static projetjavaptb.Global.planning;
 
 /**
  * @author patrickcabral
@@ -44,7 +43,6 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     private JButton boutonValiderCours = new JButton("Valider");
     private JButton boutonSupprimerCours = new JButton("Supprimer");
     private JButton boutonAnnuler = new JButton("Annuler");
-    String moduleSelect;
 
     public Formulaire_Cours(int jour_cours, int annee_cours, String mois_cours, String horaire) {
         setLayout(new FlowLayout());
@@ -57,21 +55,14 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
 
         this.horaire.setText(horaire);
         for (Cours_Reservation ceCours : Global.planning.getListePlanningC()) {
-            System.out.println("jour" + jour + "cejour" + ceCours.getJour());
-            System.out.println(" mois" + mois + " cemois" + ceCours.getMois());
-            System.out.println(" annee" + annee + " cetteAnnee" + ceCours.getAnnee());
-
             if (jour == ceCours.getJour() && mois.equals(ceCours.getMois()) && annee == ceCours.getAnnee()) {
-                System.out.println("TestTest2");
                 if (horaire.equals("matin")) {
-                    System.out.println("TestTest2");
                     matin = true;
                     midi = false;
                     if (ceCours.isMatin()) {
                         selectComboBox = ceCours.getModule();
                     }
                 } else if (horaire.equals("midi")) {
-                    System.out.println("TestTest3");
                     midi = true;
                     matin = false;
                     selectComboBox = ceCours.getModule();
@@ -112,11 +103,9 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
 
         /* verif si c'est le matin ou l'après midi */
         if (horaire.equals("matin")) {
-            System.out.println("TestTest2");
             matin = true;
             midi = false;
         } else if (horaire.equals("midi")) {
-            System.out.println("TestTest3");
             midi = true;
             matin = false;
         }
@@ -154,18 +143,16 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
             i++;
         }
         if (e.getSource() == boutonValiderCours) {
-            moduleSelect = comboModules.getSelectedItem().toString();
-            Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), moduleSelect, matin, midi);
-                if (verifCours()) {
+            String moduleSelect = comboModules.getSelectedItem().toString();
+            Cours_Reservation cours = new Cours_Reservation(jour, annee, mois, Global.planning.getListePlanningF().getNomFormation(), moduleSelect, matin, midi);   
+            if (verifCours()) {
                     Global.planning.getListePlanningC().add(cours);
-                    ContenuFenetre.Repaint(annee, leMois);
-                    dispose();
+                    Calendrier.tempCours = null; 
+                    Calendrier.tempCours = new Cours_Reservation();
+                    Calendrier.tempCours.copyCours(cours);
                     ContenuFenetre.defaire.setEnabled(true);
-                    Calendrier.tempCoursDefaire.clear();
-                    Calendrier.tempCoursRefaire.clear();
-                    
-                    Calendrier.tempCoursDefaire.copyCours(cours);
-                    
+                    ContenuFenetre.Repaint(annee, leMois);
+                    dispose();                    
                 } 
                 else {
                     panelWarning.removeAll();
@@ -192,11 +179,11 @@ public class Formulaire_Cours extends JFrame implements ActionListener {
     public boolean verifCours()
     {
         int nbModuleMax;
-        nbModuleMax = Global.planning.getListePlanningF().getModule(moduleSelect).getNbSeances();
+        nbModuleMax = Global.planning.getListePlanningF().getModule(comboModules.getSelectedItem().toString()).getNbSeances();
         int i = 0;
         for(Cours_Reservation cours : Global.planning.getListePlanningC())
         {
-            if(cours.getModule().equals(moduleSelect)) i++;
+            if(cours.getModule().equals(comboModules.getSelectedItem().toString())) i++;
         }
         if(i<nbModuleMax) return true;
         else return false;
