@@ -132,17 +132,6 @@ public class PlanningTest {
         assertEquals(instance.getListePlanningF(), listePlanningF);
     }
 
-    /**
-     * Test of clear method, of class Planning.
-     */
-    @Test
-    public void testClear() {
-        System.out.println("clear");
-        Formation listePlanningF =  new Formation("java", (float)0.5);
-        Planning instance = new Planning(null, listePlanningF);
-        instance.clear();
-        System.out.println(instance.getListePlanningF());
-        assertEquals(instance.getListePlanningF(), "");
-    }
+
     
 }

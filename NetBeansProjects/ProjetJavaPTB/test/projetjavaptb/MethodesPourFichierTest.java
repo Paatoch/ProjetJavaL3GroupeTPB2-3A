@@ -5,7 +5,9 @@
  */
 package projetjavaptb;
 
+import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,21 +46,25 @@ public class MethodesPourFichierTest {
     @Test
     public void testEcriture() {
         System.out.println("ecriture");
-        Planning input = null;
-        File cheminBinaryFile = null;
-        MethodesPourFichier.ecriture(input);
+       Module monModule= new Module ("Jave", 10, Color.darkGray, "J");
+       Formation formation = new Formation (null, Float.NaN, monModule);
+       Cours_Reservation cours = new Cours_Reservation (5, 2015, "mai", formation.getNomFormation(), monModule.getNomModule(), true, false);
+       ArrayList <Cours_Reservation> array = new ArrayList ();
+       array.add(cours);
+       Planning plann = new Planning (array, formation);
+       MethodesPourFichier.ecriture(plann);
     }
 
-    /**
-     * Test of lecture method, of class MethodesPourFichier.
-     */
-    @Test
-    public void testLecture() {
-        System.out.println("lecture");
-        File fichier = null;
-        Object expResult = null;
-        Object result = MethodesPourFichier.lecture(fichier);
-        assertEquals(expResult, result);
-    }
+//    /**
+//     * Test of lecture method, of class MethodesPourFichier.
+//     */
+//    @Test
+//    public void testLecture() {
+//        System.out.println("lecture");
+//        File fichier = null;
+//        Object expResult = null;
+//        Object result = MethodesPourFichier.lecture(fichier);
+//        assertEquals(expResult, result);
+//    }
     
 }
