@@ -98,8 +98,10 @@ public class ModuleTest {
         System.out.println("*****************");
         System.out.println("Test : toString");
         Module instance = new Module ("test", 12, Color.CYAN, "CH");
-        String expResult = instance.getNomModule() + "  qui contient  :" + instance.getNbSeances() + " séances "+"\n";
+        String expResult = "test  qui contient  :12 séances  " + "\n" + " java.awt.Color[r=0,g=255,b=255]  CH";
+        System.out.println(expResult);
         String result = instance.toString();
+        System.out.println(result);
         assertEquals(expResult, result);
     }
 

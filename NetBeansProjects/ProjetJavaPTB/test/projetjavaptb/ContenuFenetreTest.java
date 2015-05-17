@@ -81,66 +81,91 @@ public class ContenuFenetreTest {
         String expNomIconSuiv = "Images/next.png";
         assertEquals(nomIconSuiv, expNomIconSuiv);        
     }
+
+    /**
+     * Test of setPanelCalendrier method, of class ContenuFenetre.
+     */
+    @Test
+    public void testSetPanelCalendrier() {
+        System.out.println("setPanelCalendrier");
+        JPanel panelCalendrier = new JPanel();
+        ContenuFenetre instance = new ContenuFenetre();
+        instance.setPanelCalendrier(panelCalendrier);
+        System.out.println(panelCalendrier);
+        System.out.println(instance.getPanelCalendrier());
+        assertEquals(instance.getPanelCalendrier(), panelCalendrier);
+    }
+
+    /**
+     * Test of FabriqueCalendrier method, of class ContenuFenetre.
+     */
+    @Test
+    public void testFabriqueCalendrier() {
+        System.out.println("FabriqueCalendrier");
+        int annee = 0;
+        int mois = 0;
+        ContenuFenetre instance = new ContenuFenetre();
+        instance.FabriqueCalendrier(annee, mois);
+    }
+
+    /**
+     * Test of StatFabriqueCal method, of class ContenuFenetre.
+     */
+    @Test
+    public void testStatFabriqueCal() {
+        System.out.println("StatFabriqueCal");
+        int annee = 2015;
+        int mois = 10;
+//        ContenuFenetre.StatFabriqueCal(annee, mois);
+        
+    }
+
+    /**
+     * Test of Repaint method, of class ContenuFenetre.
+     */
+    @Test
+    public void testRepaint() {
+        System.out.println("Repaint");
+        int annee = 0;
+        int mois = 0;
+        ContenuFenetre.Repaint(annee, mois);
+    }
+
+    /**
+     * Test of getPanelCalendrier method, of class ContenuFenetre.
+     */
+    @Test
+    public void testGetPanelCalendrier() {
+        System.out.println("getPanelCalendrier");
+        ContenuFenetre instance = new ContenuFenetre();
+        JPanel expResult = null;
+        JPanel result = instance.getPanelCalendrier();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getPanelHaut method, of class ContenuFenetre.
+     */
+    @Test
+    public void testGetPanelHaut() {
+        System.out.println("getPanelHaut");
+        ContenuFenetre instance = new ContenuFenetre();
+        JPanel expResult = null;
+        JPanel result = instance.getPanelHaut();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getComboAnnee method, of class ContenuFenetre.
+     */
+    @Test
+    public void testGetComboAnnee() {
+        System.out.println("getComboAnnee");
+        ContenuFenetre instance = new ContenuFenetre();
+        JComboBox expResult = null;
+        JComboBox result = instance.getComboAnnee();
+        assertEquals(expResult, result);
+    }
 }
 
-//    /**
-//     * Test of FabriqueCalendrier method, of class ContenuFenetre.
-//     */
-//    @Test
-//    public void testFabriqueCalendrier() {
-//        System.out.println("FabriqueCalendrier");
-//        int annee = 2015;
-//        int mois = 5;
-//        ContenuFenetre instance = new ContenuFenetre();
-//        instance.FabriqueCalendrier(annee, mois);
-//    }
-//
-//    /**
-//     * Test of StatFabriqueCal method, of class ContenuFenetre.
-//     */
-//    @Test
-//    public void testStatFabriqueCal() {
-//        System.out.println("StatFabriqueCal");
-//        int annee = 1;
-//        int mois = 1;
-//        ContenuFenetre.StatFabriqueCal(annee, mois);
-//    }
-
-
-//    /**
-//     * Test of getPanelCalendrier method, of class ContenuFenetre.
-//     */
-//    @Test
-//    public void testGetPanelCalendrier() {
-//        System.out.println("getPanelCalendrier");
-//        ContenuFenetre instance = new ContenuFenetre();
-//        JPanel expResult = null;
-//        JPanel result = instance.getPanelCalendrier();
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of getPanelHaut method, of class ContenuFenetre.
-//     */
-//    @Test
-//    public void testGetPanelHaut() {
-//        System.out.println("getPanelHaut");
-//        ContenuFenetre instance = new ContenuFenetre();
-//        JPanel expResult = null;
-//        JPanel result = instance.getPanelHaut();
-//        System.out.println(result);
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of getComboAnnee method, of class ContenuFenetre.
-//     */
-//    @Test
-//    public void testGetComboAnnee() {
-//        System.out.println("getComboAnnee");
-//        ContenuFenetre instance = new ContenuFenetre();
-//        JComboBox expResult = null;
-//        JComboBox result = instance.getComboAnnee();
-//        assertEquals(expResult, result);
-//    }
-//    
+  

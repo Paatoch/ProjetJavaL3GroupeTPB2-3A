@@ -39,18 +39,11 @@ public class CalendrierTest {
 
     @Test
     public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of TestFalse method, of class Calendrier.
      */
-    @Test
-    public void testTestFalse() {
-        System.out.println("TestFalse");
-        Calendrier instance = null;
-        instance.TestFalse();
-    }
+
     
 }
